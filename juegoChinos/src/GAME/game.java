@@ -2,21 +2,33 @@ package GAME;
 
 import PLAYERS.*;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+
+
 public class game {
 	
 	// Declare constants
 	final public static int NUM_PLAYERS = 10;
-	public static randomPlayer[] randomPlayers = new randomPlayer[5];
-	public static algorithmPlayer[] algorithmPlayers = new algorithmPlayer[5];
-
+	final public static int MIN_PLAYERS = 1;
 	
+	public static ArrayList<randomPlayer> 
+							randomPlayers = new ArrayList<randomPlayer>();
+	public static ArrayList<algorithmPlayer> 
+							algorithmPlayers = new ArrayList<algorithmPlayer>();
+
+
 	public static void main(String[] args) {
 		
 		initializeGame();
 		
 		// Play till the game ends
-		for (int i = 0; i < 100; i++)
+		do {
+			System.out.println("\nPlaying round...");
 			playRound();
+		} while(MIN_PLAYERS < (randomPlayers.size() + algorithmPlayers.size()));
+		
+		printWinner();
 	}
 	
 	
@@ -25,56 +37,55 @@ public class game {
 		int chineseID = 0;
 		
 		for (int i = 0; i < NUM_PLAYERS / 2; i++) {
-			randomPlayers[i] = new randomPlayer("chinese_" + chineseID);
+			randomPlayers.add(new randomPlayer("chinese_" + chineseID));
 			chineseID++;
 		}
-				
+
 		for (int i = 0; i < NUM_PLAYERS / 2; i++) {
-			algorithmPlayers[i] = new algorithmPlayer("chinese_" + chineseID);
+			algorithmPlayers.add(new algorithmPlayer("chinese_" + chineseID));
 			chineseID++;
 		}
+			
 	}
 	
 	
 	public static void printPlayersAmount() {
 		
-		for (int i = 0; i < NUM_PLAYERS / 2; i++)
-			randomPlayers[i].printAmount();
+		for (randomPlayer player : randomPlayers)
+			player.printAmount();
 			
-		for (int i = 0; i < NUM_PLAYERS / 2; i++)
-			algorithmPlayers[i].printAmount();
+		for (algorithmPlayer player : algorithmPlayers)
+			player.printAmount();
 	}
 	
 	
 	public static void printPlayersChoice() {
 		
-		for (int i = 0; i < NUM_PLAYERS / 2; i++)
-			randomPlayers[i].printChoice();
+		for (randomPlayer player : randomPlayers)
+			player.printChoice();
 			
-		for (int i = 0; i < NUM_PLAYERS / 2; i++)
-			algorithmPlayers[i].printChoice();
+		for (algorithmPlayer player : algorithmPlayers)
+			player.printChoice();
 	}
 	
 	
 	public static void setPlayersAmount() {
 		
-		for (int i = 0; i < NUM_PLAYERS / 2; i++)
-			randomPlayers[i].coinAmount = randomPlayers[i].setAmount();
+		for (randomPlayer player : randomPlayers)
+			player.coinAmount = player.setAmount();
 			
-		for (int i = 0; i < NUM_PLAYERS / 2; i++)
-			algorithmPlayers[i].coinAmount = algorithmPlayers[i].setAmount();
+		for (algorithmPlayer player : algorithmPlayers)
+			player.coinAmount = player.setAmount();
 	}
 	
 	
 	public static void setPlayersChoice() {
 		
-		for (int i = 0; i < NUM_PLAYERS / 2; i++)
-			randomPlayers[i].choice = 
-							randomPlayers[i].makeChoice(NUM_PLAYERS);
+		for (randomPlayer player : randomPlayers)
+			player.choice = player.makeChoice(NUM_PLAYERS);
 			
-		for (int i = 0; i < NUM_PLAYERS / 2; i++)
-			algorithmPlayers[i].choice = 
-							algorithmPlayers[i].makeChoice(NUM_PLAYERS);
+		for (algorithmPlayer player : algorithmPlayers)
+			player.choice = player.makeChoice(NUM_PLAYERS);
 	}
 	
 		
@@ -82,31 +93,48 @@ public class game {
 		
 		int totalCoins = 0;
 		
-		for (int i = 0; i < NUM_PLAYERS / 2; i++)
-			totalCoins += randomPlayers[i].coinAmount;
+		for (randomPlayer player : randomPlayers)
+			totalCoins += player.coinAmount;
 			
-		for (int i = 0; i < NUM_PLAYERS / 2; i++)
-			totalCoins += algorithmPlayers[i].coinAmount;
+		for (algorithmPlayer player : algorithmPlayers)
+			totalCoins += player.coinAmount;
 		
 		return totalCoins;
 	}
 	
 	
 	public static void playRound() {
-		
+
 		setPlayersAmount();
 		setPlayersChoice();
 		
 		int totalCoins = calculateTotal();
 		
-		for (int i = 0; i < NUM_PLAYERS / 2; i++)
-			if (totalCoins == randomPlayers[i].choice)
-				System.out.println("Player " + randomPlayers[i].playerID
-									+ " coincide");
-			
-		for (int i = 0; i < NUM_PLAYERS / 2; i++)
-			if (totalCoins == algorithmPlayers[i].choice)
-				System.out.println("Player " + algorithmPlayers[i].playerID
-									+ " coincide");
+		for (Iterator<randomPlayer> i = randomPlayers.iterator(); i.hasNext(); ) {
+			randomPlayer v = i.next();
+			if (totalCoins == v.choice) {
+				System.out.println("  - Player " + v.playerID + " coincide");
+				i.remove();
+			}
+		}
+					
+		for (Iterator<algorithmPlayer> i = algorithmPlayers.iterator(); i.hasNext(); ) {
+			algorithmPlayer v = i.next();
+			if (totalCoins == v.choice) {
+				System.out.println("  - Player " + v.playerID + " coincide");
+				i.remove();
+			}
+		}
+	}
+	
+	
+	public static void printWinner() {
+		
+		if (randomPlayers.size() == MIN_PLAYERS)
+			System.out.println("\nPlayer " + randomPlayers.get(0).playerID 
+								+ " has lost");
+		else
+			System.out.println("\nPlayer " + algorithmPlayers.get(0).playerID 
+								+ " has lost");
 	}
 }

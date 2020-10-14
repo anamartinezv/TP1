@@ -1,16 +1,18 @@
-package TESTS;
+package CHINOS.TESTS;
 
-import GAME.*;
+import CHINOS.GAME.game;
 
 public class test {
 	
 	public test() {
-		
+		// Empty constructor
 	}
+	
 	
 	public static void main(String[] args) {
 		runNtimes(1000);
 	}
+	
 	
 	public static void runNtimes(int times) {
 		int random = 0, algo = 0;

@@ -1,6 +1,6 @@
-package GAME;
+package CHINOS.GAME;
 
-import PLAYERS.*;
+import CHINOS.PLAYERS.*;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -9,16 +9,18 @@ import java.util.Iterator;
 public class game {
 	
 	// Declare constants
-	final public static int NUM_PLAYERS = 10;
-	final public static int MIN_PLAYERS = 1;
+	final public int NUM_PLAYERS = 10;
+	final public int MIN_PLAYERS = 1;
+	final public int MAX_COINS = 4;
+	final public int MAX_NUM = 3;
 	
-	public static ArrayList<randomPlayer> 
+	public ArrayList<randomPlayer> 
 							randomPlayers = new ArrayList<randomPlayer>();
-	public static ArrayList<algorithmPlayer> 
+	public ArrayList<algorithmPlayer> 
 							algorithmPlayers = new ArrayList<algorithmPlayer>();
 
 
-	public static void main(String[] args) {
+	public void main(String[] args) {
 		
 		initializeGame();
 		
@@ -32,7 +34,7 @@ public class game {
 	}
 	
 	
-	public static void initializeGame() {
+	public void initializeGame() {
 		
 		int chineseID = 0;
 		
@@ -49,7 +51,7 @@ public class game {
 	}
 	
 	
-	public static void printPlayersAmount() {
+	public void printPlayersAmount() {
 		
 		for (randomPlayer player : randomPlayers)
 			player.printAmount();
@@ -59,7 +61,7 @@ public class game {
 	}
 	
 	
-	public static void printPlayersChoice() {
+	public void printPlayersChoice() {
 		
 		for (randomPlayer player : randomPlayers)
 			player.printChoice();
@@ -69,41 +71,41 @@ public class game {
 	}
 	
 	
-	public static void setPlayersAmount() {
+	public void setPlayersAmount() {
 		
 		for (randomPlayer player : randomPlayers)
-			player.coinAmount = player.setAmount();
+			player.setAmount(player.getRandomNumber(MAX_COINS));
 			
 		for (algorithmPlayer player : algorithmPlayers)
-			player.coinAmount = player.setAmount();
+			player.setAmount(player.getRandomNumber(MAX_COINS));
 	}
 	
 	
-	public static void setPlayersChoice() {
+	public void setPlayersChoice() {
 		
 		for (randomPlayer player : randomPlayers)
-			player.choice = player.makeChoice(NUM_PLAYERS);
+			player.makeChoice(MAX_NUM, NUM_PLAYERS);
 			
 		for (algorithmPlayer player : algorithmPlayers)
-			player.choice = player.makeChoice(NUM_PLAYERS);
+			player.makeChoice(NUM_PLAYERS);
 	}
 	
 		
-	public static int calculateTotal() {
+	public int calculateTotal() {
 		
 		int totalCoins = 0;
 		
 		for (randomPlayer player : randomPlayers)
-			totalCoins += player.coinAmount;
+			totalCoins += player.getCoinAmount();
 			
 		for (algorithmPlayer player : algorithmPlayers)
-			totalCoins += player.coinAmount;
+			totalCoins += player.getCoinAmount();
 		
 		return totalCoins;
 	}
 	
 	
-	public static void playRound() {
+	public void playRound() {
 
 		setPlayersAmount();
 		setPlayersChoice();
@@ -112,29 +114,29 @@ public class game {
 		
 		for (Iterator<randomPlayer> i = randomPlayers.iterator(); i.hasNext(); ) {
 			randomPlayer v = i.next();
-			if (totalCoins == v.choice) {
-				System.out.println("  - Player " + v.playerID + " coincide");
+			if (totalCoins == v.getChoice()) {
+				System.out.println("  - Player " + v.getPlayerID() + " coincide");
 				i.remove();
 			}
 		}
 					
 		for (Iterator<algorithmPlayer> i = algorithmPlayers.iterator(); i.hasNext(); ) {
 			algorithmPlayer v = i.next();
-			if (totalCoins == v.choice) {
-				System.out.println("  - Player " + v.playerID + " coincide");
+			if (totalCoins == v.getChoice()) {
+				System.out.println("  - Player " + v.getPlayerID() + " coincide");
 				i.remove();
 			}
 		}
 	}
 	
 	
-	public static void printWinner() {
+	public void printWinner() {
 		
 		if (randomPlayers.size() == MIN_PLAYERS)
-			System.out.println("\nPlayer " + randomPlayers.get(0).playerID 
+			System.out.println("\nPlayer " + randomPlayers.get(0).getPlayerID() 
 								+ " has lost");
 		else
-			System.out.println("\nPlayer " + algorithmPlayers.get(0).playerID 
+			System.out.println("\nPlayer " + algorithmPlayers.get(0).getPlayerID() 
 								+ " has lost");
 	}
 }

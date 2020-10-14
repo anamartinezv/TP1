@@ -18,20 +18,6 @@ public class game {
 							randomPlayers = new ArrayList<randomPlayer>();
 	public ArrayList<algorithmPlayer> 
 							algorithmPlayers = new ArrayList<algorithmPlayer>();
-
-
-	public void main(String[] args) {
-		
-		initializeGame();
-		
-		// Play till the game ends
-		do {
-			System.out.println("\nPlaying round...");
-			playRound();
-		} while(MIN_PLAYERS < (randomPlayers.size() + algorithmPlayers.size()));
-		
-		printWinner();
-	}
 	
 	
 	public void initializeGame() {

@@ -1,4 +1,4 @@
-package org.ucm.tp1.players;
+package org.ucm.tp1.logic;
 
 public class VampireList {
 

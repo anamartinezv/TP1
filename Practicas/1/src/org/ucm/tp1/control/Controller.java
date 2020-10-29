@@ -24,7 +24,6 @@ public class Controller {
 	public static final String invalidAddCommandMsg = String.format("Unexpected input. "
 			+ "Usage: add <x:int> <y:int>");
 
-
     private Game game;
     private Scanner scanner;
     private Player player;
@@ -81,15 +80,18 @@ public class Controller {
 					
 				case "n":
 				case "none":
-					// TODO: Next round
+					// Nothing to do, skip to next round
+					break;
 					
 				default:
 					System.out.println(unknownCommandMsg);
 	 				break;
 			}
+			
+	    	game.updateGame();
+	    	game.placeVampire();
+	    	
     	} while(!game.isFinished());
-    	
-    	game.placeVampire();
     }
 
 }

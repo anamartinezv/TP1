@@ -14,17 +14,25 @@ public class GamePrinter {
 	public GamePrinter (Game game, int cols, int rows) {
 		this.game = game;
 		this.numRows = rows;
-		this.numCols = cols;
-		
-		board = new String[numRows][numCols];
+		this.numCols = cols;		
 	}
 	
-	private void encodeGame(Game game) {
-		// TODO fill your code
+	private void encodeGame(Game game) {		
+		board = new String[numRows][numCols];
+		
+		for (int i = 0; i < numRows; i++)
+			for (int j = 0; j < numCols; j++)
+				board[i][j] = game.getPositionToString();
 	}
 	
 	public String toString() {
-		encodeGame(game);
+		encodeGame(game); // Initialize matrix
+		
+		System.out.println("\nNumber of cycles: " + game.getCycles());
+		System.out.println("Coins: " + game.getPlayerCoins());
+		System.out.println("Remaining vampires: " + game.getRemainingVampires());
+		System.out.println("Vampires on the board: " + game.getVampiresOnBoard());
+		
 		int cellSize = 7;
 		int marginSize = 2;
 		String vDelimiter = "|";

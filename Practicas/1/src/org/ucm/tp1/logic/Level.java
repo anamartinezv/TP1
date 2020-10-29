@@ -16,13 +16,21 @@ public enum Level {
 		this.dim_y = dim_y;
 	}
 
-	// TODO fill your code
+	// Getters
 	public int getX() {
 		return dim_x;
 	}
 	
 	public int getY() {
 		return dim_y;
+	}
+	
+	public int getVampires() {
+		return numberOfVampires;
+	}
+	
+	public double getVampireFrecuency() {
+		return vampireFrequency;
 	}
 	
     public static Level parse(String inputString) {

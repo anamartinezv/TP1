@@ -15,13 +15,15 @@ public class GamePrinter {
 		this.game = game;
 		this.numRows = rows;
 		this.numCols = cols;
+		
+		board = new String[numRows][numCols];
 	}
 	
 	private void encodeGame(Game game) {
 		// TODO fill your code
 	}
 	
-	 public String toString() {
+	public String toString() {
 		encodeGame(game);
 		int cellSize = 7;
 		int marginSize = 2;
@@ -53,6 +55,6 @@ public class GamePrinter {
 		}
 
 		return str.toString();
-	    }
+    }
 }
 

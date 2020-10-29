@@ -17,7 +17,14 @@ public enum Level {
 	}
 
 	// TODO fill your code
-
+	public int getX() {
+		return dim_x;
+	}
+	
+	public int getY() {
+		return dim_y;
+	}
+	
     public static Level parse(String inputString) {
         for (Level level : Level.values())
             if (level.name().equalsIgnoreCase(inputString)) 

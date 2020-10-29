@@ -15,11 +15,14 @@ public class Controller {
 			"[e]xit: exit game%n"+ 
 			"[n]one | []: update%n");
 	
-	public static final String unknownCommandMsg = String.format("Unknown command");
+	public static final String unknownCommandMsg = String.format("Unknown command. "
+			+ "Type [h]elp for more info.");
 	public static final String invalidCommandMsg = String.format("Invalid command");
 	public static final String invalidPositionMsg = String.format("Invalid position");
-	public static final String invalidAddCommandMsg = 
-								String.format("Unexpected input. Usage: add <x> <y>");
+	public static final String missingArgumentsMsg = String.format("Missing arguments. "
+			+ "Usage: add <x:int> <y:int>: ");
+	public static final String invalidAddCommandMsg = String.format("Unexpected input. "
+			+ "Usage: add <x:int> <y:int>");
 
 
     private Game game;
@@ -35,21 +38,10 @@ public class Controller {
     	System.out.println(game);
     }
     
-    public boolean parseAdd(String command) {  	
-    	String[] commandParts = command.split(" ");
-    	
-    	if (commandParts.length == 3)
-    		if (commandParts[1].matches("[0-9]+") && 
-				commandParts[2].matches("[0-9]+"))
-    			return true;
-    	else
-    		return false;
-    	
-    	return false;
-    }
-    
     public void run() {
     	do {
+    		printGame();
+    		
     		System.out.print(prompt);
 			
 			String command = scanner.nextLine();
@@ -58,12 +50,18 @@ public class Controller {
 			switch(commandParts[0]) {
 				case "a":
 				case "add":
-					if (parseAdd(command) && player.canPlaceSlayer()) {
-						System.out.println("TODO");
+					try {
+						int xCoordinate, yCoordinate;
+						xCoordinate = Integer.parseInt(commandParts[1]);
+						yCoordinate = Integer.parseInt(commandParts[2]); 
+								
 						// TODO: call place slayer
-					}else
+					} catch (NumberFormatException numberException){
 						System.out.println(invalidAddCommandMsg);
-						
+					} catch (ArrayIndexOutOfBoundsException argsException) {
+						System.out.println(missingArgumentsMsg);
+					}
+					
 					break;
 					
 				case "h":
@@ -83,10 +81,15 @@ public class Controller {
 					
 				case "n":
 				case "none":
-				default: 
+					// TODO: Next round
+					
+				default:
+					System.out.println(unknownCommandMsg);
 	 				break;
 			}
     	} while(!game.isFinished());
+    	
+    	game.placeVampire();
     }
 
 }

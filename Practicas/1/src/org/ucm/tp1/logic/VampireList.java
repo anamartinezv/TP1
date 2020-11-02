@@ -2,24 +2,45 @@ package org.ucm.tp1.logic;
 
 public class VampireList {
 	
-	private int maxVampires;
+	private final int MAX_VAMPIRES = 10;
+	
+	private int vampireCounter;
 	private Vampire[] vampires;
 	
-	public VampireList(int maxVampires) {
-		this.maxVampires = maxVampires;
-		vampires = new Vampire[0]; // Initialize array with 0 vampires
+	public VampireList() {
+		vampireCounter = 0;
+		vampires = new Vampire[MAX_VAMPIRES];
 	}
 	
 	public int getVampiresOnBoard() {
-		return vampires.length;
+		return vampireCounter;
 	}
 	
-	public int getRemainingVampires() {
-		return maxVampires - vampires.length;
+	public String getVampire(int x, int y) {
+		for (int i = 0; i < vampireCounter; i++) {
+			if (vampires[i].getX() == x && vampires[i].getY() == y)
+				return vampires[i].toString();
+		}
+		
+		return "";
 	}
 	
-	public void addVampire(Vampire vampire) {
-		if (getRemainingVampires() > 0)
-			vampires[vampires.length] = vampire;
+	public boolean isVampire(int x, int y) {
+		for (int i = 0; i < vampireCounter; i++) {
+			if (vampires[i].getX() == x && vampires[i].getY() == y)
+				return true;
+		}
+		
+		return false;
+	}
+	
+	public void newVampire(Game game, int x, int y) {
+		vampires[vampireCounter] = new Vampire(game, x, y);
+		vampireCounter++;
+	}
+	
+	public void moveVampires() {
+		for (int i = 0; i < vampireCounter; i++)
+			vampires[i].decreaseX();
 	}
 }

@@ -89,7 +89,8 @@ public class Controller {
 			}
 			
 	    	game.updateGame();
-	    	game.placeVampire();
+	    	game.addVampire();
+	    	game.checkEndGame();
 	    	
     	} while(!game.isFinished());
     }

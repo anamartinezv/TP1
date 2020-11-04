@@ -34,8 +34,8 @@ public class VampireList {
 		return false;
 	}
 	
-	public void newVampire(Game game, int x, int y) {
-		vampires[vampireCounter] = new Vampire(game, x, y);
+	public void newVampire(Vampire vampire) {
+		vampires[vampireCounter] = vampire;
 		vampireCounter++;
 	}
 	

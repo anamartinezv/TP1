@@ -28,10 +28,7 @@ public class GamePrinter {
 	public String toString() {
 		encodeGame(game); // Initialize matrix
 		
-		System.out.println("\nNumber of cycles: " + game.getCycles());
-		System.out.println("Coins: " + game.getPlayerCoins());
-		System.out.println("Remaining vampires: " + game.getRemainingVampires());
-		System.out.println("Vampires on the board: " + game.getVampiresOnBoard());
+		System.out.println(game.gameStats());
 		
 		int cellSize = 7;
 		int marginSize = 2;

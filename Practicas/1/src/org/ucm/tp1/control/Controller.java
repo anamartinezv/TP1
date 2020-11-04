@@ -20,13 +20,12 @@ public class Controller {
 	public static final String invalidCommandMsg = String.format("Invalid command");
 	public static final String invalidPositionMsg = String.format("Invalid position");
 	public static final String missingArgumentsMsg = String.format("Missing arguments. "
-			+ "Usage: add <x:int> <y:int>: ");
+			+ "Usage: add <x:int> <y:int> ");
 	public static final String invalidAddCommandMsg = String.format("Unexpected input. "
 			+ "Usage: add <x:int> <y:int>");
 
     private Game game;
     private Scanner scanner;
-    private Player player;
     
     public Controller(Game game, Scanner scanner) {
 	    this.game = game;
@@ -51,26 +50,29 @@ public class Controller {
 				case "add":
 					try {
 						int xCoordinate, yCoordinate;
-						xCoordinate = Integer.parseInt(commandParts[1]);
-						yCoordinate = Integer.parseInt(commandParts[2]); 
+						xCoordinate = Integer.parseInt(commandParts[2]);
+						yCoordinate = Integer.parseInt(commandParts[1]);
 								
-						// TODO: call place slayer
+						game.addSlayer(xCoordinate, yCoordinate);
 					} catch (NumberFormatException numberException){
 						System.out.println(invalidAddCommandMsg);
 					} catch (ArrayIndexOutOfBoundsException argsException) {
 						System.out.println(missingArgumentsMsg);
 					}
 					
+					game.newCycle();
 					break;
 					
 				case "h":
 				case "help":
 					System.out.println(helpMsg);
+					game.newCycle();
 					break;
 					
 				case "r":
 				case "reset":
-					System.out.println("TODO");
+					// TODO
+					game.newCycle();
 					break;
 					
 				case "e":
@@ -80,18 +82,13 @@ public class Controller {
 					
 				case "n":
 				case "none":
-					// Nothing to do, skip to next round
+					game.newCycle();
 					break;
 					
 				default:
 					System.out.println(unknownCommandMsg);
 	 				break;
-			}
-			
-	    	game.updateGame();
-	    	game.addVampire();
-	    	game.checkEndGame();
-	    	
+			}	    	
     	} while(!game.isFinished());
     }
 

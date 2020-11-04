@@ -3,21 +3,27 @@ package org.ucm.tp1.logic;
 import java.util.Random;
 
 public class Player {
+	
+	public final String notEnoughCoinsMsg = "Error! You dont have enough coins!";
 	public final int COINS_AT_START = 50;
 	public final int COINS_PER_ROUND = 10;
 	
 	private int coins;
+	
 	private Random random;
 	
-	public Player() {
+	public Player(Long seed) {
 		coins = COINS_AT_START;
-		random = new Random();
+		
+		random = new Random(seed);
 	}
 	
-	/*public boolean canPlaceSlayer() {
-		//if (coins >= slayer.COST) return true; else return false;
-		return (coins >= slayer.COST) ? true : false;
-	}*/
+	public boolean haveEnoughCoins() {
+		if (coins >= Slayer.COST) return true;
+		
+		System.out.println(notEnoughCoinsMsg);
+		return false;
+	}
 	
 	public int getCoins() {
 		return coins;
@@ -31,5 +37,8 @@ public class Player {
 	public boolean randomProbability() {
 		return random.nextBoolean();
 	}
- 
+	
+	public void buySlayer() {
+		coins -= Slayer.COST;
+	}
 }

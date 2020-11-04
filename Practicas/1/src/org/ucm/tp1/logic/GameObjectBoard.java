@@ -21,6 +21,10 @@ public class GameObjectBoard {
 		return vampireList.getVampire(x, y);
 	}
 	
+	public String getSlayer(int x, int y) {
+		return slayerList.getSlayer(x, y);
+	}
+	
 	public void moveVampires() {
 		vampireList.moveVampires();
 	}
@@ -29,24 +33,15 @@ public class GameObjectBoard {
 		return vampireList.isVampire(x, y);
 	}
 	
-	public boolean canPlaceVampire() {
-		for (int i = 0; i < game.getLevel().getY(); i++)
-			if (!vampireList.isVampire(game.getLevel().getX() - 1, i))
-				return true;
-		
-		return false;
+	public boolean isSlayer(int x, int y) {
+		return slayerList.isSlayer(x, y);
 	}
 	
-	public int newVampirePosition() {
-		while (true) {
-			int col = game.getRandom().nextInt(game.getLevel().getY());
-			if (!vampireList.isVampire(game.getLevel().getX() - 1, col))
-				return col;
-		}
+	public void addVampire(Vampire vampire) {
+		vampireList.newVampire(vampire);
 	}
 	
-	public void addVampire() {
-		if (game.getRandom().nextDouble() < game.getLevel().getFrecuency())
-			vampireList.newVampire(game, game.getLevel().getX() - 1, newVampirePosition());
+	public void addSlayer(Slayer slayer) {
+		slayerList.newSlayer(slayer);
 	}
 }

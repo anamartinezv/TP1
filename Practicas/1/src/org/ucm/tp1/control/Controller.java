@@ -2,7 +2,6 @@ package org.ucm.tp1.control;
 
 import java.util.Scanner;
 import org.ucm.tp1.logic.Game;
-import org.ucm.tp1.logic.Player;
 
 public class Controller {
 
@@ -54,13 +53,13 @@ public class Controller {
 						yCoordinate = Integer.parseInt(commandParts[1]);
 								
 						game.addSlayer(xCoordinate, yCoordinate);
+						game.newCycle();
 					} catch (NumberFormatException numberException){
 						System.out.println(invalidAddCommandMsg);
 					} catch (ArrayIndexOutOfBoundsException argsException) {
 						System.out.println(missingArgumentsMsg);
 					}
 					
-					game.newCycle();
 					break;
 					
 				case "h":

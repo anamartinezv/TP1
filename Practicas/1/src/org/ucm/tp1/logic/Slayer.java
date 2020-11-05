@@ -26,6 +26,14 @@ public class Slayer {
 		return y;
 	}
 	
+	public void harm(int amount) {
+		life -= amount;
+	}
+	
+	public boolean isDead() {
+		return life <= 0 ? true : false;
+	}
+	
 	public String toString() {
 		return "S [" + life + "]";
 	}

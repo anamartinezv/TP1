@@ -12,10 +12,10 @@ public class Player {
 	
 	private Random random;
 	
-	public Player(Long seed) {
+	public Player(Random random) {
 		coins = COINS_AT_START;
 		
-		random = new Random(seed);
+		this.random = random;
 	}
 	
 	public boolean haveEnoughCoins() {
@@ -30,12 +30,8 @@ public class Player {
 	}
 	
 	public void updateCoinsRandom() {
-		if (randomProbability())
+		if (random.nextFloat() > 0.5)
 			coins += COINS_PER_ROUND;
-	}
-	
-	public boolean randomProbability() {
-		return random.nextBoolean();
 	}
 	
 	public void buySlayer() {

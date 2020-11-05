@@ -12,10 +12,6 @@ public class VampireList {
 		vampires = new Vampire[MAX_VAMPIRES];
 	}
 	
-	public int getVampiresOnBoard() {
-		return vampireCounter;
-	}
-	
 	public String getVampire(int x, int y) {
 		for (int i = 0; i < vampireCounter; i++) {
 			if (vampires[i].getX() == x && vampires[i].getY() == y)
@@ -39,8 +35,27 @@ public class VampireList {
 		vampireCounter++;
 	}
 	
-	public void moveVampires() {
+	public Vampire getVampireAtPosition(int x, int y) {
 		for (int i = 0; i < vampireCounter; i++)
-			vampires[i].decreaseX();
+			if (vampires[i].getX() == x && vampires[i].getY() == y)
+				return vampires[i];
+		
+		return null;
+	}
+	
+	public int getVampireIndex(int x, int y) {
+		for (int i = 0; i < vampireCounter; i++)
+			if (vampires[i].getX() == y && vampires[i].getY() == x)
+				return i;
+		return -1;
+	}
+	
+	public void deleteVampire(int x, int y) {
+		int index = getVampireIndex(x, y);
+		
+		for (int i = index; i < vampireCounter; i++)
+			vampires[i] = vampires[i + 1];
+		
+		vampireCounter--;
 	}
 }

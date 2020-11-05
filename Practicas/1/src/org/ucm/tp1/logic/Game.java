@@ -15,6 +15,7 @@ public class Game {
 	private GameObjectBoard gameObjectBoard;
 	private Player player;
 	private Random random;
+	public Vampire vampire;
 	
 	public Game(Long seed, Level level) {
 		this.level = level;
@@ -27,9 +28,10 @@ public class Game {
 		
 		// Instance classes
 		gamePrinter = new GamePrinter(this, level.getX(), level.getY());
-		gameObjectBoard = new GameObjectBoard(this);
-		player = new Player(seed);
+		gameObjectBoard = new GameObjectBoard();
+		//vampire = new Vampire(this);
 		random = new Random(seed);
+		player = new Player(random);
 	}
 	
 	// Getters
@@ -39,6 +41,14 @@ public class Game {
 	
 	public int getPlayerCoins() {
 		return player.getCoins();
+	}
+	
+	public Level getLevel() {
+		return level;
+	}
+	
+	public Random getRandom() {
+		return random;
 	}
 	
 	public String getPositionToString(int x, int y) {
@@ -59,7 +69,7 @@ public class Game {
 	
 	public void checkEndGame() {
 		// TOOODOOO
-		if (Vampire.noMoreVampires())
+		if (false)
 			endGame();
 	}
 	
@@ -67,19 +77,42 @@ public class Game {
 		cyclesNumber++;
 	}
 	
+	
+	
+	
 	// VAMPIRE METHODS
+	public boolean isVampire(int x, int y) {
+		return gameObjectBoard.isVampire(x, y);
+	}
+	
+	public boolean isVampireDead(int x, int y) {
+		return gameObjectBoard.isVampireDead(x, y);
+	}
+	
 	public boolean canPlaceVampire() {
 		for (int i = 0; i < level.getY(); i++)
-			if (!gameObjectBoard.isVampire(level.getX() - 1, i))
+			if (!isVampire(level.getX() - 1, i))
 				return true;
 		
 		return false;
 	}
 	
+	public void moveVampires() {
+ 		for (int i = 0; i < level.getY(); i++) {
+ 			for (int j = 0; j < level.getX(); j++) {
+ 				if (isVampire(j, i)) {
+ 					if (!isSlayer(i, j - 1) && !isVampire(j - 1, i)) {
+ 						gameObjectBoard.moveVampire(i, j);
+ 					}
+ 				}
+ 			}
+ 		}
+	}
+	
 	public int newVampirePosition() {
 		while (true) {
 			int col = random.nextInt(level.getY());
-			if (!gameObjectBoard.isVampire(level.getX() - 1, col))
+			if (!isVampire(level.getX() - 1, col))
 				return col;
 		}
 	}
@@ -96,9 +129,35 @@ public class Game {
 		}
 	}
 	
+	public void vampireAttack() {
+ 		for (int i = 0; i < level.getY(); i++) {
+ 			for (int j = 0; j < level.getX(); j++) {
+ 				if (isVampire(j, i)) {
+ 					if (isSlayer(i, j - 1)) {
+ 						attackSlayer(j - 1, i);
+ 					}
+ 				}
+ 			}
+ 		}
+	}
+	
+	public void attackVampire(int x, int y) {
+		gameObjectBoard.attackVampire(x, y);
+	}
+	
+	
+
 	// SLAYER METHODS
+	public boolean isSlayer(int x, int y) {
+		return gameObjectBoard.isSlayer(x, y);
+	}
+	
+	public boolean isSlayerDead(int x, int y) {
+		return gameObjectBoard.isSlayerDead(x, y);
+	}
+	
 	public boolean canPlaceSlayer(int x, int y) {
-		if (!gameObjectBoard.isSlayer(x, y) && !gameObjectBoard.isVampire(x, y) 
+		if (!isSlayer(x, y) && !isVampire(x, y) 
 			&& validCoordinates(x, y) && level.getX() - 1 > y)
 			return true;
 		
@@ -122,25 +181,59 @@ public class Game {
 		return false;
 	}
 	
+	public void attackSlayer(int x, int y) {
+		gameObjectBoard.attackSlayer(x, y);
+	}
+	
+	public void slayerAttack() {
+ 		for (int i = 0; i < level.getY(); i++) {
+ 			for (int j = 0; j < level.getX(); j++) {
+ 				if (isSlayer(j, i)) {
+ 					for (int x = i + 1; x < level.getX(); x++)
+ 						if (isVampire(x, j))
+ 							attackVampire(x, j);
+ 				}
+ 			}
+ 		}
+	}
+	
+	
+	
 	
 	// GAME METHODS
 	public void updateGame() {
 		player.updateCoinsRandom(); // Get 10 coins with 50% probability
 		
 		if (cyclesNumber % 2 == 0)
-			gameObjectBoard.moveVampires();
+			moveVampires();
 		
 		increaseCycles();
 	}
 	
 	public void attack() {
-		// TODO
+		// Los slayers atacan a los vampiros de su fila
+		slayerAttack();
+		
+		// Vampiros muerden a slayer su inmediata izquierda
+		vampireAttack();
+	}
+	
+	public void deleteDeadObjects() {
+		for (int i = 0; i < level.getY(); i++) {
+ 			for (int j = 0; j < level.getX(); j++) {
+ 				if (isVampire(j, i) && isVampireDead(j, i))
+ 					gameObjectBoard.deleteVampire(j, i);
+ 				else if (isSlayer(i, j) && isSlayerDead(i, j))
+ 					gameObjectBoard.deleteSlayer(j, i);
+ 			}
+ 		} 
 	}
 	
 	public void newCycle() {
     	updateGame(); // TODO: Check if V collapses with S
     	attack();
-    	addVampire(); 
+    	addVampire();
+    	deleteDeadObjects();
     	checkEndGame();
 	}
 	

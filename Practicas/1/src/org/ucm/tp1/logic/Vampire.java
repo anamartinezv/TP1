@@ -13,6 +13,10 @@ public class Vampire {
 	private int life;
 	
 	private Game game;
+	
+	public Vampire(Game game) {
+		this.game = game;
+	}
 		
 	public Vampire(Game game, int x, int y) {
 		this.game = game;
@@ -53,15 +57,20 @@ public class Vampire {
 		vampiresOnBoard--;
 	}
 	
- 	public void decreaseX() {
+ 	public void move() {
  		x--;
  	}
  	
+ 	public boolean isDead() {
+ 		return life <= 0 ? true : false;
+ 	}
+ 	
  	public static boolean noMoreVampires() {
- 		if (remainingVampires == 0 && vampiresOnBoard == 0)
- 			return true;
- 		
- 		return false;
+ 		return remainingVampires == 0 ? true : false;
+ 	}
+ 	
+ 	public void harm(int amount) {
+ 		life -= amount;
  	}
  	
 	public String toString() {

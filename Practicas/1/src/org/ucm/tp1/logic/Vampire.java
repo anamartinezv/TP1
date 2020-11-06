@@ -45,6 +45,10 @@ public class Vampire {
 		remainingVampires = amount;
 	}
 	
+	public static void setVampiresOnBoard(int amount) {
+		vampiresOnBoard = amount;
+	}
+	
 	public static void increaseVampiresOnBoard() {
 		vampiresOnBoard++;
 	}
@@ -57,16 +61,16 @@ public class Vampire {
 		vampiresOnBoard--;
 	}
 	
+ 	public static boolean noMoreVampires() {
+ 		return remainingVampires == 0 && vampiresOnBoard == 0 ? true : false;
+ 	}
+ 	
  	public void move() {
  		x--;
  	}
  	
  	public boolean isDead() {
  		return life <= 0 ? true : false;
- 	}
- 	
- 	public static boolean noMoreVampires() {
- 		return remainingVampires == 0 ? true : false;
  	}
  	
  	public void harm(int amount) {

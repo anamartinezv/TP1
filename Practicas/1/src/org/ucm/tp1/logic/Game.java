@@ -68,9 +68,17 @@ public class Game {
 	}
 	
 	public void checkEndGame() {
-		// TOOODOOO
-		if (false)
+		if (Vampire.noMoreVampires()) {
+			System.out.println("Player wins!");
 			endGame();
+		}else {
+			for (int i = 0; i < level.getY(); i++) {
+				if (isVampire(0, i)) {
+					System.out.println("Vampires win!");
+					endGame();
+				}
+			}		
+		}
 	}
 	
 	public void increaseCycles() {
@@ -85,7 +93,7 @@ public class Game {
 		return gameObjectBoard.isVampire(x, y);
 	}
 	
-	public boolean isVampireDead(int x, int y) {
+ 	public boolean isVampireDead(int x, int y) {
 		return gameObjectBoard.isVampireDead(x, y);
 	}
 	
@@ -186,8 +194,8 @@ public class Game {
 	}
 	
 	public void slayerAttack() {
- 		for (int i = 0; i < level.getY(); i++) {
- 			for (int j = 0; j < level.getX(); j++) {
+ 		for (int i = 0; i < level.getX(); i++) {
+ 			for (int j = 0; j < level.getY(); j++) {
  				if (isSlayer(j, i)) {
  					for (int x = i + 1; x < level.getX(); x++)
  						if (isVampire(x, j))
@@ -211,22 +219,29 @@ public class Game {
 	}
 	
 	public void attack() {
-		// Los slayers atacan a los vampiros de su fila
 		slayerAttack();
-		
-		// Vampiros muerden a slayer su inmediata izquierda
 		vampireAttack();
 	}
 	
 	public void deleteDeadObjects() {
 		for (int i = 0; i < level.getY(); i++) {
  			for (int j = 0; j < level.getX(); j++) {
- 				if (isVampire(j, i) && isVampireDead(j, i))
+ 				if (isVampire(j, i) && isVampireDead(j, i)) {
  					gameObjectBoard.deleteVampire(j, i);
- 				else if (isSlayer(i, j) && isSlayerDead(i, j))
+ 					Vampire.decreaseVampiresOnBoard();
+ 				} else if (isSlayer(i, j) && isSlayerDead(i, j))
  					gameObjectBoard.deleteSlayer(j, i);
  			}
  		} 
+	}
+	
+	public void resetGame() {
+		Vampire.setRemainingVampires(level.getVampires());
+		Vampire.setVampiresOnBoard(0);
+		gameObjectBoard.resetVampires();
+		gameObjectBoard.resetSlayers();
+		player.resetCoins();
+		cyclesNumber = 0;
 	}
 	
 	public void newCycle() {

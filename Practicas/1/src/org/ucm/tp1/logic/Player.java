@@ -25,6 +25,10 @@ public class Player {
 		return false;
 	}
 	
+	public void resetCoins() {
+		coins = COINS_AT_START;
+	}
+	
 	public int getCoins() {
 		return coins;
 	}

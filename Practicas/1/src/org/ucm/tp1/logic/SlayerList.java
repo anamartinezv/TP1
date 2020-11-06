@@ -57,4 +57,9 @@ public class SlayerList {
 		
 		slayerCount--;
 	}
+	
+	public void resetArray() {
+		slayers = new Slayer[MAX_SLAYERS];
+		slayerCount = 0;
+	}
 }

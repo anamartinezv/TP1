@@ -58,4 +58,9 @@ public class VampireList {
 		
 		vampireCounter--;
 	}
+	
+	public void resetArray() {
+		vampires = new Vampire[MAX_VAMPIRES];
+		vampireCounter = 0;
+	}
 }

@@ -39,6 +39,10 @@ public class GameObjectBoard {
 		vampireList.getVampireAtPosition(x, y).harm(Slayer.DAMAGE);
 	}
 	
+	public void resetVampires() {
+		vampireList.resetArray();
+	}
+	
 	// SLAYER METHOD
 	public String getSlayer(int x, int y) {
 		return slayerList.getSlayerToString(x, y);
@@ -62,5 +66,9 @@ public class GameObjectBoard {
 	
 	public void attackSlayer(int x, int y) {
 		slayerList.getSlayerAtPosition(y, x).harm(Vampire.DAMAGE);
+	}
+	
+	public void resetSlayers() {
+		slayerList.resetArray();
 	}
 }

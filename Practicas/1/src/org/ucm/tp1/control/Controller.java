@@ -36,9 +36,9 @@ public class Controller {
     }
     
     public void run() {
+    	printGame();
+    	
     	do {
-    		printGame();
-    		
     		System.out.print(prompt);
 			
 			String command = scanner.nextLine();
@@ -54,6 +54,7 @@ public class Controller {
 								
 						game.addSlayer(xCoordinate, yCoordinate);
 						game.newCycle();
+						if (!game.isFinished()) printGame();
 					} catch (NumberFormatException numberException){
 						System.out.println(invalidAddCommandMsg);
 					} catch (ArrayIndexOutOfBoundsException argsException) {
@@ -70,18 +71,21 @@ public class Controller {
 					
 				case "r":
 				case "reset":
-					// TODO
-					game.newCycle();
+					game.resetGame();
+					printGame();
 					break;
 					
 				case "e":
 				case "exit":
 					game.endGame();
+					System.out.println("Nobody wins...");
 					break;
-					
+				
+				case "":
 				case "n":
 				case "none":
 					game.newCycle();
+					if (!game.isFinished()) printGame();
 					break;
 					
 				default:

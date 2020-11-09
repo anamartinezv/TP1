@@ -19,6 +19,10 @@ public class GameObjectBoard {
 		return vampireList.isVampire(x, y);
 	}
 	
+	public boolean isValidCycle(int x, int y, int cyclesNumber) {
+		return vampireList.getVampireAtPosition(x, y).isValidCycle(cyclesNumber);
+	}
+	
 	public boolean isVampireDead(int x, int y) {
 		return vampireList.getVampireAtPosition(x, y).isDead();
 	}
@@ -27,8 +31,8 @@ public class GameObjectBoard {
 		vampireList.newVampire(vampire);
 	}
 	
-	public void moveVampire(int x, int y) {
-		vampireList.getVampireAtPosition(y, x).move();
+	public void moveVampire(int x, int y, int cycleNumber) {
+		vampireList.getVampireAtPosition(y, x).move(cycleNumber);
 	}
 	
 	public void deleteVampire(int x, int y) {

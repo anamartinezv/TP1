@@ -4,6 +4,7 @@ package org.ucm.tp1.logic;
 public class Vampire {
 	public static final int RESISTANCE = 5;
 	public static final int DAMAGE = 1;
+	public static final int MOVEMENT = 2;
 	
 	private static int remainingVampires;
 	private static int vampiresOnBoard = 0;
@@ -11,17 +12,15 @@ public class Vampire {
 	private int x;
 	private int y;
 	private int life;
+	private int lastCycle;
 	
 	private Game game;
-	
-	public Vampire(Game game) {
-		this.game = game;
-	}
 		
-	public Vampire(Game game, int x, int y) {
+	public Vampire(Game game, int x, int y, int cycleNumber) {
 		this.game = game;
 		this.x = x;
 		this.y = y;
+		this.lastCycle = cycleNumber;
 		this.life = RESISTANCE; 
 	}
 	
@@ -31,6 +30,10 @@ public class Vampire {
 	
 	public int getY() {
 		return y;
+	}
+	
+	public void setCycle(int cycleNumber) {
+		lastCycle = cycleNumber;
 	}
 	
 	public static int getRemainingVampires() {
@@ -65,12 +68,17 @@ public class Vampire {
  		return remainingVampires == 0 && vampiresOnBoard == 0 ? true : false;
  	}
  	
- 	public void move() {
+ 	public void move(int cycleNumber) {
  		x--;
+ 		lastCycle = cycleNumber;
  	}
  	
  	public boolean isDead() {
  		return life <= 0 ? true : false;
+ 	}
+ 	
+ 	public boolean isValidCycle(int cyclesNumber) {
+ 		return cyclesNumber - MOVEMENT == lastCycle ? true : false;
  	}
  	
  	public void harm(int amount) {

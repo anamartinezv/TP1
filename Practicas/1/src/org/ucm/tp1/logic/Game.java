@@ -4,10 +4,8 @@ import org.ucm.tp1.view.GamePrinter;
 import java.util.Random;
 
 public class Game {
-	private final String coordinatesOutOfRangeMsg = "Error! Coordinates out of board range.";
-	private final String invalidCoordinatesMsg = "Invalid position! Please, check x and y coordinates";
-	
 	private boolean finished;
+	private boolean printFinalBoard; // false == Vampires
 	private int cyclesNumber;
 	
 	private Level level;
@@ -15,12 +13,12 @@ public class Game {
 	private GameObjectBoard gameObjectBoard;
 	private Player player;
 	private Random random;
-	public Vampire vampire;
 	
 	public Game(Long seed, Level level) {
 		this.level = level;
 		
 		finished = false;
+		printFinalBoard = false;
 		cyclesNumber = 0;
 		
 		// Set vampires
@@ -29,7 +27,6 @@ public class Game {
 		// Instance classes
 		gamePrinter = new GamePrinter(this, level.getX(), level.getY());
 		gameObjectBoard = new GameObjectBoard();
-		//vampire = new Vampire(this);
 		random = new Random(seed);
 		player = new Player(random);
 	}
@@ -37,6 +34,10 @@ public class Game {
 	// Getters
 	public int getCycles() {
 		return cyclesNumber;
+	}
+	
+	public boolean getPrintFinalBoard() {
+		return printFinalBoard;
 	}
 	
 	public int getPlayerCoins() {
@@ -69,15 +70,16 @@ public class Game {
 	
 	public void checkEndGame() {
 		if (Vampire.noMoreVampires()) {
-			System.out.println("Player wins!");
 			endGame();
+			System.out.println("Player wins!");
+			printFinalBoard = true;
 		}else {
-			for (int i = 0; i < level.getY(); i++) {
+			for (int i = 0; i < level.getY(); i++)
 				if (isVampire(0, i)) {
-					System.out.println("Vampires win!");
 					endGame();
+					System.out.println("Vampires win!");
+					printFinalBoard = true;
 				}
-			}		
 		}
 	}
 	
@@ -91,6 +93,10 @@ public class Game {
 	// VAMPIRE METHODS
 	public boolean isVampire(int x, int y) {
 		return gameObjectBoard.isVampire(x, y);
+	}
+	
+	public boolean isValidCycle(int x, int y, int cyclesNumber) {
+		return gameObjectBoard.isValidCycle(x, y, cyclesNumber);
 	}
 	
  	public boolean isVampireDead(int x, int y) {
@@ -108,9 +114,9 @@ public class Game {
 	public void moveVampires() {
  		for (int i = 0; i < level.getY(); i++) {
  			for (int j = 0; j < level.getX(); j++) {
- 				if (isVampire(j, i)) {
+ 				if (isVampire(j, i) && isValidCycle(j, i, cyclesNumber)) {
  					if (!isSlayer(i, j - 1) && !isVampire(j - 1, i)) {
- 						gameObjectBoard.moveVampire(i, j);
+ 						gameObjectBoard.moveVampire(i, j, cyclesNumber);
  					}
  				}
  			}
@@ -128,7 +134,7 @@ public class Game {
 	public void addVampire() {
 		if (random.nextDouble() < level.getFrecuency()) {
 			if (canPlaceVampire() && Vampire.getRemainingVampires() > 0) {
-				Vampire vampire = new Vampire(this, level.getX() - 1, newVampirePosition());
+				Vampire vampire = new Vampire(this, level.getX() - 1, newVampirePosition(), cyclesNumber);
 				gameObjectBoard.addVampire(vampire);
 				
 				Vampire.increaseVampiresOnBoard();
@@ -140,7 +146,7 @@ public class Game {
 	public void vampireAttack() {
  		for (int i = 0; i < level.getY(); i++) {
  			for (int j = 0; j < level.getX(); j++) {
- 				if (isVampire(j, i)) {
+ 				if (isVampire(j, i) && !isVampireDead(j, i)) {
  					if (isSlayer(i, j - 1)) {
  						attackSlayer(j - 1, i);
  					}
@@ -156,6 +162,26 @@ public class Game {
 	
 
 	// SLAYER METHODS
+	public boolean validX(int x) {
+		return (x >= 0 && x < level.getY()) ? true : false;
+	}
+	
+	public boolean validY(int y) {
+		return (y >= 0 && y < level.getX()) ? true : false;
+	}
+	
+	public boolean validCoordinates(int x, int y) {
+		return (validX(x) && validY(y) && level.getX() - 1 > y) ? true : false;
+	}
+	
+	public boolean canPlaceSlayer(int x, int y) {
+		return (!isSlayer(x, y) && !isVampire(x, y)) ? true : false;
+	}
+	
+	public boolean haveEnoughCoins() {
+		return player.haveEnoughCoins();
+	}
+	
 	public boolean isSlayer(int x, int y) {
 		return gameObjectBoard.isSlayer(x, y);
 	}
@@ -164,29 +190,10 @@ public class Game {
 		return gameObjectBoard.isSlayerDead(x, y);
 	}
 	
-	public boolean canPlaceSlayer(int x, int y) {
-		if (!isSlayer(x, y) && !isVampire(x, y) 
-			&& validCoordinates(x, y) && level.getX() - 1 > y)
-			return true;
-		
-		System.out.println(invalidCoordinatesMsg);
-		return false;
-	}
-	
 	public void addSlayer(int x, int y) {
-		if (canPlaceSlayer(x, y) && player.haveEnoughCoins()) {
-			Slayer slayer = new Slayer(this, x, y);
-			gameObjectBoard.addSlayer(slayer);
-			player.buySlayer();
-		}
-	}
-	
-	public boolean validCoordinates(int x, int y) {
-		if (x >= 0 && x < level.getY() && y >= 0 && y < level.getX())
-			return true;
-		
-		System.out.println(coordinatesOutOfRangeMsg);
-		return false;
+		Slayer slayer = new Slayer(this, x, y);
+		gameObjectBoard.addSlayer(slayer);
+		player.buySlayer();
 	}
 	
 	public void attackSlayer(int x, int y) {
@@ -198,8 +205,11 @@ public class Game {
  			for (int j = 0; j < level.getY(); j++) {
  				if (isSlayer(j, i)) {
  					for (int x = i + 1; x < level.getX(); x++)
- 						if (isVampire(x, j))
+ 						if (isVampire(x, j)) {
  							attackVampire(x, j);
+ 							break;
+ 						}
+ 							
  				}
  			}
  		}
@@ -212,10 +222,7 @@ public class Game {
 	public void updateGame() {
 		player.updateCoinsRandom(); // Get 10 coins with 50% probability
 		
-		if (cyclesNumber % 2 == 0)
-			moveVampires();
-		
-		increaseCycles();
+		moveVampires();
 	}
 	
 	public void attack() {
@@ -245,7 +252,9 @@ public class Game {
 	}
 	
 	public void newCycle() {
-    	updateGame(); // TODO: Check if V collapses with S
+		/* En el enunciado el orden de attack y update aparece al reves,
+		 * pero haciendolo de dicha manera no coincide con los tests */
+    	updateGame();
     	attack();
     	addVampire();
     	deleteDeadObjects();

@@ -65,8 +65,10 @@ public class Controller {
 						else {
 							game.addSlayer(x, y);
 							game.newCycle();
-							game.increaseCycles();
-							if (!game.isFinished()) printGame();
+							if (!game.isFinished()) {
+								game.increaseCycles();
+								printGame();
+							}
 						}
 					} catch (NumberFormatException numberException){
 						System.out.println(invalidAddCommandMsg);
@@ -98,8 +100,10 @@ public class Controller {
 				case "n":
 				case "none":
 					game.newCycle();
-					game.increaseCycles();
-					if (!game.isFinished()) printGame();
+					if (!game.isFinished()) {
+						game.increaseCycles();
+						printGame();
+					}
 					break;
 					
 				default:

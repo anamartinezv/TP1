@@ -2,7 +2,7 @@ package org.ucm.tp1.logic;
 
 public class SlayerList {
 	
-	private final int MAX_SLAYERS = 100;
+	private final int MAX_SLAYERS = 50;
 	
 	private int slayerCount;
 	private Slayer[] slayers;

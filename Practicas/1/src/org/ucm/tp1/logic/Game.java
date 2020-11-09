@@ -5,7 +5,7 @@ import java.util.Random;
 
 public class Game {
 	private boolean finished;
-	private boolean printFinalBoard; // false == Vampires
+	private boolean printFinalBoard;
 	private int cyclesNumber;
 	
 	private Level level;
@@ -52,20 +52,24 @@ public class Game {
 		return random;
 	}
 	
-	public String getPositionToString(int x, int y) {
-		if (gameObjectBoard.isVampire(y, x))
-			return gameObjectBoard.getVampire(y, x);
-		else if (gameObjectBoard.isSlayer(x, y))
-			return gameObjectBoard.getSlayer(x, y);
-		return " ";
-	}
-	
 	public boolean isFinished() {
 		return finished;
 	}
 		
 	public void endGame() {
 		finished = true;
+	}
+	
+	public void increaseCycles() {
+		cyclesNumber++;
+	}
+	
+	public String getPositionToString(int x, int y) {
+		if (gameObjectBoard.isVampire(y, x))
+			return gameObjectBoard.getVampire(y, x);
+		else if (gameObjectBoard.isSlayer(x, y))
+			return gameObjectBoard.getSlayer(x, y);
+		return " ";
 	}
 	
 	public void checkEndGame() {
@@ -83,12 +87,6 @@ public class Game {
 		}
 	}
 	
-	public void increaseCycles() {
-		cyclesNumber++;
-	}
-	
-	
-	
 	
 	// VAMPIRE METHODS
 	public boolean isVampire(int x, int y) {
@@ -102,6 +100,10 @@ public class Game {
  	public boolean isVampireDead(int x, int y) {
 		return gameObjectBoard.isVampireDead(x, y);
 	}
+ 	
+	public void attackVampire(int x, int y) {
+		gameObjectBoard.attackVampire(x, y);
+	}
 	
 	public boolean canPlaceVampire() {
 		for (int i = 0; i < level.getY(); i++)
@@ -112,18 +114,16 @@ public class Game {
 	}
 	
 	public void moveVampires() {
- 		for (int i = 0; i < level.getY(); i++) {
- 			for (int j = 0; j < level.getX(); j++) {
- 				if (isVampire(j, i) && isValidCycle(j, i, cyclesNumber)) {
- 					if (!isSlayer(i, j - 1) && !isVampire(j - 1, i)) {
+ 		for (int i = 0; i < level.getY(); i++)
+ 			for (int j = 0; j < level.getX(); j++)
+ 				if (isVampire(j, i) && isValidCycle(j, i, cyclesNumber))
+ 					if (!isSlayer(i, j - 1) && !isVampire(j - 1, i))
  						gameObjectBoard.moveVampire(i, j, cyclesNumber);
- 					}
- 				}
- 			}
- 		}
 	}
 	
 	public int newVampirePosition() {
+		// Loop until an empty position is found
+		// If this method is called it's assured there is an empty position
 		while (true) {
 			int col = random.nextInt(level.getY());
 			if (!isVampire(level.getX() - 1, col))
@@ -144,21 +144,12 @@ public class Game {
 	}
 	
 	public void vampireAttack() {
- 		for (int i = 0; i < level.getY(); i++) {
- 			for (int j = 0; j < level.getX(); j++) {
- 				if (isVampire(j, i) && !isVampireDead(j, i)) {
- 					if (isSlayer(i, j - 1)) {
+ 		for (int i = 0; i < level.getY(); i++)
+ 			for (int j = 0; j < level.getX(); j++)
+ 				if (isVampire(j, i) && !isVampireDead(j, i))
+ 					if (isSlayer(i, j - 1))
  						attackSlayer(j - 1, i);
- 					}
- 				}
- 			}
- 		}
 	}
-	
-	public void attackVampire(int x, int y) {
-		gameObjectBoard.attackVampire(x, y);
-	}
-	
 	
 
 	// SLAYER METHODS
@@ -190,38 +181,35 @@ public class Game {
 		return gameObjectBoard.isSlayerDead(x, y);
 	}
 	
-	public void addSlayer(int x, int y) {
-		Slayer slayer = new Slayer(this, x, y);
-		gameObjectBoard.addSlayer(slayer);
-		player.buySlayer();
-	}
-	
 	public void attackSlayer(int x, int y) {
 		gameObjectBoard.attackSlayer(x, y);
 	}
 	
-	public void slayerAttack() {
- 		for (int i = 0; i < level.getX(); i++) {
- 			for (int j = 0; j < level.getY(); j++) {
- 				if (isSlayer(j, i)) {
- 					for (int x = i + 1; x < level.getX(); x++)
- 						if (isVampire(x, j)) {
- 							attackVampire(x, j);
- 							break;
- 						}
- 							
- 				}
- 			}
- 		}
+	public void addSlayer(int x, int y) {
+		Slayer slayer = new Slayer(this, x, y);
+		gameObjectBoard.addSlayer(slayer);
+		
+		player.buySlayer();
 	}
 	
+	public void findVampireToAttack(int x, int y) {
+		for (int k = x + 1; k < level.getX(); k++)
+			if (isVampire(k, y)) {
+				attackVampire(k, y);
+				break;
+			}	
+	}
 	
+	public void slayerAttack() {
+ 		for (int i = 0; i < level.getX(); i++)
+ 			for (int j = 0; j < level.getY(); j++)
+ 				if (isSlayer(j, i)) findVampireToAttack(i, j);
+	}
 	
 	
 	// GAME METHODS
 	public void updateGame() {
 		player.updateCoinsRandom(); // Get 10 coins with 50% probability
-		
 		moveVampires();
 	}
 	
@@ -252,8 +240,6 @@ public class Game {
 	}
 	
 	public void newCycle() {
-		/* En el enunciado el orden de attack y update aparece al reves,
-		 * pero haciendolo de dicha manera no coincide con los tests */
     	updateGame();
     	attack();
     	addVampire();

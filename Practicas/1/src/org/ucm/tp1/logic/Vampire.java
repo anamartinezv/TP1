@@ -78,7 +78,7 @@ public class Vampire {
  	}
  	
  	public boolean isValidCycle(int cyclesNumber) {
- 		return cyclesNumber - MOVEMENT == lastCycle ? true : false;
+ 		return cyclesNumber - MOVEMENT >= lastCycle ? true : false;
  	}
  	
  	public void harm(int amount) {

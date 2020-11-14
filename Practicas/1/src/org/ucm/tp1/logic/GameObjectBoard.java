@@ -31,8 +31,8 @@ public class GameObjectBoard {
 		vampireList.newVampire(vampire);
 	}
 	
-	public void moveVampire(int x, int y, int cycleNumber) {
-		vampireList.getVampireAtPosition(y, x).move(cycleNumber);
+	public void moveVampires() {
+		vampireList.moveVampires();
 	}
 	
 	public void deleteVampire(int x, int y) {

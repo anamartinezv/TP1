@@ -114,11 +114,7 @@ public class Game {
 	}
 	
 	public void moveVampires() {
- 		for (int i = 0; i < level.getY(); i++)
- 			for (int j = 0; j < level.getX(); j++)
- 				if (isVampire(j, i) && isValidCycle(j, i, cyclesNumber))
- 					if (!isSlayer(i, j - 1) && !isVampire(j - 1, i))
- 						gameObjectBoard.moveVampire(i, j, cyclesNumber);
+		gameObjectBoard.moveVampires();
 	}
 	
 	public int newVampirePosition() {
@@ -216,6 +212,13 @@ public class Game {
 	public void attack() {
 		slayerAttack();
 		vampireAttack();
+	}
+	
+	public boolean objectInPosition(int x, int y) {
+		if (gameObjectBoard.isVampire(x, y) || 
+			gameObjectBoard.isSlayer(x, y))
+			return true;
+		return false;
 	}
 	
 	public void deleteDeadObjects() {

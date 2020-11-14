@@ -12,6 +12,11 @@ public class VampireList {
 		vampires = new Vampire[MAX_VAMPIRES];
 	}
 	
+	public void moveVampires() {
+		for (int i = 0; i < vampireCounter; i++)
+			vampires[i].move();
+	}
+	
 	public String getVampire(int x, int y) {
 		for (int i = 0; i < vampireCounter; i++) {
 			if (vampires[i].getX() == x && vampires[i].getY() == y)

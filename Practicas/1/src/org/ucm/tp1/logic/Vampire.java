@@ -68,9 +68,11 @@ public class Vampire {
  		return remainingVampires == 0 && vampiresOnBoard == 0 ? true : false;
  	}
  	
- 	public void move(int cycleNumber) {
- 		x--;
- 		lastCycle = cycleNumber;
+ 	public void move() {
+ 		if (!game.objectInPosition(x - 1, y) && isValidCycle(game.getCycles())) {
+ 			x--;
+ 			lastCycle = game.getCycles();	
+ 		}
  	}
  	
  	public boolean isDead() {

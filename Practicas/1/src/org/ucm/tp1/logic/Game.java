@@ -4,6 +4,9 @@ import org.ucm.tp1.view.GamePrinter;
 import java.util.Random;
 
 public class Game {
+	private final String coordinatesOutOfRangeMsg = "Error! Coordinates out of board range.";
+	private final String invalidCoordinatesMsg = "Invalid position! Please, check x and y coordinates";
+
 	private boolean finished;
 	private boolean printFinalBoard;
 	private int cyclesNumber;
@@ -158,15 +161,12 @@ public class Game {
 	}
 	
 	public boolean validCoordinates(int x, int y) {
-		return (validX(x) && validY(y) && level.getX() - 1 > y) ? true : false;
-	}
-	
-	public boolean canPlaceSlayer(int x, int y) {
-		return (!isSlayer(x, y) && !isVampire(x, y)) ? true : false;
-	}
-	
-	public boolean haveEnoughCoins() {
-		return player.haveEnoughCoins();
+		if (validX(x) && validY(y) && level.getX() - 1 > y)
+			return true;
+		else {
+			System.out.println(coordinatesOutOfRangeMsg);
+			return false;
+		}
 	}
 	
 	public boolean isSlayer(int x, int y) {
@@ -181,11 +181,22 @@ public class Game {
 		gameObjectBoard.attackSlayer(x, y);
 	}
 	
-	public void addSlayer(int x, int y) {
-		Slayer slayer = new Slayer(this, x, y);
-		gameObjectBoard.addSlayer(slayer);
-		
-		player.buySlayer();
+	public boolean canPlaceSlayer(int x, int y) {
+		if (player.hasEnoughCoins() && validCoordinates(x, y))
+			if (objectInPosition(x, y))
+				System.out.println(invalidCoordinatesMsg);
+			else
+				return true;
+		return false;
+	}
+	
+	public boolean addSlayer(int x, int y) {
+		if (canPlaceSlayer(x, y)) {
+			gameObjectBoard.addSlayer(this, x, y);
+			player.buySlayer();
+			return true;
+		} else 
+			return false;
 	}
 	
 	public void findVampireToAttack(int x, int y) {

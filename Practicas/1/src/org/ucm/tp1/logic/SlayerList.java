@@ -37,8 +37,13 @@ public class SlayerList {
 		return null;
 	}
 	
-	public void newSlayer(Slayer slayer) {
+	/*public void newSlayer(Slayer slayer) {
 		slayers[slayerCount] = slayer;
+		slayerCount++;
+	}*/
+	
+	public void addSlayer(Game game, int x, int y) {
+		slayers[slayerCount] = new Slayer(game, x, y);
 		slayerCount++;
 	}
 	

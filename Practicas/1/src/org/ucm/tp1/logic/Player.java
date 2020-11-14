@@ -6,6 +6,8 @@ public class Player {
 	
 	public final int COINS_AT_START = 50;
 	public final int COINS_PER_ROUND = 10;
+	public final String notEnoughCoinsMsg = "Error! You dont have enough coins!";
+
 	
 	private int coins;
 	
@@ -17,8 +19,13 @@ public class Player {
 		this.random = random;
 	}
 	
-	public boolean haveEnoughCoins() {
-		return (coins >= Slayer.COST) ? true : false;
+	public boolean hasEnoughCoins() {
+		if (coins >= Slayer.COST)
+			return true;
+		else {
+			System.out.println(notEnoughCoinsMsg);
+			return false;
+			}
 	}
 	
 	public void resetCoins() {

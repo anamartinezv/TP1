@@ -60,8 +60,8 @@ public class GameObjectBoard {
 		return slayerList.getSlayerAtPosition(x, y).isDead();
 	}
 	
-	public void addSlayer(Slayer slayer) {
-		slayerList.newSlayer(slayer);
+	public void addSlayer(Game game, int x, int y) {
+		slayerList.addSlayer(game, x, y);
 	}
 	
 	public void deleteSlayer(int x, int y) {

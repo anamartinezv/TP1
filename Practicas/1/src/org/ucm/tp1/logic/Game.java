@@ -233,6 +233,10 @@ public class Game {
 	}
 	
 	public void deleteDeadObjects() {
+		gameObjectBoard.deleteDeadVampires();
+		gameObjectBoard.deleteDeadSlayers();
+	}
+	/*public void deleteDeadObjects() {
 		for (int i = 0; i < level.getY(); i++) {
  			for (int j = 0; j < level.getX(); j++) {
  				if (isVampire(j, i) && isVampireDead(j, i)) {
@@ -242,7 +246,7 @@ public class Game {
  					gameObjectBoard.deleteSlayer(j, i);
  			}
  		} 
-	}
+	}*/
 	
 	public void resetGame() {
 		Vampire.setRemainingVampires(level.getVampires());

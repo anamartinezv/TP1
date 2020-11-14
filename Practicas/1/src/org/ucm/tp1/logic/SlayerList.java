@@ -54,9 +54,13 @@ public class SlayerList {
 		return -1;
 	}
 	
-	public void deleteSlayer(int x, int y) {
-		int index = getSlayerIndex(x, y);
-		
+	public void deleteSlayers() {
+		for (int i = 0; i < slayerCount; i++)
+			if (slayers[i].isDead())
+				shiftArray(i);
+	}
+	
+	public void shiftArray(int index) {
 		for (int i = index; i < slayerCount; i++)
 			slayers[i] = slayers[i + 1];
 		

@@ -35,8 +35,9 @@ public class GameObjectBoard {
 		vampireList.moveVampires();
 	}
 	
-	public void deleteVampire(int x, int y) {
-		vampireList.deleteVampire(y, x);
+	
+	public void deleteDeadVampires() {
+		vampireList.deleteVampires();
 	}
 	
 	public void attackVampire(int x, int y) {
@@ -64,8 +65,8 @@ public class GameObjectBoard {
 		slayerList.addSlayer(game, x, y);
 	}
 	
-	public void deleteSlayer(int x, int y) {
-		slayerList.deleteSlayer(y, x);
+	public void deleteDeadSlayers() {
+		slayerList.deleteSlayers();
 	}
 	
 	public void attackSlayer(int x, int y) {

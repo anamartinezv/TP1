@@ -55,9 +55,15 @@ public class VampireList {
 		return -1;
 	}
 	
-	public void deleteVampire(int x, int y) {
-		int index = getVampireIndex(x, y);
-		
+	public void deleteVampires() {
+		for (int i = 0; i < vampireCounter; i++)
+			if (vampires[i].isDead()) {
+				shiftArray(i);
+				Vampire.decreaseVampiresOnBoard();
+			}
+	}
+	
+	public void shiftArray(int index) {
 		for (int i = index; i < vampireCounter; i++)
 			vampires[i] = vampires[i + 1];
 		

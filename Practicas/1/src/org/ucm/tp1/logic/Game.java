@@ -108,34 +108,22 @@ public class Game {
 		gameObjectBoard.vampiresAttack();
 	}
 	
-	public boolean canPlaceVampire() {
-		for (int i = 0; i < level.getY(); i++)
-			if (!isVampire(level.getX() - 1, i))
-				return true;
-		
-		return false;
-	}
-	
-	public int newVampirePosition() {
-		// Loop until an empty position is found
-		// If this method is called it's assured there is an empty position
-		while (true) {
-			int col = random.nextInt(level.getY());
-			if (!isVampire(level.getX() - 1, col))
-				return col;
-		}
+	public void newVampire(int x, int y) {
+		gameObjectBoard.addVampire(new Vampire(this, x, y, cyclesNumber));	
+		Vampire.increaseVampiresOnBoard();
+		Vampire.decreaseRemainingVampires();
 	}
 	
 	public void addVampire() {
 		if (random.nextDouble() < level.getFrecuency()) {
-			if (canPlaceVampire() && Vampire.getRemainingVampires() > 0) {
-				Vampire vampire = new Vampire(this, level.getX() - 1, newVampirePosition(), cyclesNumber);
-				gameObjectBoard.addVampire(vampire);
-				
-				Vampire.increaseVampiresOnBoard();
-				Vampire.decreaseRemainingVampires();
-			}	
-		}
+			for (int i = level.getY(); i >= 0; i--) {
+				int col = random.nextInt(level.getY());
+				if (!objectInPosition(level.getX() - 1, col)) {
+					newVampire(level.getX() -  1, col);
+					break;
+				}
+			}
+		}	
 	}
 	
 
@@ -178,10 +166,14 @@ public class Game {
 		return false;
 	}
 	
+	public void newSlayer(int x, int y) {
+		gameObjectBoard.addSlayer(new Slayer(this, x, y));
+		player.buySlayer();	
+	}
+	
 	public boolean addSlayer(int x, int y) {
 		if (canPlaceSlayer(x, y)) {
-			gameObjectBoard.addSlayer(new Slayer(this, x, y));
-			player.buySlayer();
+			newSlayer(x, y);
 			return true;
 		} else 
 			return false;

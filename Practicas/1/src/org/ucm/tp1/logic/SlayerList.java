@@ -29,21 +29,13 @@ public class SlayerList {
 		return false;
 	}
 	
-	public Slayer getSlayerAtPosition(int x, int y) {
+	public void attack() {
 		for (int i = 0; i < slayerCount; i++)
-			if (slayers[i].getX() == x && slayers[i].getY() == y)
-				return slayers[i];
-		
-		return null;
+			slayers[i].attack();
 	}
 	
-	/*public void newSlayer(Slayer slayer) {
+	public void addSlayer(Slayer slayer) {
 		slayers[slayerCount] = slayer;
-		slayerCount++;
-	}*/
-	
-	public void addSlayer(Game game, int x, int y) {
-		slayers[slayerCount] = new Slayer(game, x, y);
 		slayerCount++;
 	}
 	
@@ -58,6 +50,10 @@ public class SlayerList {
 		for (int i = 0; i < slayerCount; i++)
 			if (slayers[i].isDead())
 				shiftArray(i);
+	}
+	
+	public void harmSlayer(int x, int y, int damage) {
+		slayers[getSlayerIndex(x, y)].harm(damage);
 	}
 	
 	public void shiftArray(int index) {

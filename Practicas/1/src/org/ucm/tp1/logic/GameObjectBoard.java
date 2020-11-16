@@ -19,14 +19,6 @@ public class GameObjectBoard {
 		return vampireList.isVampire(x, y);
 	}
 	
-	public boolean isValidCycle(int x, int y, int cyclesNumber) {
-		return vampireList.getVampireAtPosition(x, y).isValidCycle(cyclesNumber);
-	}
-	
-	public boolean isVampireDead(int x, int y) {
-		return vampireList.getVampireAtPosition(x, y).isDead();
-	}
-	
 	public void addVampire(Vampire vampire) {
 		vampireList.newVampire(vampire);
 	}
@@ -35,13 +27,16 @@ public class GameObjectBoard {
 		vampireList.moveVampires();
 	}
 	
-	
 	public void deleteDeadVampires() {
 		vampireList.deleteVampires();
 	}
 	
-	public void attackVampire(int x, int y) {
-		vampireList.getVampireAtPosition(x, y).harm(Slayer.DAMAGE);
+	public void harmVampire(int x, int y, int damage) {
+		vampireList.harmVampire(x, y, damage);
+	}
+	
+	public void vampiresAttack() {
+		vampireList.attack();
 	}
 	
 	public void resetVampires() {
@@ -57,20 +52,20 @@ public class GameObjectBoard {
 		return slayerList.isSlayer(x, y);
 	}
 	
-	public boolean isSlayerDead(int x, int y) {
-		return slayerList.getSlayerAtPosition(x, y).isDead();
-	}
-	
-	public void addSlayer(Game game, int x, int y) {
-		slayerList.addSlayer(game, x, y);
+	public void addSlayer(Slayer slayer) {
+		slayerList.addSlayer(slayer);
 	}
 	
 	public void deleteDeadSlayers() {
 		slayerList.deleteSlayers();
 	}
 	
-	public void attackSlayer(int x, int y) {
-		slayerList.getSlayerAtPosition(y, x).harm(Vampire.DAMAGE);
+	public void slayersAttack() {
+		slayerList.attack();
+	}
+	
+	public void harmSlayer(int x, int y, int damage) {
+		slayerList.harmSlayer(x, y , damage);
 	}
 	
 	public void resetSlayers() {

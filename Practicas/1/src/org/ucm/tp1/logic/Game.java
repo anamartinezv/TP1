@@ -96,16 +96,16 @@ public class Game {
 		return gameObjectBoard.isVampire(x, y);
 	}
 	
-	public boolean isValidCycle(int x, int y, int cyclesNumber) {
-		return gameObjectBoard.isValidCycle(x, y, cyclesNumber);
+	public void moveVampires() {
+		gameObjectBoard.moveVampires();
 	}
 	
- 	public boolean isVampireDead(int x, int y) {
-		return gameObjectBoard.isVampireDead(x, y);
+	public void harmVampire(int x, int y, int damage) {
+		gameObjectBoard.harmVampire(x, y, damage);
 	}
- 	
-	public void attackVampire(int x, int y) {
-		gameObjectBoard.attackVampire(x, y);
+	
+	public void vampiresAttack() {
+		gameObjectBoard.vampiresAttack();
 	}
 	
 	public boolean canPlaceVampire() {
@@ -114,10 +114,6 @@ public class Game {
 				return true;
 		
 		return false;
-	}
-	
-	public void moveVampires() {
-		gameObjectBoard.moveVampires();
 	}
 	
 	public int newVampirePosition() {
@@ -142,16 +138,20 @@ public class Game {
 		}
 	}
 	
-	public void vampireAttack() {
- 		for (int i = 0; i < level.getY(); i++)
- 			for (int j = 0; j < level.getX(); j++)
- 				if (isVampire(j, i) && !isVampireDead(j, i))
- 					if (isSlayer(i, j - 1))
- 						attackSlayer(j - 1, i);
-	}
-	
 
 	// SLAYER METHODS
+	public boolean isSlayer(int x, int y) {
+		return gameObjectBoard.isSlayer(x, y);
+	}
+	
+	public void slayersAttack() {
+		gameObjectBoard.slayersAttack();
+	}
+	
+	public void harmSlayer(int x, int y, int damage) {
+		gameObjectBoard.harmSlayer(x, y, damage);
+	}
+	
 	public boolean validX(int x) {
 		return (x >= 0 && x < level.getY()) ? true : false;
 	}
@@ -169,18 +169,6 @@ public class Game {
 		}
 	}
 	
-	public boolean isSlayer(int x, int y) {
-		return gameObjectBoard.isSlayer(x, y);
-	}
-	
-	public boolean isSlayerDead(int x, int y) {
-		return gameObjectBoard.isSlayerDead(x, y);
-	}
-	
-	public void attackSlayer(int x, int y) {
-		gameObjectBoard.attackSlayer(x, y);
-	}
-	
 	public boolean canPlaceSlayer(int x, int y) {
 		if (player.hasEnoughCoins() && validCoordinates(x, y))
 			if (objectInPosition(x, y))
@@ -192,25 +180,11 @@ public class Game {
 	
 	public boolean addSlayer(int x, int y) {
 		if (canPlaceSlayer(x, y)) {
-			gameObjectBoard.addSlayer(this, x, y);
+			gameObjectBoard.addSlayer(new Slayer(this, x, y));
 			player.buySlayer();
 			return true;
 		} else 
 			return false;
-	}
-	
-	public void findVampireToAttack(int x, int y) {
-		for (int k = x + 1; k < level.getX(); k++)
-			if (isVampire(k, y)) {
-				attackVampire(k, y);
-				break;
-			}	
-	}
-	
-	public void slayerAttack() {
- 		for (int i = 0; i < level.getX(); i++)
- 			for (int j = 0; j < level.getY(); j++)
- 				if (isSlayer(j, i)) findVampireToAttack(i, j);
 	}
 	
 	
@@ -221,8 +195,8 @@ public class Game {
 	}
 	
 	public void attack() {
-		slayerAttack();
-		vampireAttack();
+		slayersAttack();
+		vampiresAttack();
 	}
 	
 	public boolean objectInPosition(int x, int y) {
@@ -236,17 +210,6 @@ public class Game {
 		gameObjectBoard.deleteDeadVampires();
 		gameObjectBoard.deleteDeadSlayers();
 	}
-	/*public void deleteDeadObjects() {
-		for (int i = 0; i < level.getY(); i++) {
- 			for (int j = 0; j < level.getX(); j++) {
- 				if (isVampire(j, i) && isVampireDead(j, i)) {
- 					gameObjectBoard.deleteVampire(j, i);
- 					Vampire.decreaseVampiresOnBoard();
- 				} else if (isSlayer(i, j) && isSlayerDead(i, j))
- 					gameObjectBoard.deleteSlayer(j, i);
- 			}
- 		} 
-	}*/
 	
 	public void resetGame() {
 		Vampire.setRemainingVampires(level.getVampires());

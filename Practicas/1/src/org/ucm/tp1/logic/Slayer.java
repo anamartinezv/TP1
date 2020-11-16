@@ -26,6 +26,14 @@ public class Slayer {
 		return y;
 	}
 	
+	public void attack() {
+		for (int i = y; i < game.getLevel().getX(); i++) 
+			if (game.isVampire(i, x)) {
+				game.harmVampire(x, i, DAMAGE);
+				break;
+			}
+	}
+	
 	public void harm(int amount) {
 		life -= amount;
 	}

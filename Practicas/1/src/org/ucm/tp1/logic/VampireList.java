@@ -40,19 +40,20 @@ public class VampireList {
 		vampireCounter++;
 	}
 	
-	public Vampire getVampireAtPosition(int x, int y) {
-		for (int i = 0; i < vampireCounter; i++)
-			if (vampires[i].getX() == x && vampires[i].getY() == y)
-				return vampires[i];
-		
-		return null;
-	}
-	
 	public int getVampireIndex(int x, int y) {
 		for (int i = 0; i < vampireCounter; i++)
 			if (vampires[i].getX() == y && vampires[i].getY() == x)
 				return i;
 		return -1;
+	}
+	
+	public void attack() {
+		for (int i = 0; i < vampireCounter; i++)
+			vampires[i].attack();
+	}
+	
+	public void harmVampire(int x, int y, int damage) {
+		vampires[getVampireIndex(x, y)].harm(damage);
 	}
 	
 	public void deleteVampires() {

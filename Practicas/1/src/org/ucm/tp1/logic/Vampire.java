@@ -69,7 +69,7 @@ public class Vampire {
  	}
  	
  	public void move() {
- 		if (!game.objectInPosition(x - 1, y) && isValidCycle(game.getCycles())) {
+ 		if (!game.objectInPosition(y, x - 1) && isValidCycle(game.getCycles())) {
  			x--;
  			lastCycle = game.getCycles();	
  		}
@@ -85,6 +85,11 @@ public class Vampire {
  	
  	public void harm(int amount) {
  		life -= amount;
+ 	}
+ 	
+ 	public void attack() {
+ 		if (game.isSlayer(y, x - 1))
+ 			game.harmSlayer(y, x - 1, DAMAGE);
  	}
  	
 	public String toString() {

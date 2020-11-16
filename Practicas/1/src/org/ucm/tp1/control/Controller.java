@@ -59,21 +59,6 @@ public class Controller {
 								printGame();
 							}
 						}
-						
-						/*if (!game.haveEnoughCoins())
-							System.out.println(notEnoughCoinsMsg);
-						else if (!game.validCoordinates(x, y))
-							System.out.println(coordinatesOutOfRangeMsg);
-						else if (!game.canPlaceSlayer(x, y))
-							System.out.println(invalidCoordinatesMsg);
-						else {
-							game.addSlayer(x, y);
-							game.newCycle();
-							if (!game.isFinished()) {
-								game.increaseCycles();
-								printGame();
-							}
-						}*/
 					} catch (NumberFormatException numberException){
 						System.out.println(invalidAddCommandMsg);
 					} catch (ArrayIndexOutOfBoundsException argsException) {

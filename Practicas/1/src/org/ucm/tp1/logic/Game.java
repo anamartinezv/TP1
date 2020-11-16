@@ -8,7 +8,6 @@ public class Game {
 	private final String invalidCoordinatesMsg = "Invalid position! Please, check x and y coordinates";
 
 	private boolean finished;
-	private boolean printFinalBoard;
 	private int cyclesNumber;
 	
 	private Level level;
@@ -21,7 +20,6 @@ public class Game {
 		this.level = level;
 		
 		finished = false;
-		printFinalBoard = false;
 		cyclesNumber = 0;
 		
 		// Set vampires
@@ -37,10 +35,6 @@ public class Game {
 	// Getters
 	public int getCycles() {
 		return cyclesNumber;
-	}
-	
-	public boolean getPrintFinalBoard() {
-		return printFinalBoard;
 	}
 	
 	public int getPlayerCoins() {
@@ -75,18 +69,29 @@ public class Game {
 		return " ";
 	}
 	
-	public void checkEndGame() {
+	public boolean checkPlayerWin() {
 		if (Vampire.noMoreVampires()) {
-			endGame();
 			System.out.println("Player wins!");
-			printFinalBoard = true;
-		}else {
-			for (int i = 0; i < level.getY(); i++)
-				if (isVampire(0, i)) {
-					endGame();
-					System.out.println("Vampires win!");
-					printFinalBoard = true;
-				}
+			return true;
+		}
+		
+		return false;
+	}
+	
+	public boolean checkVampiresWin() {
+		for (int i = 0; i < level.getY(); i++)
+			if (isVampire(-1, i)) {
+				System.out.println("Vampires win!");
+				return true;
+			}
+		
+		return false;
+	}
+	
+	public void checkEndGame() {
+		if (checkPlayerWin() || checkVampiresWin()) {
+			System.out.println(toString());
+			endGame();
 		}
 	}
 	
@@ -233,6 +238,7 @@ public class Game {
 	}
 	
 	public String toString() {
+		System.out.println(gameStats());
 		return gamePrinter.toString();
 	}
  }

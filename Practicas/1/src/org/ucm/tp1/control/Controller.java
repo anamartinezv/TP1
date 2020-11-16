@@ -100,8 +100,6 @@ public class Controller {
 	 				break;
 			}	    	
     	} while(!game.isFinished());
-    	
-    	if (game.getPrintFinalBoard()) printGame();
     }
 
 }

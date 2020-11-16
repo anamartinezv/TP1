@@ -27,9 +27,7 @@ public class GamePrinter {
 	
 	public String toString() {
 		encodeGame(game); // Initialize matrix
-		
-		System.out.println(game.gameStats());
-		
+				
 		int cellSize = 7;
 		int marginSize = 2;
 		String vDelimiter = "|";

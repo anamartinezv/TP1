@@ -54,10 +54,8 @@ public class Controller {
 						
 						if (game.addSlayer(x, y)) {
 							game.newCycle();
-							if (!game.isFinished()) {
-								game.increaseCycles();
-								printGame();
-							}
+							game.increaseCycles();
+							if (!game.isFinished()) printGame();
 						}
 					} catch (NumberFormatException numberException){
 						System.out.println(invalidAddCommandMsg);
@@ -89,10 +87,8 @@ public class Controller {
 				case "n":
 				case "none":
 					game.newCycle();
-					if (!game.isFinished()) {
-						game.increaseCycles();
-						printGame();
-					}
+					game.increaseCycles();
+					if (!game.isFinished()) printGame();
 					break;
 					
 				default:
@@ -101,6 +97,5 @@ public class Controller {
 			}	    	
     	} while(!game.isFinished());
     }
-
 }
 

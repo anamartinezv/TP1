@@ -53,7 +53,7 @@ public class GameObjectBoard {
 	}
 	
 	public void addSlayer(Slayer slayer) {
-		slayerList.addSlayer(slayer);
+		slayerList.newSlayer(slayer);
 	}
 	
 	public void deleteDeadSlayers() {

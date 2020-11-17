@@ -58,7 +58,7 @@ public class Game {
 	}
 	
 	public void increaseCycles() {
-		cyclesNumber++;
+		if (!isFinished()) cyclesNumber++;
 	}
 	
 	public String getPositionToString(int x, int y) {
@@ -121,7 +121,7 @@ public class Game {
 	
 	public void addVampire() {
 		if (random.nextDouble() < level.getFrecuency()) {
-			for (int i = level.getY(); i >= 0; i--) {
+			for (int i = level.getY(); i >= 0; i--) { // CHECK IF IS CORRECT
 				int col = random.nextInt(level.getY());
 				if (!objectInPosition(level.getX() - 1, col)) {
 					newVampire(level.getX() -  1, col);
@@ -156,10 +156,9 @@ public class Game {
 	public boolean validCoordinates(int x, int y) {
 		if (validX(x) && validY(y) && level.getX() - 1 > y)
 			return true;
-		else {
-			System.out.println(coordinatesOutOfRangeMsg);
-			return false;
-		}
+
+		System.out.println(coordinatesOutOfRangeMsg);
+		return false;
 	}
 	
 	public boolean canPlaceSlayer(int x, int y) {
@@ -180,8 +179,9 @@ public class Game {
 		if (canPlaceSlayer(x, y)) {
 			newSlayer(x, y);
 			return true;
-		} else 
-			return false;
+		}
+		
+		return false;
 	}
 	
 	
@@ -200,6 +200,7 @@ public class Game {
 		if (gameObjectBoard.isVampire(x, y) || 
 			gameObjectBoard.isSlayer(x, y))
 			return true;
+		
 		return false;
 	}
 	

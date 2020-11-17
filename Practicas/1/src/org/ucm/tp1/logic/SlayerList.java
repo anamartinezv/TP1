@@ -29,12 +29,7 @@ public class SlayerList {
 		return false;
 	}
 	
-	public void attack() {
-		for (int i = 0; i < slayerCount; i++)
-			slayers[i].attack();
-	}
-	
-	public void addSlayer(Slayer slayer) {
+	public void newSlayer(Slayer slayer) {
 		slayers[slayerCount] = slayer;
 		slayerCount++;
 	}
@@ -44,6 +39,11 @@ public class SlayerList {
 			if (slayers[i].getX() == x && slayers[i].getY() == y)
 				return i;
 		return -1;
+	}
+	
+	public void attack() {
+		for (int i = 0; i < slayerCount; i++)
+			slayers[i].attack();
 	}
 	
 	public void deleteSlayers() {

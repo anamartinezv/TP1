@@ -12,11 +12,6 @@ public class VampireList {
 		vampires = new Vampire[MAX_VAMPIRES];
 	}
 	
-	public void moveVampires() {
-		for (int i = 0; i < vampireCounter; i++)
-			vampires[i].move();
-	}
-	
 	public String getVampire(int x, int y) {
 		for (int i = 0; i < vampireCounter; i++) {
 			if (vampires[i].getX() == x && vampires[i].getY() == y)
@@ -38,6 +33,11 @@ public class VampireList {
 	public void newVampire(Vampire vampire) {
 		vampires[vampireCounter] = vampire;
 		vampireCounter++;
+	}
+	
+	public void moveVampires() {
+		for (int i = 0; i < vampireCounter; i++)
+			vampires[i].move();
 	}
 	
 	public int getVampireIndex(int x, int y) {

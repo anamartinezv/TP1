@@ -63,9 +63,9 @@ public class Game {
 	
 	public String getPositionToString(int x, int y) {
 		if (gameObjectBoard.isVampire(y, x))
-			return gameObjectBoard.getVampire(y, x);
+			return gameObjectBoard.getVampireToString(y, x);
 		else if (gameObjectBoard.isSlayer(x, y))
-			return gameObjectBoard.getSlayer(x, y);
+			return gameObjectBoard.getSlayerToString(x, y);
 		return " ";
 	}
 	

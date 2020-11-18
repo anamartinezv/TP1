@@ -14,31 +14,23 @@ public class SlayerList {
 		slayers = new Slayer[MAX_SLAYERS];
 	}
 	
-	public String getSlayerToString(int x, int y) {
+	public Slayer getSlayer(int x, int y) {
 		for (int i = 0; i < slayerCount; i++)
 			if (slayers[i].getX() == x && slayers[i].getY() == y)
-				return slayers[i].toString();
-		
-		return "";
+				return slayers[i];
+		return null;
+	}
+	
+	public String getSlayerToString(int x, int y) {		
+		return getSlayer(x, y).toString();
 	}
 	
 	public boolean isSlayer(int x, int y) {
-		for (int i = 0; i < slayerCount; i++)
-			if (slayers[i].getX() == x && slayers[i].getY() == y)
-				return true;
-		return false;
+		return getSlayer(x, y) != null ? true : false;
 	}
 	
-	public void newSlayer(Slayer slayer) {
-		slayers[slayerCount] = slayer;
-		slayerCount++;
-	}
-	
-	public int getSlayerIndex(int x, int y) {
-		for (int i = 0; i < slayerCount; i++)
-			if (slayers[i].getX() == x && slayers[i].getY() == y)
-				return i;
-		return -1;
+	public void harmSlayer(int x, int y, int damage) {
+		getSlayer(x, y).harm(damage);
 	}
 	
 	public void attack() {
@@ -46,14 +38,15 @@ public class SlayerList {
 			slayers[i].attack();
 	}
 	
+	public void newSlayer(Slayer slayer) {
+		slayers[slayerCount] = slayer;
+		slayerCount++;
+	}
+	
 	public void deleteSlayers() {
 		for (int i = 0; i < slayerCount; i++)
 			if (slayers[i].isDead())
 				shiftArray(i);
-	}
-	
-	public void harmSlayer(int x, int y, int damage) {
-		slayers[getSlayerIndex(x, y)].harm(damage);
 	}
 	
 	public void shiftArray(int index) {

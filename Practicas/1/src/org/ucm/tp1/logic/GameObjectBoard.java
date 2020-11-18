@@ -11,8 +11,8 @@ public class GameObjectBoard {
 	}
 	
 	// VAMPIRES METHOD
-	public String getVampire(int x, int y) {
-		return vampireList.getVampire(x, y);
+	public String getVampireToString(int x, int y) {
+		return vampireList.getVampireToString(x, y);
 	}
 	
 	public boolean isVampire(int x, int y) {
@@ -44,7 +44,7 @@ public class GameObjectBoard {
 	}
 	
 	// SLAYER METHOD
-	public String getSlayer(int x, int y) {
+	public String getSlayerToString(int x, int y) {
 		return slayerList.getSlayerToString(x, y);
 	}
 	

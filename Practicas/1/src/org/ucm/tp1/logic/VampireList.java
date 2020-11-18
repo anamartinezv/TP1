@@ -12,7 +12,9 @@ public class VampireList {
 		vampires = new Vampire[MAX_VAMPIRES];
 	}
 	
-	public String getVampire(int x, int y) {
+	// TODO: REFACTOR X and Y ORDER
+	
+	public String getVampireToString(int x, int y) {
 		for (int i = 0; i < vampireCounter; i++) {
 			if (vampires[i].getX() == x && vampires[i].getY() == y)
 				return vampires[i].toString();
@@ -40,11 +42,11 @@ public class VampireList {
 			vampires[i].move();
 	}
 	
-	public int getVampireIndex(int x, int y) {
+	public Vampire getVampire(int x, int y) {
 		for (int i = 0; i < vampireCounter; i++)
 			if (vampires[i].getX() == y && vampires[i].getY() == x)
-				return i;
-		return -1;
+				return vampires[i];
+		return null;
 	}
 	
 	public void attack() {
@@ -53,7 +55,7 @@ public class VampireList {
 	}
 	
 	public void harmVampire(int x, int y, int damage) {
-		vampires[getVampireIndex(x, y)].harm(damage);
+		getVampire(x, y).harm(damage);
 	}
 	
 	public void deleteVampires() {

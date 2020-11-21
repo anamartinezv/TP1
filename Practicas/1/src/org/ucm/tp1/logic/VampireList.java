@@ -12,7 +12,9 @@ public class VampireList {
 		vampires = new Vampire[MAX_VAMPIRES];
 	}
 	
-	public String getVampire(int x, int y) {
+	// TODO: REFACTOR X and Y ORDER
+	
+	public String getVampireToString(int x, int y) {
 		for (int i = 0; i < vampireCounter; i++) {
 			if (vampires[i].getX() == x && vampires[i].getY() == y)
 				return vampires[i].toString();
@@ -35,24 +37,36 @@ public class VampireList {
 		vampireCounter++;
 	}
 	
-	public Vampire getVampireAtPosition(int x, int y) {
+	public void moveVampires() {
 		for (int i = 0; i < vampireCounter; i++)
-			if (vampires[i].getX() == x && vampires[i].getY() == y)
+			vampires[i].move();
+	}
+	
+	public Vampire getVampire(int x, int y) {
+		for (int i = 0; i < vampireCounter; i++)
+			if (vampires[i].getX() == y && vampires[i].getY() == x)
 				return vampires[i];
-		
 		return null;
 	}
 	
-	public int getVampireIndex(int x, int y) {
+	public void attack() {
 		for (int i = 0; i < vampireCounter; i++)
-			if (vampires[i].getX() == y && vampires[i].getY() == x)
-				return i;
-		return -1;
+			vampires[i].attack();
 	}
 	
-	public void deleteVampire(int x, int y) {
-		int index = getVampireIndex(x, y);
-		
+	public void harmVampire(int x, int y, int damage) {
+		getVampire(x, y).harm(damage);
+	}
+	
+	public void deleteVampires() {
+		for (int i = 0; i < vampireCounter; i++)
+			if (vampires[i].isDead()) {
+				shiftArray(i);
+				Vampire.decreaseVampiresOnBoard();
+			}
+	}
+	
+	public void shiftArray(int index) {
 		for (int i = index; i < vampireCounter; i++)
 			vampires[i] = vampires[i + 1];
 		

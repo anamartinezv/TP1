@@ -22,9 +22,6 @@ public class Controller {
 			+ "Usage: add <x:int> <y:int> ");
 	public static final String invalidAddCommandMsg = String.format("Unexpected input. "
 			+ "Usage: add <x:int> <y:int>");
-	private final String coordinatesOutOfRangeMsg = "Error! Coordinates out of board range.";
-	private final String invalidCoordinatesMsg = "Invalid position! Please, check x and y coordinates";
-	public final String notEnoughCoinsMsg = "Error! You dont have enough coins!";
 	
 
     private Game game;
@@ -52,23 +49,13 @@ public class Controller {
 				case "a":
 				case "add":
 					try {
-						int x, y;
-						x = Integer.parseInt(commandParts[2]);
-						y = Integer.parseInt(commandParts[1]);
+						int x = Integer.parseInt(commandParts[2]);
+						int y = Integer.parseInt(commandParts[1]);
 						
-						if (!game.haveEnoughCoins())
-							System.out.println(notEnoughCoinsMsg);
-						else if (!game.validCoordinates(x, y))
-							System.out.println(coordinatesOutOfRangeMsg);
-						else if (!game.canPlaceSlayer(x, y))
-							System.out.println(invalidCoordinatesMsg);
-						else {
-							game.addSlayer(x, y);
+						if (game.addSlayer(x, y)) {
 							game.newCycle();
-							if (!game.isFinished()) {
-								game.increaseCycles();
-								printGame();
-							}
+							game.increaseCycles();
+							if (!game.isFinished()) printGame();
 						}
 					} catch (NumberFormatException numberException){
 						System.out.println(invalidAddCommandMsg);
@@ -100,10 +87,8 @@ public class Controller {
 				case "n":
 				case "none":
 					game.newCycle();
-					if (!game.isFinished()) {
-						game.increaseCycles();
-						printGame();
-					}
+					game.increaseCycles();
+					if (!game.isFinished()) printGame();
 					break;
 					
 				default:
@@ -111,9 +96,6 @@ public class Controller {
 	 				break;
 			}	    	
     	} while(!game.isFinished());
-    	
-    	if (game.getPrintFinalBoard()) printGame();
     }
-
 }
 

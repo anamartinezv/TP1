@@ -2,16 +2,16 @@ package org.ucm.tp1.control.Commands;
 
 import org.ucm.tp1.logic.Game;
 
-public class HelpCommand extends Command {
+public class ResetCommand extends Command {
 	
-	public HelpCommand() {
-		super("help", "h", "[h]elp", "show this help");
+	public ResetCommand() {
+		super("reset", "r", "[r]eset", "reset game");
 	}
 
 	@Override
 	public boolean execute(Game game) {
-		System.out.println(CommandGenerator.commandHelp());
-		return true;
+		game.resetGame();
+		return false;
 	}
 
 	@Override

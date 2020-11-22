@@ -2,16 +2,16 @@ package org.ucm.tp1.control.Commands;
 
 import org.ucm.tp1.logic.Game;
 
-public class HelpCommand extends Command {
+public class ExitCommand extends Command {
 	
-	public HelpCommand() {
-		super("help", "h", "[h]elp", "show this help");
+	public ExitCommand() {
+		super("exit", "e", "[e]exit", "exit game");
 	}
 
 	@Override
 	public boolean execute(Game game) {
-		System.out.println(CommandGenerator.commandHelp());
-		return true;
+		game.endGame();
+		return false;
 	}
 
 	@Override

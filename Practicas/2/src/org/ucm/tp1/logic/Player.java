@@ -1,5 +1,6 @@
 package org.ucm.tp1.logic;
 
+import org.ucm.tp1.logic.GameObjects.Slayer;
 import java.util.Random;
 
 public class Player {
@@ -20,12 +21,12 @@ public class Player {
 	}
 	
 	public boolean hasEnoughCoins() {
-		if (coins >= Slayer.COST)
+		if (coins >= Slayer.getCost())
 			return true;
 		else {
 			System.out.println(notEnoughCoinsMsg);
 			return false;
-			}
+		}
 	}
 	
 	public void resetCoins() {
@@ -42,6 +43,6 @@ public class Player {
 	}
 	
 	public void buySlayer() {
-		coins -= Slayer.COST;
+		coins -= Slayer.getCost();
 	}
 }

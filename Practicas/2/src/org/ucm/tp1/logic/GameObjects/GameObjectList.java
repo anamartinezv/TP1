@@ -5,14 +5,29 @@ import org.ucm.tp1.logic.Game;
 
 public class GameObjectList {
 	private ArrayList<GameObject> gameObjects;
-	
-	private Game game;
-	
-	public GameObjectList(Game game) {
-		this.game = game;
+		
+	public GameObjectList() {
+		gameObjects = new ArrayList<GameObject>();
 	}
 	
-	public boolean addSlayer(int x, int y) {
+	private GameObject getObject(int x, int y) {
+		for (GameObject object : gameObjects)
+			if (object.getX() == x && object.getY() == y) return object;
 		
+		return null;
+	}
+	
+	public String objectToString(int x, int y) {
+		GameObject object = getObject(x, y);
+		
+		return (object != null) ? object.toString() : " ";
+	}
+	
+	public boolean objectInPosition(int x, int y) {
+		return (getObject(x, y) != null) ? true : false;
+	}
+
+	public void addObject(GameObject gameObject) {
+		gameObjects.add(gameObject);
 	}
 }

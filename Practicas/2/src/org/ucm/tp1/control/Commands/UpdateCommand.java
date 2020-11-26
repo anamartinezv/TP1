@@ -10,7 +10,7 @@ public class UpdateCommand extends Command {
 
 	@Override
 	public boolean execute(Game game) {
-		// TODO Auto-generated method stub
+		game.addVampire();
 		return true;
 	}
 

@@ -3,16 +3,29 @@ package org.ucm.tp1.logic.GameObjects;
 import org.ucm.tp1.logic.Game;
 
 public abstract class GameObject {
-	private int x;
-	private int y;
-	private int life;
-	private int RESISTANCE;
-	private int DAMAGE;
-	private int ADVANCE;
+	protected int x;
+	protected int y;
+	protected int life;
 	
-	private Game game;
+	protected Game game;
 	
-	public GameObject(Game game) {
+	public GameObject(Game game, int x, int y) {
 		this.game = game;
+		this.x = x;
+		this.y = y;
 	}
+	
+	public int getX() {
+		return x;
+	}
+	
+	public int getY() {
+		return y;
+	}
+	
+	@Override
+	public String toString() {
+		return "S [" + life + "]";
+	}
+	
 }

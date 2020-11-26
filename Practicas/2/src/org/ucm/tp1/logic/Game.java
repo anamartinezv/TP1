@@ -27,7 +27,7 @@ public class Game {
 		
 		// Instance classes
 		gamePrinter = new GamePrinter(this, level.getX(), level.getY());
-		gameObjectBoard = new GameObjectBoard();
+		gameObjectBoard = new GameObjectBoard(this);
 		random = new Random(seed);
 		player = new Player(random);
 	}
@@ -170,7 +170,7 @@ public class Game {
 		return false;
 	}
 	
-	public void newSlayer(int x, int y) {
+	/*public void newSlayer(int x, int y) {
 		gameObjectBoard.addSlayer(new Slayer(this, x, y));
 		player.buySlayer();	
 	}
@@ -182,8 +182,10 @@ public class Game {
 		}
 		
 		return false;
+	}*/
+	public void addSlayer(int x, int y) {
+		gameObjectBoard.addSlayer(x, y);
 	}
-	
 	
 	// GAME METHODS
 	public void updateGame() {

@@ -1,13 +1,18 @@
 package org.ucm.tp1.logic;
 
+import org.ucm.tp1.logic.GameObjects.GameObjectList;
+
 public class GameObjectBoard {
 		
 	private VampireList vampireList;
 	private SlayerList slayerList;
 	
-	public GameObjectBoard() {
+	private GameObjectList gameObjectList;
+	
+	public GameObjectBoard(Game game) {
 		vampireList = new VampireList();
 		slayerList = new SlayerList();
+		gameObjectList = new GameObjectList(game);
 	}
 	
 	// VAMPIRES METHOD
@@ -52,8 +57,8 @@ public class GameObjectBoard {
 		return slayerList.isSlayer(x, y);
 	}
 	
-	public void addSlayer(Slayer slayer) {
-		slayerList.newSlayer(slayer);
+	public void addSlayer(int x, int y) {
+		gameObjectList.addSlayer(x, y);
 	}
 	
 	public void deleteDeadSlayers() {

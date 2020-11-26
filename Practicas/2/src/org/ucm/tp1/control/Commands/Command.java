@@ -29,10 +29,21 @@ public abstract class Command {
 	  }
 	  
 	  protected Command parseNoParamsCommand(String[] words) {
-	
 			if (matchCommandName(words[0])) {
 				if (words.length != 1) {
 					System.err.println(incorrectArgsMsg);
+					return null;
+				}
+				return this;
+			}
+			
+			return null;
+	  }
+	  
+	  protected Command parseCommandWithParams(String[] words, int paramsNumber) {
+			if (matchCommandName(words[0])) {
+				if (words.length - 1 != paramsNumber) {
+					System.err.println(incorrectNumberOfArgsMsg);
 					return null;
 				}
 				return this;

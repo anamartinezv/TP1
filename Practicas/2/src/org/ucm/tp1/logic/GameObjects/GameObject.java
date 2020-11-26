@@ -5,6 +5,7 @@ import org.ucm.tp1.logic.Game;
 public abstract class GameObject {
 	private int x;
 	private int y;
+	private int life;
 	private int RESISTANCE;
 	private int DAMAGE;
 	private int ADVANCE;

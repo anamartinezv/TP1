@@ -59,6 +59,7 @@ public class Vampire extends GameObject {
 	@Override
 	public boolean receiveSlayerAttack(int damage) {
 		life -= damage;
+		if (life <= 0) vampiresOnBoard--;
 		return true;
 	}
 	

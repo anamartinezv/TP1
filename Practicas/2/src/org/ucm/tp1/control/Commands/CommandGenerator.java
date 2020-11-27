@@ -25,6 +25,8 @@ public class CommandGenerator {
 	public static String commandHelp() {
 		StringBuilder stringBuilder = new StringBuilder();
 		
+		stringBuilder.append("Available commands:\n");
+		
 		for (Command c : availableCommands)
 			stringBuilder.append(c.helpText());
 		

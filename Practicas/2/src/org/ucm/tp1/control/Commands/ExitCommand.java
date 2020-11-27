@@ -5,7 +5,7 @@ import org.ucm.tp1.logic.Game;
 public class ExitCommand extends Command {
 	
 	public ExitCommand() {
-		super("exit", "e", "[e]exit", "exit game");
+		super("exit", "e", "[e]xit", "exit game");
 	}
 
 	@Override

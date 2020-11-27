@@ -17,7 +17,12 @@ public class AddCommand extends Command {
 
 	@Override
 	public boolean execute(Game game) {
-		return (game.addSlayer(x, y)) ? true : false;
+		if (game.addSlayer(x, y)) {
+			game.update();
+			return true;
+		}
+		
+		return false;
 	}
 
 	@Override

@@ -31,7 +31,7 @@ public class Controller {
     		 if (refreshDisplay) printGame();
     		 refreshDisplay = false;
         		 
-			  System.out.print(prompt);	
+			  System.out.println(prompt);	
 			  String s = scanner.nextLine();
 			  String[] parameters = s.toLowerCase().trim().split(" ");
 			  System.out.println("[DEBUG] Executing: " + s);
@@ -40,11 +40,10 @@ public class Controller {
 		      if (command != null)
 		    	  refreshDisplay = command.execute(game);
 		      else
-		    	  System.out.println("[ERROR]: "+ unknownCommandMsg);
+		    	  System.out.println(unknownCommandMsg);
 		}
 	    
     	if (refreshDisplay) printGame();
-		System.out.println ("[Game over] TODO");
-		//System.out.println ("[Game over] " + game.getWinnerMessage());
+		System.out.println ("[Game over] " + game.getWinnerMessage());
     }
 }

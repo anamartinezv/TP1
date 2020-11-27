@@ -5,8 +5,9 @@ import org.ucm.tp1.logic.GameObjects.*;
 import java.util.Random;
 
 public class Game implements IPrintable {
-	private final String coordinatesOutOfRangeMsg = "Error! Coordinates out of board range.";
-	private final String invalidCoordinatesMsg = "Invalid position! Please, check x and y coordinates";
+	private final String invalidCoordinatesMsg = "Invalid position";
+	private final String playerWinsMsg = "Player wins";
+	private final String vampiresWinMsg = "Vampires win!";
 
 	private boolean finished;
 	private int cycleNumber;
@@ -20,6 +21,7 @@ public class Game implements IPrintable {
 	
 	public Game(Long seed, Level level) {
 		this.level = level;
+		this.winnerMessage = "Nobody wins...";
 		
 		finished = false;
 		cycleNumber = 0;
@@ -69,17 +71,16 @@ public class Game implements IPrintable {
 	
 	public boolean checkPlayerWin() {
 		if (Vampire.noMoreVampires()) {
-			winnerMessage = "Player wins!";
+			winnerMessage = playerWinsMsg;
 			return true;
 		}
 		
 		return false;
 	}
 	
-	/*
 	public boolean checkVampiresWin() {
 		if (gameObjectBoard.checkVampireWin()) {
-			winnerMessage = "Vampires win!";
+			winnerMessage = vampiresWinMsg;
 			return true;
 		}
 		
@@ -89,23 +90,23 @@ public class Game implements IPrintable {
 	public void checkEndGame() {
 		if (checkPlayerWin() || checkVampiresWin())
 			endGame();
-	}*/
+	}
 	
 
 	// OBJECTS METHODS
 	public boolean validX(int x) {
-		return (x >= 0 && x < level.getY()) ? true : false;
+		return (x >= 0 && x < level.getX() - 1) ? true : false;
 	}
 	
 	public boolean validY(int y) {
-		return (y >= 0 && y < level.getX()) ? true : false;
+		return (y >= 0 && y < level.getY()) ? true : false;
 	}
 	
 	public boolean validCoordinates(int x, int y) {
-		if (validX(x) && validY(y) && level.getX() - 1 > y)
+		if (validX(x) && validY(y))
 			return true;
 
-		System.out.println(coordinatesOutOfRangeMsg);
+		System.out.println(invalidCoordinatesMsg);
 		return false;
 	}
 	
@@ -118,7 +119,7 @@ public class Game implements IPrintable {
 	}
 	
 	public boolean canPlaceSlayer(int x, int y) {
-		if (player.hasEnoughCoins() && validCoordinates(x, y))
+		if (validCoordinates(x, y) && player.hasEnoughCoins())
 			if (objectInPosition(x, y))
 				System.out.println(invalidCoordinatesMsg);
 			else
@@ -175,7 +176,7 @@ public class Game implements IPrintable {
 		attack();
 		addVampire();
     	deleteDeadObjects();
-    	//checkEndGame();
+    	checkEndGame();
 		if (!isFinished()) cycleNumber++;
 	}
 	
@@ -195,7 +196,7 @@ public class Game implements IPrintable {
 		String nCycles = String.format("Number of cycles: %s", cycleNumber);
 		String coins = String.format("\nCoins: %s", player.getCoins());
 		String nVampires = String.format("\nRemaining vampires: %s", Vampire.getRemainingVampires());
-		String vampiresOnBoard = String.format("\nVampires on the board: %s", Vampire.getVampiresOnBoard());
+		String vampiresOnBoard = String.format("\nVampires on the board: %s\n", Vampire.getVampiresOnBoard());
 		
 		StringBuilder stringBuilder = new StringBuilder();
 		stringBuilder.append(nCycles).append(coins).append(nVampires).append(vampiresOnBoard);

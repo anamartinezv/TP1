@@ -23,7 +23,7 @@ public class Slayer extends GameObject {
 	public void attack() {
 		if (isAlive()) {
 			for (int i = x + 1; i < game.getLevel().getX(); i++) {
-				IAttack other = game.getAttackableInPosition(x - 1, y);
+				IAttack other = game.getAttackableInPosition(i, y);
 				if (other != null) {
 					other.receiveSlayerAttack(DAMAGE);
 					break;

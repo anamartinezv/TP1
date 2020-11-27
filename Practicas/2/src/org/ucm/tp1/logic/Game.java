@@ -119,7 +119,7 @@ public class Game implements IPrintable {
 	
 	public boolean addSlayer(int x, int y) {
 		if (canPlaceSlayer(x, y)) {
-			gameObjectBoard.addObject(new Slayer(this, y, x));
+			gameObjectBoard.addObject(new Slayer(this, x, y));
 			player.buySlayer();
 			return true;
 		}
@@ -138,9 +138,9 @@ public class Game implements IPrintable {
 	public void addVampire() {
 		if (canPlaceVampire()) {
 			int randomRow = random.nextInt(level.getY());
-			if (!objectInPosition(randomRow, level.getX() - 1)) {
-				gameObjectBoard.addObject(new Vampire(this, randomRow, 
-											level.getX() - 1, cycleNumber));
+			if (!objectInPosition(level.getX() - 1, randomRow)) {
+				gameObjectBoard.addObject(new Vampire(this, level.getX() - 1, 
+											randomRow, cycleNumber));
 				Vampire.addVampireToCounter();
 			}
 				

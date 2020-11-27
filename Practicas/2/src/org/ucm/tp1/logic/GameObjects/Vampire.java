@@ -51,7 +51,7 @@ public class Vampire extends GameObject {
 	@Override
 	public void attack() {
 		if (isAlive()) {
-			IAttack other = game.getAttackableInPosition(y, x - 1);
+			IAttack other = game.getAttackableInPosition(x - 1, y);
 			if (other != null) other.receiveVampireAttack(DAMAGE);
 		}	
 	}
@@ -65,8 +65,8 @@ public class Vampire extends GameObject {
 	@Override
 	public void move(int cycleNumber) {
 		if (validCycle(cycleNumber) && isAlive()) {
-			if (!game.objectInPosition(y, x - 1)) {
-				y--;
+			if (!game.objectInPosition(x - 1, y)) {
+				x--;
 				lastCycle = game.getCycles();
 			}
 		}		

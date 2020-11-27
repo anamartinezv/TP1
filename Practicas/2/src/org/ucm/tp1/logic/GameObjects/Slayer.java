@@ -3,6 +3,7 @@ package org.ucm.tp1.logic.GameObjects;
 import org.ucm.tp1.logic.Game;
 
 public class Slayer extends GameObject {
+	
 	public final int RESISTANCE = 3;
 	public final int DAMAGE = 1;
 	public final int ADVANCE = 1;
@@ -20,7 +21,16 @@ public class Slayer extends GameObject {
 	
 	@Override
 	public void attack() {
-		// TODO
+		if (isAlive()) {
+			for (int i = x + 1; i < game.getLevel().getX(); i++) {
+				IAttack other = game.getAttackableInPosition(x - 1, y);
+				if (other != null) {
+					other.receiveSlayerAttack(DAMAGE);
+					break;
+				}
+			}
+			
+		}
 	}
 	
 	@Override
@@ -37,5 +47,4 @@ public class Slayer extends GameObject {
 	public String toString() {
 		return "S [" + life + "]";
 	}
-	
 }

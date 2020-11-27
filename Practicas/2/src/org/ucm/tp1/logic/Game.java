@@ -10,6 +10,7 @@ public class Game implements IPrintable {
 
 	private boolean finished;
 	private int cycleNumber;
+	private String winnerMessage;
 	
 	private Level level;
 	private GameObjectBoard gameObjectBoard;
@@ -42,6 +43,10 @@ public class Game implements IPrintable {
 		return player.getCoins();
 	}
 	
+	public String getWinnerMessage() {
+		return winnerMessage;
+	}
+	
 	public Level getLevel() {
 		return level;
 	}
@@ -62,24 +67,28 @@ public class Game implements IPrintable {
 		if (!isFinished()) cycleNumber++;
 	}
 	
-	/*public boolean checkPlayerWin() {
+	public boolean checkPlayerWin() {
 		if (Vampire.noMoreVampires()) {
-			System.out.println("Player wins!");
+			winnerMessage = "Player wins!";
 			return true;
 		}
 		
 		return false;
 	}
 	
+	/*
 	public boolean checkVampiresWin() {
-		gameObjectBoard.checkVampireWin();
+		if (gameObjectBoard.checkVampireWin()) {
+			winnerMessage = "Vampires win!";
+			return true;
+		}
+		
+		return false;
 	}
 	
 	public void checkEndGame() {
-		if (checkPlayerWin() || checkVampiresWin()) {
-			System.out.println(toString());
+		if (checkPlayerWin() || checkVampiresWin())
 			endGame();
-		}
 	}*/
 	
 

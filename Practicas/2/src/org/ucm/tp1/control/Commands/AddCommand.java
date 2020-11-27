@@ -25,8 +25,8 @@ public class AddCommand extends Command {
 		if (this.matchCommandName(commandWords[0])) {
 			if (this.parseCommandWithParams(commandWords, PARAMS_NUMBER) != null) {
 				try {
-					x = Integer.parseInt(commandWords[2]);
-					y = Integer.parseInt(commandWords[1]);
+					x = Integer.parseInt(commandWords[1]);
+					y = Integer.parseInt(commandWords[2]);
 					return this;
 				} catch (NumberFormatException numberException){
 					System.err.println(invalidAddCommandMsg);

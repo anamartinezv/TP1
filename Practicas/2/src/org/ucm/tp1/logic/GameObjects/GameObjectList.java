@@ -26,8 +26,35 @@ public class GameObjectList {
 	public boolean objectInPosition(int x, int y) {
 		return (getObject(x, y) != null) ? true : false;
 	}
+	
+	public IAttack getAttackableInPosition(int x, int y) {
+		IAttack a = getObject(x, y);
+		
+		return (a != null) ? a : null;
+	}
 
 	public void addObject(GameObject gameObject) {
 		gameObjects.add(gameObject);
+	}
+	
+	public void moveObject(int cycleNumber) {
+		for (GameObject object : gameObjects)
+			object.move(cycleNumber);
+	}
+	
+	public void attackObjects() {
+		for (GameObject object : gameObjects)
+			object.attack();
+	}
+	
+	public void deleteDeadObjects() {
+		// Looped backwards to prevent ConcurrentModificationException
+		// due to inconsistent Iterator.
+		for (int i = gameObjects.size() - 1; i >= 0; i--)
+			if (!gameObjects.get(i).isAlive()) gameObjects.remove(i);
+	}
+	
+	public void resetList() {
+		gameObjects = new ArrayList<GameObject>();
 	}
 }

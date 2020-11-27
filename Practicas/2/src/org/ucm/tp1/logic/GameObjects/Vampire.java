@@ -2,17 +2,21 @@ package org.ucm.tp1.logic.GameObjects;
 
 import org.ucm.tp1.logic.Game;
 
-public class Vampire extends GameObject implements IAttack {
+public class Vampire extends GameObject {
+	public final int RESISTANCE = 5;
+	public final int DAMAGE = 1;
+	public final int ADVANCE = 2;
 	
 	private static int remainingVampires;
 	private static int vampiresOnBoard = 0;
 	
-	private int cycleNumber;
+	private int lastCycle;
 	
 	public Vampire(Game game, int x, int y, int cycleNumber) {
 		super(game, x, y);
 		
-		this.cycleNumber = cycleNumber;
+		this.life = RESISTANCE;
+		this.lastCycle = cycleNumber;
 	}
 	
 	public static int getRemainingVampires() {
@@ -34,10 +38,42 @@ public class Vampire extends GameObject implements IAttack {
  	public static boolean noMoreVampires() {
  		return remainingVampires == 0 && vampiresOnBoard == 0 ? true : false;
  	}
+ 	
+ 	public static void addVampireToCounter() {
+		remainingVampires--;
+		vampiresOnBoard++;
+ 	}
 
+ 	public boolean validCycle(int cycleNumber) {
+ 		return cycleNumber - ADVANCE >= lastCycle ? true : false;
+ 	}
+ 	
 	@Override
 	public void attack() {
-		// TODO Auto-generated method stub
-		
+		if (isAlive()) {
+			IAttack other = game.getAttackableInPosition(y, x - 1);
+			if (other != null) other.receiveVampireAttack(DAMAGE);
+		}	
 	}
+	
+	@Override
+	public boolean receiveSlayerAttack(int damage) {
+		life -= damage;
+		return true;
+	}
+	
+	@Override
+	public void move(int cycleNumber) {
+		if (validCycle(cycleNumber) && isAlive()) {
+			if (!game.objectInPosition(y, x - 1)) {
+				y--;
+				lastCycle = game.getCycles();
+			}
+		}		
+				
+	}
+	
+	public String toString() {
+		return "V [" + life + "]";
+	}	
 }

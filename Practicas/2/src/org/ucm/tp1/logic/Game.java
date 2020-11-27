@@ -1,15 +1,15 @@
 package org.ucm.tp1.logic;
 
-import org.ucm.tp1.view.GamePrinter;
+import org.ucm.tp1.view.*;
 import org.ucm.tp1.logic.GameObjects.*;
 import java.util.Random;
 
-public class Game {
+public class Game implements IPrintable {
 	private final String coordinatesOutOfRangeMsg = "Error! Coordinates out of board range.";
 	private final String invalidCoordinatesMsg = "Invalid position! Please, check x and y coordinates";
 
 	private boolean finished;
-	private int cyclesNumber;
+	private int cycleNumber;
 	
 	private Level level;
 	private GamePrinter gamePrinter;
@@ -21,21 +21,21 @@ public class Game {
 		this.level = level;
 		
 		finished = false;
-		cyclesNumber = 0;
+		cycleNumber = 0;
 		
 		// Set vampires
 		Vampire.setRemainingVampires(level.getVampires());
-		
+
 		// Instance classes
-		gamePrinter = new GamePrinter(this, level.getX(), level.getY());
 		gameObjectBoard = new GameObjectBoard();
+		//gamePrinter = new GamePrinter(e, 3, 3);
 		random = new Random(seed);
 		player = new Player(random);
 	}
 	
 	// Getters
 	public int getCycles() {
-		return cyclesNumber;
+		return cycleNumber;
 	}
 	
 	public int getPlayerCoins() {
@@ -59,18 +59,10 @@ public class Game {
 	}
 	
 	public void increaseCycles() {
-		if (!isFinished()) cyclesNumber++;
+		if (!isFinished()) cycleNumber++;
 	}
 	
-	/*public String getPositionToString(int x, int y) {
-		if (gameObjectBoard.isVampire(y, x))
-			return gameObjectBoard.getVampireToString(y, x);
-		else if (gameObjectBoard.isSlayer(x, y))
-			return gameObjectBoard.getSlayerToString(x, y);
-		return " ";
-	}
-	
-	public boolean checkPlayerWin() {
+	/*public boolean checkPlayerWin() {
 		if (Vampire.noMoreVampires()) {
 			System.out.println("Player wins!");
 			return true;
@@ -80,13 +72,7 @@ public class Game {
 	}
 	
 	public boolean checkVampiresWin() {
-		for (int i = 0; i < level.getY(); i++)
-			if (isVampire(-1, i)) {
-				System.out.println("Vampires win!");
-				return true;
-			}
-		
-		return false;
+		gameObjectBoard.checkVampireWin();
 	}
 	
 	public void checkEndGame() {
@@ -114,12 +100,12 @@ public class Game {
 		return false;
 	}
 	
-	public String objectToString(int x, int y) {
-		return gameObjectBoard.objectToString(x, y);
-	}
-	
 	public boolean objectInPosition(int x, int y) {
 		return gameObjectBoard.objectInPosition(x, y);
+	}
+	
+	public IAttack getAttackableInPosition(int x, int y) {
+		return gameObjectBoard.getAttackableInPosition(x, y);
 	}
 	
 	public boolean canPlaceSlayer(int x, int y) {
@@ -133,7 +119,8 @@ public class Game {
 	
 	public boolean addSlayer(int x, int y) {
 		if (canPlaceSlayer(x, y)) {
-			gameObjectBoard.addObject(new Slayer(this, x, y));
+			gameObjectBoard.addObject(new Slayer(this, y, x));
+			player.buySlayer();
 			return true;
 		}
 			
@@ -151,68 +138,59 @@ public class Game {
 	public void addVampire() {
 		if (canPlaceVampire()) {
 			int randomRow = random.nextInt(level.getY());
-			if (!objectInPosition(level.getX() - 1, randomRow))
-				gameObjectBoard.addObject(new Vampire(this, level.getX() - 1, 
-											randomRow, cyclesNumber));
+			if (!objectInPosition(randomRow, level.getX() - 1)) {
+				gameObjectBoard.addObject(new Vampire(this, randomRow, 
+											level.getX() - 1, cycleNumber));
+				Vampire.addVampireToCounter();
+			}
+				
 		}
 	}
 	
-	// GAME METHODS
-	public void updateGame() {
-		player.updateCoinsRandom(); // Get 10 coins with 50% probability
-		//moveVampires();
+	public void moveObjects() {
+		gameObjectBoard.moveObjects(cycleNumber);
 	}
 	
 	public void attack() {
-		//slayersAttack();
-		//vampiresAttack();
-	}
-	
-	/*public boolean objectInPosition(int x, int y) {
-		if (gameObjectBoard.isVampire(x, y) || 
-			gameObjectBoard.isSlayer(x, y))
-			return true;
-		
-		return false;
+		gameObjectBoard.attackObjects();
 	}
 	
 	public void deleteDeadObjects() {
-		gameObjectBoard.deleteDeadVampires();
-		gameObjectBoard.deleteDeadSlayers();
-	}*/
+		gameObjectBoard.deleteDeadObjects();
+	}
+	
+	// GAME METHODS
+	public void update() {
+		player.updateCoinsRandom(); // Get 10 coins with 50% probability
+		moveObjects();
+		attack();
+		addVampire();
+    	deleteDeadObjects();
+    	//checkEndGame();
+		if (!isFinished()) cycleNumber++;
+	}
 	
 	public void resetGame() {
-		//Vampire.setRemainingVampires(level.getVampires());
-		//Vampire.setVampiresOnBoard(0);
-		//gameObjectBoard.resetVampires();
-		//gameObjectBoard.resetSlayers();
+		Vampire.setRemainingVampires(level.getVampires());
+		Vampire.setVampiresOnBoard(0);
+		gameObjectBoard.resetList();
 		player.resetCoins();
-		cyclesNumber = 0;
+		cycleNumber = 0;
 	}
 	
-	public void newCycle() {
-    	updateGame();
-    	attack();
-    	addVampire();
-    	//deleteDeadObjects();
-    	//checkEndGame();
+	public String getPositionToString(int x, int y) {
+		return gameObjectBoard.objectToString(x, y);
 	}
 	
-	public String gameStats() {		
-		String nCycles = String.format("\nNumber of cycles: %s", cyclesNumber);
+	public String getInfo() {		
+		String nCycles = String.format("Number of cycles: %s", cycleNumber);
 		String coins = String.format("\nCoins: %s", player.getCoins());
-		//String nVampires = String.format("\nRemaining vampires: %s", Vampire.getRemainingVampires());
-		//String vampiresOnBoard = String.format("\nVampires on the board: %s", Vampire.getVampiresOnBoard());
+		String nVampires = String.format("\nRemaining vampires: %s", Vampire.getRemainingVampires());
+		String vampiresOnBoard = String.format("\nVampires on the board: %s", Vampire.getVampiresOnBoard());
 		
 		StringBuilder stringBuilder = new StringBuilder();
-		//stringBuilder.append(nCycles).append(coins).append(nVampires).append(vampiresOnBoard);
-		stringBuilder.append(nCycles).append(coins);
+		stringBuilder.append(nCycles).append(coins).append(nVampires).append(vampiresOnBoard);
 		
 		return stringBuilder.toString();
-	}
-	
-	public String toString() {
-		System.out.println(gameStats());
-		return gamePrinter.toString();
 	}
  }

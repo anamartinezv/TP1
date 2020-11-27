@@ -10,7 +10,7 @@ public class UpdateCommand extends Command {
 
 	@Override
 	public boolean execute(Game game) {
-		game.addVampire();
+		game.update();
 		return true;
 	}
 

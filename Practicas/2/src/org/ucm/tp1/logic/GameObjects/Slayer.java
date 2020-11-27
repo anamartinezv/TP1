@@ -2,7 +2,7 @@ package org.ucm.tp1.logic.GameObjects;
 
 import org.ucm.tp1.logic.Game;
 
-public class Slayer extends GameObject implements IAttack {
+public class Slayer extends GameObject {
 	public final int RESISTANCE = 3;
 	public final int DAMAGE = 1;
 	public final int ADVANCE = 1;
@@ -20,7 +20,22 @@ public class Slayer extends GameObject implements IAttack {
 	
 	@Override
 	public void attack() {
-		// TODO Auto-generated method stub
-		
+		// TODO
 	}
+	
+	@Override
+	public boolean receiveVampireAttack(int damage) {
+		life -= damage;
+		return true;
+	}
+	
+	@Override
+	public void move(int cycleNumber) {
+		// EMPTY
+	}
+	
+	public String toString() {
+		return "S [" + life + "]";
+	}
+	
 }

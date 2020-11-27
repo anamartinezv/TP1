@@ -2,6 +2,7 @@ package org.ucm.tp1.logic;
 
 import org.ucm.tp1.logic.GameObjects.GameObject;
 import org.ucm.tp1.logic.GameObjects.GameObjectList;
+import org.ucm.tp1.logic.GameObjects.IAttack;
 
 public class GameObjectBoard {
 			
@@ -20,8 +21,28 @@ public class GameObjectBoard {
 		return gameObjectList.objectToString(x, y);
 	}
 	
+	public IAttack getAttackableInPosition(int x, int y) {
+		return gameObjectList.getAttackableInPosition(x, y);
+	}
+	
 	public void addObject(GameObject gameObject) {
 		gameObjectList.addObject(gameObject);
+	}
+	
+	public void moveObjects(int cycleNumber) {
+		gameObjectList.moveObject(cycleNumber);
+	}
+	
+	public void attackObjects() {
+		gameObjectList.attackObjects();
+	}
+	
+	public void deleteDeadObjects() {
+		gameObjectList.deleteDeadObjects();
+	}
+	
+	public void resetList() {
+		gameObjectList.resetList();
 	}
 	
 	

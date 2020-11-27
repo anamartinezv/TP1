@@ -2,7 +2,7 @@ package org.ucm.tp1.logic.GameObjects;
 
 import org.ucm.tp1.logic.Game;
 
-public abstract class GameObject {
+public abstract class GameObject implements IAttack, IMove {
 	protected int x;
 	protected int y;
 	protected int life;
@@ -23,9 +23,7 @@ public abstract class GameObject {
 		return y;
 	}
 	
-	@Override
-	public String toString() {
-		return "S [" + life + "]";
-	}
-	
+ 	public boolean isAlive() {
+ 		return (life > 0) ? true : false;
+ 	}
 }

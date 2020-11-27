@@ -12,10 +12,10 @@ public class Game implements IPrintable {
 	private int cycleNumber;
 	
 	private Level level;
-	private GamePrinter gamePrinter;
 	private GameObjectBoard gameObjectBoard;
 	private Player player;
 	private Random random;
+	private GamePrinter gamePrinter;
 	
 	public Game(Long seed, Level level) {
 		this.level = level;
@@ -28,7 +28,7 @@ public class Game implements IPrintable {
 
 		// Instance classes
 		gameObjectBoard = new GameObjectBoard();
-		//gamePrinter = new GamePrinter(e, 3, 3);
+		gamePrinter = new GamePrinter(this, level.getX(), level.getY());
 		random = new Random(seed);
 		player = new Player(random);
 	}
@@ -192,5 +192,9 @@ public class Game implements IPrintable {
 		stringBuilder.append(nCycles).append(coins).append(nVampires).append(vampiresOnBoard);
 		
 		return stringBuilder.toString();
+	}
+	
+	public String toString() {
+		return gamePrinter.toString();
 	}
  }

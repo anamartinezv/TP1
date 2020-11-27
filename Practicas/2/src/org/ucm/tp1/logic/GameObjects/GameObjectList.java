@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import org.ucm.tp1.logic.Game;
 
 public class GameObjectList {
+	
 	private ArrayList<GameObject> gameObjects;
 		
 	public GameObjectList() {

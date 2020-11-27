@@ -36,7 +36,7 @@ public class Vampire extends GameObject {
 	}
 	
  	public static boolean noMoreVampires() {
- 		return remainingVampires == 0 && vampiresOnBoard == 0 ? true : false;
+ 		return (remainingVampires == 0 && vampiresOnBoard == 0) ? true : false;
  	}
  	
  	public static void addVampireToCounter() {

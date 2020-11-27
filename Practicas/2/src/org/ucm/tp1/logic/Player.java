@@ -9,7 +9,6 @@ public class Player {
 	public final int COINS_PER_ROUND = 10;
 	public final String notEnoughCoinsMsg = "Not enough coins";
 
-	
 	private int coins;
 	
 	private Random random;

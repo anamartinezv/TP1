@@ -15,14 +15,14 @@ public class Game implements IPrintable {
 	
 	private Level level;
 	private GameObjectBoard gameObjectBoard;
+	private GamePrinter gamePrinter;
 	private Player player;
 	private Random random;
-	private GamePrinter gamePrinter;
 	
 	public Game(Long seed, Level level) {
 		this.level = level;
-		this.winnerMessage = "Nobody wins...";
 		
+		winnerMessage = "Nobody wins...";
 		finished = false;
 		cycleNumber = 0;
 		

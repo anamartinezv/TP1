@@ -27,8 +27,8 @@ public class CommandGenerator {
 		
 		stringBuilder.append("Available commands:\n");
 		
-		for (Command c : availableCommands)
-			stringBuilder.append(c.helpText());
+		for (Command command : availableCommands)
+			stringBuilder.append(command.helpText());
 		
 		return stringBuilder.toString();
 	}

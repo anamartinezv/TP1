@@ -12,7 +12,6 @@ public class GameObjectBoard {
 		gameObjectList = new GameObjectList();
 	}
 	
-	// GAME OBJECTS
 	public boolean objectInPosition(int x, int y) {
 		return gameObjectList.objectInPosition(x, y);
 	}
@@ -48,6 +47,4 @@ public class GameObjectBoard {
 	public void resetList() {
 		gameObjectList.resetList();
 	}
-	
-	
 }

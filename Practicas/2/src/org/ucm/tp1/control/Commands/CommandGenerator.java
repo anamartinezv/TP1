@@ -1,6 +1,7 @@
 package org.ucm.tp1.control.Commands;
 
 public class CommandGenerator {
+	
 	public CommandGenerator() {
 		
 	}

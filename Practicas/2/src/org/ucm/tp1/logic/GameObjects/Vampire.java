@@ -3,12 +3,14 @@ package org.ucm.tp1.logic.GameObjects;
 import org.ucm.tp1.logic.Game;
 
 public class Vampire extends GameObject {
+	
 	public final int RESISTANCE = 5;
 	public final int DAMAGE = 1;
 	public final int ADVANCE = 2;
 	
 	private static int remainingVampires;
 	private static int vampiresOnBoard = 0;
+	public static boolean vampiresWin = false;
 	
 	private int lastCycle;
 	
@@ -25,6 +27,10 @@ public class Vampire extends GameObject {
 	
 	public static int getVampiresOnBoard() {
 		return vampiresOnBoard;
+	}
+	
+	public static boolean getVampiresWin() {
+		return vampiresWin;
 	}
 	
 	public static void setRemainingVampires(int amount) {
@@ -69,6 +75,7 @@ public class Vampire extends GameObject {
 			if (!game.objectInPosition(x - 1, y)) {
 				x--;
 				lastCycle = game.getCycles();
+				if (x <= -1) vampiresWin = true;
 			}
 		}		
 				

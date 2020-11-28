@@ -3,6 +3,7 @@ package org.ucm.tp1.logic.GameObjects;
 import org.ucm.tp1.logic.Game;
 
 public abstract class GameObject implements IAttack, IMove {
+	
 	protected int x;
 	protected int y;
 	protected int life;

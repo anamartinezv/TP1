@@ -20,10 +20,6 @@ public class GameObjectBoard {
 		return gameObjectList.objectToString(x, y);
 	}
 	
-	public boolean checkVampireWin() {
-		return gameObjectList.checkVampireWin();
-	}
-	
 	public IAttack getAttackableInPosition(int x, int y) {
 		return gameObjectList.getAttackableInPosition(x, y);
 	}

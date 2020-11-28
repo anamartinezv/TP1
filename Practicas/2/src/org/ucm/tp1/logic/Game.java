@@ -5,6 +5,7 @@ import org.ucm.tp1.logic.GameObjects.*;
 import java.util.Random;
 
 public class Game implements IPrintable {
+	
 	private final String invalidCoordinatesMsg = "Invalid position";
 	private final String playerWinsMsg = "Player wins";
 	private final String vampiresWinMsg = "Vampires win!";
@@ -79,7 +80,7 @@ public class Game implements IPrintable {
 	}
 	
 	public boolean checkVampiresWin() {
-		if (gameObjectBoard.checkVampireWin()) {
+		if (Vampire.getVampiresWin()) {
 			winnerMessage = vampiresWinMsg;
 			return true;
 		}

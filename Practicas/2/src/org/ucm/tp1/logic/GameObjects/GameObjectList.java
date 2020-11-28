@@ -28,20 +28,10 @@ public class GameObjectList {
 		return (getObject(x, y) != null) ? true : false;
 	}
 	
-	public boolean checkVampireWin() {
-		// If the object is at -1, surely it's a Vampire
-		// Slayers cannot move neither be placed on -1
-		for (GameObject object : gameObjects)
-			if (object.getX() == -1)
-				return true;
-				
-		return false;
-	}
-	
 	public IAttack getAttackableInPosition(int x, int y) {
-		IAttack a = getObject(x, y);
+		IAttack attackable = getObject(x, y);
 		
-		return (a != null) ? a : null;
+		return (attackable != null) ? attackable : null;
 	}
 
 	public void addObject(GameObject gameObject) {

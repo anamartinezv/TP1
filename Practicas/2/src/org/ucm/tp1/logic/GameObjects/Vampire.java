@@ -10,15 +10,15 @@ public class Vampire extends GameObject {
 	
 	private static int remainingVampires;
 	private static int vampiresOnBoard = 0;
-	public static boolean vampiresWin = false;
+	private static boolean vampiresWin = false;
 	
-	private int lastCycle;
+	private int cycleCounter;
 	
-	public Vampire(Game game, int x, int y, int cycleNumber) {
+	public Vampire(Game game, int x, int y) {
 		super(game, x, y);
 		
 		this.life = RESISTANCE;
-		this.lastCycle = cycleNumber;
+		resetCycleCounter();
 	}
 	
 	public static int getRemainingVampires() {
@@ -50,8 +50,8 @@ public class Vampire extends GameObject {
 		vampiresOnBoard++;
  	}
 
- 	public boolean validCycle(int cycleNumber) {
- 		return cycleNumber - ADVANCE >= lastCycle ? true : false;
+ 	public void resetCycleCounter() {
+ 		cycleCounter = 1;
  	}
  	
 	@Override
@@ -70,15 +70,23 @@ public class Vampire extends GameObject {
 	}
 	
 	@Override
+	public boolean receiveGarlicPush() {
+		x++;
+		cycleCounter = 0;
+		//resetCycleCounter();
+		if (x >= game.getLevel().getX()) life = 0;
+		return true;
+	}
+	
+	@Override
 	public void move(int cycleNumber) {
-		if (validCycle(cycleNumber) && isAlive()) {
+		if (cycleCounter == ADVANCE && isAlive()) {
 			if (!game.objectInPosition(x - 1, y)) {
 				x--;
-				lastCycle = game.getCycles();
+				resetCycleCounter();
 				if (x <= -1) vampiresWin = true;
 			}
-		}		
-				
+		} else cycleCounter++;				
 	}
 	
 	public String toString() {

@@ -6,9 +6,12 @@ import java.util.Random;
 
 public class Game implements IPrintable {
 	
+	public final int SUPER_COINS = 1000;
+	
 	private final String invalidCoordinatesMsg = "Invalid position";
 	private final String playerWinsMsg = "Player wins";
 	private final String vampiresWinMsg = "Vampires win!";
+	private final String draculaAliveMsg = "Dracula is alive\n";
 
 	private boolean finished;
 	private int cycleNumber;
@@ -120,7 +123,7 @@ public class Game implements IPrintable {
 	}
 	
 	public boolean canPlaceSlayer(int x, int y) {
-		if (validCoordinates(x, y) && player.hasEnoughCoins())
+		if (validCoordinates(x, y) && player.hasEnoughCoins(Slayer.getSlayerCost()))
 			if (objectInPosition(x, y))
 				System.out.println(invalidCoordinatesMsg);
 			else
@@ -131,7 +134,7 @@ public class Game implements IPrintable {
 	public boolean addSlayer(int x, int y) {
 		if (canPlaceSlayer(x, y)) {
 			gameObjectBoard.addObject(new Slayer(this, x, y));
-			player.buySlayer();
+			player.buy(Slayer.getSlayerCost());
 			return true;
 		}
 			
@@ -150,12 +153,39 @@ public class Game implements IPrintable {
 		if (canPlaceVampire()) {
 			int randomRow = random.nextInt(level.getY());
 			if (!objectInPosition(level.getX() - 1, randomRow)) {
-				gameObjectBoard.addObject(new Vampire(this, level.getX() - 1, 
-											randomRow, cycleNumber));
+				gameObjectBoard.addObject(new Vampire(this, level.getX() - 1, randomRow));
 				Vampire.addVampireToCounter();
 			}
 				
 		}
+	}
+	
+	public void addDracula() {
+		if (canPlaceVampire() && !Dracula.getIsPresent()) {
+			int randomRow = random.nextInt(level.getY());
+			if (!objectInPosition(level.getX() - 1, randomRow)) {
+				gameObjectBoard.addObject(new Dracula(this, level.getX() - 1, randomRow));
+				Vampire.addVampireToCounter();
+				Dracula.setIsPresent(true);
+			}
+		}
+ 	}
+	
+	public void addExplosiveVampire() {
+		if (canPlaceVampire()) {
+			int randomRow = random.nextInt(level.getY());
+			if (!objectInPosition(level.getX() - 1, randomRow)) {
+				gameObjectBoard.addObject(new ExplosiveVampire(this, 
+											level.getX() - 1, randomRow));
+				Vampire.addVampireToCounter();
+			}
+		}
+ 	}
+	
+	public void addAllVampires() {
+		addVampire();
+		addDracula();
+		addExplosiveVampire();
 	}
 	
 	public void moveObjects() {
@@ -166,8 +196,32 @@ public class Game implements IPrintable {
 		gameObjectBoard.attackObjects();
 	}
 	
+	public void vampireExplodes() {
+		gameObjectBoard.vampireExplodes();
+	}
+	
 	public void deleteDeadObjects() {
 		gameObjectBoard.deleteDeadObjects();
+	}
+	
+	public boolean garlicPush() {
+		if (player.hasEnoughCoins(Slayer.getGarlicPushCoins())) {
+			gameObjectBoard.garlicPush();
+			player.buy(Slayer.getGarlicPushCoins());
+			return true;
+		}
+		
+		return false;
+	}
+	
+	public boolean lightFlash() {
+		if (player.hasEnoughCoins(Slayer.getLightFlashCost())) {
+			gameObjectBoard.lightFlash();
+			player.buy(Slayer.getLightFlashCost());
+			return true;
+		}
+		
+		return false;
 	}
 	
 	// GAME METHODS
@@ -175,7 +229,7 @@ public class Game implements IPrintable {
 		player.updateCoinsRandom(); // Get 10 coins with 50% probability
 		moveObjects();
 		attack();
-		addVampire();
+		addAllVampires();
     	deleteDeadObjects();
     	checkEndGame();
 		if (!isFinished()) cycleNumber++;
@@ -187,6 +241,10 @@ public class Game implements IPrintable {
 		gameObjectBoard.resetList();
 		player.resetCoins();
 		cycleNumber = 0;
+	}
+	
+	public void addSuperCoins() {
+		player.setCoins(SUPER_COINS);
 	}
 	
 	public String getPositionToString(int x, int y) {
@@ -201,6 +259,11 @@ public class Game implements IPrintable {
 		
 		StringBuilder stringBuilder = new StringBuilder();
 		stringBuilder.append(nCycles).append(coins).append(nVampires).append(vampiresOnBoard);
+		
+		if (Dracula.getIsPresent()) {
+			String draculaAlive = String.format(draculaAliveMsg);
+			stringBuilder.append(draculaAlive);
+		}
 		
 		return stringBuilder.toString();
 	}

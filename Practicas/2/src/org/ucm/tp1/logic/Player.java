@@ -19,8 +19,8 @@ public class Player {
 		this.random = random;
 	}
 	
-	public boolean hasEnoughCoins() {
-		if (coins >= Slayer.getCost())
+	public boolean hasEnoughCoins(int amount) {
+		if (coins >= amount)
 			return true;
 		else {
 			System.out.println(notEnoughCoinsMsg);
@@ -36,12 +36,16 @@ public class Player {
 		return coins;
 	}
 	
+	public void setCoins(int amount) {
+		coins += amount;
+	}
+	
+	public void buy(int amount) {
+		coins -= amount;
+	}
+	
 	public void updateCoinsRandom() {
 		if (random.nextFloat() > 0.5)
 			coins += COINS_PER_ROUND;
-	}
-	
-	public void buySlayer() {
-		coins -= Slayer.getCost();
 	}
 }

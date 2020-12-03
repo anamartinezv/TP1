@@ -36,6 +36,18 @@ public class GameObjectBoard {
 		gameObjectList.attackObjects();
 	}
 	
+	public void vampireExplodes() {
+		gameObjectList.vampireExplodes();
+	}
+	
+	public void garlicPush() {
+		gameObjectList.garlicPush();
+	}
+	
+	public void lightFlash() {
+		gameObjectList.lightFlash();
+	}
+	
 	public void deleteDeadObjects() {
 		gameObjectList.deleteDeadObjects();
 	}

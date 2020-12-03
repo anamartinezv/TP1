@@ -11,7 +11,11 @@ public class CommandGenerator {
 			new HelpCommand(),
 			new ResetCommand(),
 			new ExitCommand(),
-			new UpdateCommand()
+			new UpdateCommand(),
+			new GarlicPushCommand(),
+			new LightFlashCommand(),
+			new SuperCoinsCommand(),
+			new AddVampireCommand()
 	};
 	
 	public static Command parseCommand(String[ ] commandWords) {

@@ -1,9 +1,6 @@
-Que pasa cuando el comando add contiene argumentos no validos como una letra?
-Se devuelve el comando pero se muestra un error? O se devuelve null porque aunque 
-el comando existe no es correcto?
-
-De que tipo son las variables de GameObject? Protected?
-
-Que pasa si la fila que elige el random para un vampiro esta ocupada?
-
-Comprobar gana vampiros con interfaz o con -1
+Donde meto el coste del light flash? Actualmente en Slayer
+Está bien implementado la manera de restar coins al player?
+Donde llamo a receiveGarlicPush, en GameObject???
+El winnerMessage es un String en Game?
+Donde llamar a vampireExplodes? Si lo hago cuando recive un ataque y se muere como aun no se ha eliminado se intenta matar a el mismo y entra en bucle.
+En el test easyS5-1 se me adelanta un ciclo cuando aparece el tercer vampiro

@@ -8,15 +8,25 @@ public class Slayer extends GameObject {
 	public final int DAMAGE = 1;
 	public final int ADVANCE = 1;
 	
-	private static int COST = 50;
+	private static int LIGHT_FLASH = 50;
+	private static int SLAYER_COST = 50;
+	private static int GARLIC_PUSH_COST = 10;
 	
 	public Slayer(Game game, int x, int y) {
 		super(game, x, y);
 		this.life = RESISTANCE;
 	}
 
-	public static int getCost() {
-		return COST;
+	public static int getSlayerCost() {
+		return SLAYER_COST;
+	}
+	
+	public static int getGarlicPushCoins() {
+		return GARLIC_PUSH_COST;
+	}
+	
+	public static int getLightFlashCost() {
+		return LIGHT_FLASH;
 	}
 	
 	@Override
@@ -36,6 +46,12 @@ public class Slayer extends GameObject {
 	@Override
 	public boolean receiveVampireAttack(int damage) {
 		life -= damage;
+		return true;
+	}
+	
+	@Override
+	public boolean receiveDraculaAttack() {
+		life = 0;
 		return true;
 	}
 	

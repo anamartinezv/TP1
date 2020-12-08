@@ -40,7 +40,7 @@ public class Controller {
 		      if (command != null)
 		    	  refreshDisplay = command.execute(game);
 		      else
-		    	  System.out.println(unknownCommandMsg);
+		    	  System.out.println("[ERROR]:" + unknownCommandMsg);
 		}
 	    
     	if (refreshDisplay) printGame();

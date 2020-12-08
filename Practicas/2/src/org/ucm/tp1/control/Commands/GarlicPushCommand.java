@@ -3,7 +3,7 @@ package org.ucm.tp1.control.Commands;
 import org.ucm.tp1.logic.Game;
 
 public class GarlicPushCommand extends Command {
-
+	
 	public GarlicPushCommand() {
 		super("garlic", "g", "[g]arlic", "pushes back vampires");
 	}
@@ -22,6 +22,5 @@ public class GarlicPushCommand extends Command {
 	public Command parse(String[] commandWords) {
 		return (matchCommandName(commandWords[0])) ? this : null;
 	}
-	
-	
+
 }

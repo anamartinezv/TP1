@@ -2,22 +2,23 @@ package org.ucm.tp1.control.Commands;
 
 import org.ucm.tp1.logic.Game;
 
-public class AddCommand extends Command {
+public class BloodBankCommand extends Command {
 	
-	public final int PARAMS_NUMBER = 2;
+	public final int PARAMS_NUMBER = 3;
 	public final String invalidAddCommandMsg = String.format("Unexpected input. "
-			+ "Usage: add <x:int> <y:int>");
+			+ "Usage: bank <x:int> <y:int> <z:int>");
 	
 	private int x;
 	private int y;
-	
-	public AddCommand() {
-		super("add", "a", "[a]dd <x> <y>", "add a slayer in position x, y");
+	private int z;
+
+	public BloodBankCommand() {
+		super("bank", "b", "[b]ank <x> <y> <z>", "add a blood bank with cost z in position x, y.");
 	}
 
 	@Override
 	public boolean execute(Game game) {
-		if (game.addSlayer(x, y)) {
+		if (game.addBloodBank(x, y, z)) {
 			game.update();
 			return true;
 		}
@@ -32,8 +33,9 @@ public class AddCommand extends Command {
 				try {
 					x = Integer.parseInt(commandWords[1]);
 					y = Integer.parseInt(commandWords[2]);
+					z = Integer.parseInt(commandWords[3]);
 					return this;
-				} catch (NumberFormatException numberException){
+				} catch (NumberFormatException numberException) {
 					System.err.println(invalidAddCommandMsg);
 				}
 			}			
@@ -41,4 +43,5 @@ public class AddCommand extends Command {
 		
 		return null;
 	}
+
 }

@@ -17,3 +17,5 @@ diff ../test_cases/hard_s1_0_output.txt ../test_cases/hard_s1_0_output_TEST.txt
 java org/ucm/tp1/BuffyVampireSlayer insane 5 < ../test_cases/insane_s5_0.txt > ../test_cases/insane_s5_0_output_TEST.txt
 diff ../test_cases/insane_s5_0_output.txt ../test_cases/insane_s5_0_output_TEST.txt
 
+java org/ucm/tp1/BuffyVampireSlayer insane 5 < ../test_cases/insane_s5_1.txt > ../test_cases/insane_s5_1_output_TEST.txt
+diff ../test_cases/insane_s5_1_output.txt ../test_cases/insane_s5_1_output_TEST.txt

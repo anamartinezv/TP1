@@ -27,6 +27,11 @@ public class Dracula extends Vampire {
 	}
 	
 	@Override
+	public boolean receiveLightFlash() {
+		return false;
+	}
+	
+	@Override
 	public String toString() {
 		return "D [" + life + "]";
 	}

@@ -71,10 +71,24 @@ public class Vampire extends GameObject {
 	
 	@Override
 	public boolean receiveGarlicPush() {
-		x++;
-		cycleCounter = 0;
-		//resetCycleCounter();
-		if (x >= game.getLevel().getX()) life = 0;
+		if (!game.objectInPosition(x + 1, y)) {			
+			x++;
+			cycleCounter--;
+			//resetCycleCounter();
+			if (x >= game.getLevel().getX()) {
+				life = 0;
+				vampiresOnBoard--;
+			}
+			return true;
+		}
+
+		return false;
+	}
+	
+	@Override
+	public boolean receiveLightFlash() {
+		life = 0;
+		vampiresOnBoard--;
 		return true;
 	}
 	

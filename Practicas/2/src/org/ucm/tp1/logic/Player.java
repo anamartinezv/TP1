@@ -7,7 +7,7 @@ public class Player {
 	
 	public final int COINS_AT_START = 50;
 	public final int COINS_PER_ROUND = 10;
-	public final String notEnoughCoinsMsg = "Not enough coins";
+	public final String notEnoughCoinsMsg = "[ERROR]: Not enough coins";
 
 	private int coins;
 	
@@ -36,7 +36,7 @@ public class Player {
 		return coins;
 	}
 	
-	public void setCoins(int amount) {
+	public void addCoins(int amount) {
 		coins += amount;
 	}
 	

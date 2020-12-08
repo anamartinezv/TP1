@@ -59,7 +59,8 @@ public class GameObjectList {
 	}
 	
 	public void lightFlash() {
-		// TODO
+		for (GameObject object : gameObjects)
+			object.receiveLightFlash(); 
 	}
 	
 	public void deleteDeadObjects() {

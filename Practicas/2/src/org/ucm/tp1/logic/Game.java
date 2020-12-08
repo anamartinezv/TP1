@@ -8,7 +8,7 @@ public class Game implements IPrintable {
 	
 	public final int SUPER_COINS = 1000;
 	
-	private final String invalidCoordinatesMsg = "Invalid position";
+	private final String invalidCoordinatesMsg = "[ERROR]: Invalid position";
 	private final String playerWinsMsg = "Player wins";
 	private final String vampiresWinMsg = "Vampires win!";
 	private final String draculaAliveMsg = "Dracula is alive\n";
@@ -122,8 +122,8 @@ public class Game implements IPrintable {
 		return gameObjectBoard.getAttackableInPosition(x, y);
 	}
 	
-	public boolean canPlaceSlayer(int x, int y) {
-		if (validCoordinates(x, y) && player.hasEnoughCoins(Slayer.getSlayerCost()))
+	public boolean canPlaceDefense(int x, int y, int cost) {
+		if (player.hasEnoughCoins(cost) && validCoordinates(x, y))
 			if (objectInPosition(x, y))
 				System.out.println(invalidCoordinatesMsg);
 			else
@@ -132,12 +132,22 @@ public class Game implements IPrintable {
 	}
 	
 	public boolean addSlayer(int x, int y) {
-		if (canPlaceSlayer(x, y)) {
+		if (canPlaceDefense(x, y, Slayer.getSlayerCost())) {
 			gameObjectBoard.addObject(new Slayer(this, x, y));
 			player.buy(Slayer.getSlayerCost());
 			return true;
 		}
 			
+		return false;
+	}
+	
+	public boolean addBloodBank(int x, int y, int z) {
+		if (canPlaceDefense(x, y, z)) {
+			gameObjectBoard.addObject(new BloodBank(this, x, y, z));
+			player.buy(z);
+			return true;
+		}
+		
 		return false;
 	}
 	
@@ -244,7 +254,11 @@ public class Game implements IPrintable {
 	}
 	
 	public void addSuperCoins() {
-		player.setCoins(SUPER_COINS);
+		player.addCoins(SUPER_COINS);
+	}
+	
+	public void addCoins(int amount) {
+		player.addCoins(amount);
 	}
 	
 	public String getPositionToString(int x, int y) {

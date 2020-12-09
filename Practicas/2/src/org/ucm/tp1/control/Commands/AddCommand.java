@@ -34,7 +34,7 @@ public class AddCommand extends Command {
 					y = Integer.parseInt(commandWords[2]);
 					return this;
 				} catch (NumberFormatException numberException){
-					System.err.println(invalidAddCommandMsg);
+					return null;
 				}
 			}			
 		}

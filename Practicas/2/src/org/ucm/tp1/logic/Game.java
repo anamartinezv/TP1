@@ -8,10 +8,12 @@ public class Game implements IPrintable {
 	
 	public final int SUPER_COINS = 1000;
 	
-	private final String invalidCoordinatesMsg = "[ERROR]: Invalid position";
-	private final String playerWinsMsg = "Player wins";
-	private final String vampiresWinMsg = "Vampires win!";
-	private final String draculaAliveMsg = "Dracula is alive\n";
+	public final String invalidCoordinatesMsg = String.format("[ERROR]: Invalid position");
+	public final String playerWinsMsg = String.format("Player wins");
+	public final String vampiresWinMsg = String.format("Vampires win!");
+	public final String draculaAliveMsg = String.format("Dracula is alive\n");
+	public final String draculaPresentErrorMsg = String.format("[ERROR]: Dracula is already alive");
+	public final String noMoreRemainingVampiresMsg = String.format("[ERROR]: No more remaining vampires left");
 
 	private boolean finished;
 	private int cycleNumber;
@@ -99,6 +101,10 @@ public class Game implements IPrintable {
 
 	// OBJECTS METHODS
 	public boolean validX(int x) {
+		return (x >= 0 && x < level.getX() - 1) ? true : false;
+	}
+	
+	public boolean validXVampire(int x) {
 		return (x >= 0 && x < level.getX() - 1) ? true : false;
 	}
 	
@@ -196,6 +202,52 @@ public class Game implements IPrintable {
 		addVampire();
 		addDracula();
 		addExplosiveVampire();
+	}
+	
+	public boolean canPlaceVampireDebug(int x, int y) {
+		if (objectInPosition(x, y) || !validXVampire(x) || !validY(y)) {
+			System.out.println(invalidCoordinatesMsg);
+			return false;
+		} else if (Vampire.getRemainingVampires() <= 0) {
+			System.out.println(noMoreRemainingVampiresMsg);
+			return false;
+		}
+		
+		return true;
+	}
+	
+	public boolean addVampireDebug(int x, int y) {
+		if (canPlaceVampireDebug(x, y)) {
+			gameObjectBoard.addObject(new Vampire(this, x, y));
+			Vampire.addVampireToCounter();
+			return true;
+		}
+		
+		return false;
+	}
+	
+	public boolean addExplosiveVampireDebug(int x, int y) {
+		if (canPlaceVampireDebug(x, y)) {
+			gameObjectBoard.addObject(new ExplosiveVampire(this, x, y));
+			Vampire.addVampireToCounter();
+			return true;
+		}
+		
+		return false;
+	}
+	
+	public boolean addDraculaDebug(int x, int y) {
+		if (!Dracula.getIsPresent()) {
+			if (canPlaceVampireDebug(x, y)) {
+				gameObjectBoard.addObject(new Dracula(this, x, y));
+				Vampire.addVampireToCounter();
+				Dracula.setIsPresent(true);
+				return true;
+			}
+		} else
+			System.out.println(draculaPresentErrorMsg);
+		
+		return false;
 	}
 	
 	public void moveObjects() {

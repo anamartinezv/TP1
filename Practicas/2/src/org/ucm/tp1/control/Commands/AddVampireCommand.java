@@ -1,11 +1,13 @@
 package org.ucm.tp1.control.Commands;
 
 import org.ucm.tp1.logic.Game;
+import org.ucm.tp1.logic.GameObjects.Dracula;
 
 public class AddVampireCommand extends Command {
 	
 	public final String invalidCommandMsg = String.format("Unexpected input. "
 			+ "Usage: add <x:int> <y:int>");
+	public final String invalidTypeMsg = String.format("[ERROR]: invalid type");
 	
 	private int x;
 	private int y;
@@ -18,12 +20,29 @@ public class AddVampireCommand extends Command {
 
 	@Override
 	public boolean execute(Game game) {
-		return false;
+		boolean executed = false;
+		
+		switch(type) {
+		case "":
+			if (game.addVampireDebug(x, y)) executed = true;
+			break;
+		case "d":
+			if (game.addDraculaDebug(x, y)) executed = true;
+			break;
+		case "e":
+			if (game.addExplosiveVampireDebug(x, y)) executed = true;
+			break;
+		default:
+			System.out.println(invalidTypeMsg);
+			break;
+		}
+		
+		return executed;
 	}
 	
 	@Override
 	public Command parse(String[] commandWords) {
-		/*if (this.matchCommandName(commandWords[0])) {
+		if (this.matchCommandName(commandWords[0])) {
 			if (commandWords.length == 3) {
 				try {
 					type = "";
@@ -31,7 +50,7 @@ public class AddVampireCommand extends Command {
 					y = Integer.parseInt(commandWords[2]);
 					return this;
 				} catch (NumberFormatException numberException){
-					System.err.println(invalidCommandMsg);
+					return null;
 				}
 			} else if (commandWords.length == 4) {
 				try {
@@ -40,12 +59,12 @@ public class AddVampireCommand extends Command {
 					y = Integer.parseInt(commandWords[3]);
 					return this;
 				} catch (NumberFormatException numberException){
-					System.err.println(invalidCommandMsg);
+					return null;
 				}
 			}
-		}*/
+		}
 		
-		return this;
+		return null;
 	}
 	
 	

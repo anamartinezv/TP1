@@ -4,6 +4,8 @@ import org.ucm.tp1.logic.Game;
 
 public class BloodBank extends GameObject {
 	
+	public static final String SYMBOL = "B";
+	
 	public final int COINS_PERCENTAGE = 10;
 	public final int RESISTANCE = 1;
 	public final int DAMAGE = 1;
@@ -11,7 +13,7 @@ public class BloodBank extends GameObject {
 	private int z;
 	
 	public BloodBank(Game game, int x, int y, int z) {
-		super(game, x, y);
+		super(game, x, y, SYMBOL);
 		
 		this.z = z;
 		this.life = RESISTANCE;
@@ -45,7 +47,4 @@ public class BloodBank extends GameObject {
 		return true;
 	}
 	
-	public String toString() {
-		return "B [" + z + "]";
-	}	
 }

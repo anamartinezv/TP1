@@ -4,8 +4,13 @@ import org.ucm.tp1.logic.Game;
 
 public class GarlicPushCommand extends Command {
 	
+	public static final String name = "garlic";
+	public static final String shortcut = "g";
+	public static final String details = "[g]arlic ";
+	public static final String help = "pushes back vampires";
+	
 	public GarlicPushCommand() {
-		super("garlic", "g", "[g]arlic ", "pushes back vampires");
+		super(name, shortcut, details, help);
 	}
 
 	@Override

@@ -5,17 +5,18 @@ import org.ucm.tp1.logic.GameObjects.Dracula;
 
 public class AddVampireCommand extends Command {
 	
-	public final String invalidCommandMsg = String.format("Unexpected input. "
-			+ "Usage: add <x:int> <y:int>");
-	public final String invalidTypeMsg = String.format("[ERROR]: invalid type");
+	public static final String name = "vampire";
+	public static final String shortcut = "v";
+	public static final String details = "[v]ampire [<type>] <x> <y>. Type = {\"\"|\"D\"|\"E\"}";
+	public static final String help = "add a vampire in position x, y";
+	public static final String invalidTypeMsg = String.format("[ERROR]: invalid type");
 	
 	private int x;
 	private int y;
 	private String type;
 	
 	public AddVampireCommand() {
-		super("vampire", "v", "[v]ampire [<type>] <x> <y>. Type = {\"\"|\"D\"|\"E\"}", 
-				"add a vampire in position x, y");
+		super(name, shortcut, details, help);
 	}
 
 	@Override

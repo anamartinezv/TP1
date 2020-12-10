@@ -7,13 +7,15 @@ public abstract class GameObject implements IAttack, IMove {
 	protected int x;
 	protected int y;
 	protected int life;
+	protected String symbol;
 	
 	protected Game game;
 	
-	public GameObject(Game game, int x, int y) {
+	public GameObject(Game game, int x, int y, String symbol) {
 		this.game = game;
 		this.x = x;
 		this.y = y;
+		this.symbol = symbol;
 	}
 	
 	public int getX() {
@@ -27,4 +29,8 @@ public abstract class GameObject implements IAttack, IMove {
  	public boolean isAlive() {
  		return (life > 0) ? true : false;
  	}
+ 	
+	public String toString() {
+		return symbol + " [" + life + "]";
+	}
 }

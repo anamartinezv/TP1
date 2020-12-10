@@ -4,16 +4,19 @@ import org.ucm.tp1.logic.Game;
 
 public class BloodBankCommand extends Command {
 	
+	public static final String name = "bank";
+	public static final String shortcut = "b";
+	public static final String details = "[b]ank <x> <y> <z>";
+	public static final String help = "add a blood bank with cost z in position x, y.";
+	
 	public final int PARAMS_NUMBER = 3;
-	public final String invalidAddCommandMsg = String.format("Unexpected input. "
-			+ "Usage: bank <x:int> <y:int> <z:int>");
 	
 	private int x;
 	private int y;
 	private int z;
 
 	public BloodBankCommand() {
-		super("bank", "b", "[b]ank <x> <y> <z>", "add a blood bank with cost z in position x, y.");
+		super(name, shortcut, details, help);
 	}
 
 	@Override
@@ -36,7 +39,7 @@ public class BloodBankCommand extends Command {
 					z = Integer.parseInt(commandWords[3]);
 					return this;
 				} catch (NumberFormatException numberException) {
-					System.err.println(invalidAddCommandMsg);
+					return null;
 				}
 			}			
 		}

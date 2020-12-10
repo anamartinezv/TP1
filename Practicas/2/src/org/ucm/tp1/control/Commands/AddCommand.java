@@ -4,15 +4,18 @@ import org.ucm.tp1.logic.Game;
 
 public class AddCommand extends Command {
 	
+	public static final String name = "add";
+	public static final String shortcut = "a";
+	public static final String details = "[a]dd <x> <y>";
+	public static final String help = "add a slayer in position x, y";
+	
 	public final int PARAMS_NUMBER = 2;
-	public final String invalidAddCommandMsg = String.format("Unexpected input. "
-			+ "Usage: add <x:int> <y:int>");
 	
 	private int x;
 	private int y;
 	
 	public AddCommand() {
-		super("add", "a", "[a]dd <x> <y>", "add a slayer in position x, y");
+		super(name, shortcut, details, help);
 	}
 
 	@Override

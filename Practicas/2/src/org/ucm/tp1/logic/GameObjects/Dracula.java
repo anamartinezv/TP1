@@ -4,10 +4,14 @@ import org.ucm.tp1.logic.Game;
 
 public class Dracula extends Vampire {
 	
+	public static final String SYMBOL = "D";
+	
 	private static boolean isPresent = false;
 
 	public Dracula(Game game, int x, int y) {
 		super(game, x, y);
+		
+		//setSymbol(SYMBOL);
 	}
 	
 	public static boolean getIsPresent() {

@@ -4,8 +4,13 @@ import org.ucm.tp1.logic.Game;
 
 public class HelpCommand extends Command {
 	
+	public static final String name = "help";
+	public static final String shortcut = "h";
+	public static final String details = "[h]elp";
+	public static final String help = "show this help";
+	
 	public HelpCommand() {
-		super("help", "h", "[h]elp", "show this help");
+		super(name, shortcut, details, help);
 	}
 
 	@Override

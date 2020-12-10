@@ -8,11 +8,11 @@ public class Game implements IPrintable {
 	
 	public final int SUPER_COINS = 1000;
 	
-	public final String invalidCoordinatesMsg = String.format("[ERROR]: Invalid position");
-	public final String playerWinsMsg = String.format("Player wins");
-	public final String vampiresWinMsg = String.format("Vampires win!");
-	public final String draculaAliveMsg = String.format("Dracula is alive");
-	public final String noMoreRemainingVampiresMsg = String.format("[ERROR]: No more remaining vampires left");
+	public static final String invalidCoordinatesMsg = String.format("[ERROR]: Invalid position");
+	public static final String playerWinsMsg = String.format("Player wins");
+	public static final String vampiresWinMsg = String.format("Vampires win!");
+	public static final String draculaAliveMsg = String.format("Dracula is alive");
+	public static final String noMoreRemainingVampiresMsg = String.format("[ERROR]: No more remaining vampires left");
 
 	private boolean finished;
 	private int cycleNumber;
@@ -32,7 +32,7 @@ public class Game implements IPrintable {
 		cycleNumber = 0;
 		
 		// Set vampires
-		Vampire.setRemainingVampires(level.getVampires());
+		Vampire.initVampires(level.getVampires());
 
 		// Instance classes
 		gameObjectBoard = new GameObjectBoard();
@@ -41,7 +41,7 @@ public class Game implements IPrintable {
 		player = new Player(random);
 	}
 	
-	// Getters
+	// Getters and setters
 	public int getCycles() {
 		return cycleNumber;
 	}
@@ -99,12 +99,8 @@ public class Game implements IPrintable {
 	
 
 	// OBJECTS METHODS
-	public boolean validX(int x) {
-		return (x >= 0 && x < level.getX() - 1) ? true : false;
-	}
-	
-	public boolean validXVampire(int x) {
-		return (x >= 0 && x < level.getX() - 1) ? true : false;
+	public boolean validX(int x, int xLimit) {
+		return (x >= 0 && x < xLimit) ? true : false;
 	}
 	
 	public boolean validY(int y) {
@@ -112,7 +108,7 @@ public class Game implements IPrintable {
 	}
 	
 	public boolean validCoordinates(int x, int y) {
-		if (validX(x) && validY(y) && !objectInPosition(x, y))
+		if (validX(x, level.getX() - 1) && validY(y) && !objectInPosition(x, y))
 			return true;
 
 		System.out.println(invalidCoordinatesMsg);
@@ -199,7 +195,7 @@ public class Game implements IPrintable {
 	}
 	
 	public boolean canPlaceVampireDebug(int x, int y) {
-		if (objectInPosition(x, y) || !validXVampire(x) || !validY(y)) {
+		if (objectInPosition(x, y) || !validX(x, level.getX()) || !validY(y)) {
 			System.out.println(invalidCoordinatesMsg);
 			return false;
 		} else if (Vampire.getRemainingVampires() <= 0) {
@@ -292,9 +288,7 @@ public class Game implements IPrintable {
 	}
 	
 	public void resetGame() {
-		Vampire.setRemainingVampires(level.getVampires());
-		Vampire.setVampiresOnBoard(0);
-		Dracula.setIsPresent(false);
+		Vampire.initVampires(level.getVampires());
 		gameObjectBoard.resetList();
 		player.resetCoins();
 		cycleNumber = 0;

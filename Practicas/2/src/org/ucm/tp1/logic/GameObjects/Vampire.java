@@ -4,6 +4,8 @@ import org.ucm.tp1.logic.Game;
 
 public class Vampire extends GameObject {
 	
+	public static final String SYMBOL = "V";
+	
 	public final int RESISTANCE = 5;
 	public final int DAMAGE = 1;
 	public final int ADVANCE = 2;
@@ -15,7 +17,7 @@ public class Vampire extends GameObject {
 	private int cycleCounter;
 	
 	public Vampire(Game game, int x, int y) {
-		super(game, x, y);
+		super(game, x, y, SYMBOL);
 		
 		this.life = RESISTANCE;
 		resetCycleCounter();
@@ -48,6 +50,12 @@ public class Vampire extends GameObject {
  	public static void addVampireToCounter() {
 		remainingVampires--;
 		vampiresOnBoard++;
+ 	}
+ 	
+ 	public static void initVampires(int maxVampires) {
+		remainingVampires = maxVampires;
+		vampiresOnBoard = 0;
+		Dracula.setIsPresent(false);
  	}
 
  	public void resetCycleCounter() {
@@ -105,7 +113,4 @@ public class Vampire extends GameObject {
 		} else cycleCounter++;				
 	}
 	
-	public String toString() {
-		return "V [" + life + "]";
-	}	
 }

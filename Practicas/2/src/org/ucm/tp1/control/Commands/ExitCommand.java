@@ -4,8 +4,13 @@ import org.ucm.tp1.logic.Game;
 
 public class ExitCommand extends Command {
 	
+	public static final String name = "exit";
+	public static final String shortcut = "e";
+	public static final String details = "[e]xit";
+	public static final String help = "exit game";
+	
 	public ExitCommand() {
-		super("exit", "e", "[e]xit", "exit game");
+		super(name, shortcut, details, help);
 	}
 
 	@Override

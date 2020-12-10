@@ -4,10 +4,14 @@ import org.ucm.tp1.logic.Game;
 
 public class ExplosiveVampire extends Vampire {
 	
+	public static final String SYMBOL = "EV";
+	
 	private static int EXPLOSION_DAMAGE = 1;
 
 	public ExplosiveVampire(Game game, int x, int y) {
 		super(game, x, y);
+		
+		//setSymbol(SYMBOL);
 	}
 	
 	public static int getExplosionDamage() {

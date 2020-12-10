@@ -4,6 +4,8 @@ import org.ucm.tp1.logic.Game;
 
 public class Slayer extends GameObject {
 	
+	public static final String SYMBOL = "S";
+	
 	public final int RESISTANCE = 3;
 	public final int DAMAGE = 1;
 	public final int ADVANCE = 1;
@@ -13,7 +15,7 @@ public class Slayer extends GameObject {
 	private static int GARLIC_PUSH_COST = 10;
 	
 	public Slayer(Game game, int x, int y) {
-		super(game, x, y);
+		super(game, x, y, SYMBOL);
 		this.life = RESISTANCE;
 	}
 
@@ -60,7 +62,4 @@ public class Slayer extends GameObject {
 		// EMPTY
 	}
 	
-	public String toString() {
-		return "S [" + life + "]";
-	}
 }

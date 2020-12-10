@@ -3,9 +3,14 @@ package org.ucm.tp1.control.Commands;
 import org.ucm.tp1.logic.Game;
 
 public class SuperCoinsCommand extends Command {
+	
+	public static final String name = "coins";
+	public static final String shortcut = "c";
+	public static final String details = "[c]oins";
+	public static final String help = "add 1000 coins";
 
 	public SuperCoinsCommand() {
-		super("coins", "c", "[c]oins", "add 1000 coins");
+		super(name, shortcut, details, help);
 	}
 
 	@Override

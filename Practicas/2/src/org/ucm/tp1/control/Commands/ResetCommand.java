@@ -4,8 +4,13 @@ import org.ucm.tp1.logic.Game;
 
 public class ResetCommand extends Command {
 	
+	public static final String name = "reset";
+	public static final String shortcut = "r";
+	public static final String details = "[r]eset";
+	public static final String help = "reset game";
+	
 	public ResetCommand() {
-		super("reset", "r", "[r]eset", "reset game");
+		super(name, shortcut, details, help);
 	}
 
 	@Override

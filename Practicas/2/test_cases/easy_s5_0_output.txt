@@ -94,7 +94,7 @@ Command >
 [ERROR]: Unknown command
 Command > 
 [DEBUG] Executing: a 7 0
-[ERROR]: Not enough coins
+[ERROR]: Invalid position
 Command > 
 [DEBUG] Executing: Add 6 0
 [ERROR]: Not enough coins

@@ -11,8 +11,7 @@ public class Game implements IPrintable {
 	public final String invalidCoordinatesMsg = String.format("[ERROR]: Invalid position");
 	public final String playerWinsMsg = String.format("Player wins");
 	public final String vampiresWinMsg = String.format("Vampires win!");
-	public final String draculaAliveMsg = String.format("Dracula is alive\n");
-	public final String draculaPresentErrorMsg = String.format("[ERROR]: Dracula is already alive");
+	public final String draculaAliveMsg = String.format("Dracula is alive");
 	public final String noMoreRemainingVampiresMsg = String.format("[ERROR]: No more remaining vampires left");
 
 	private boolean finished;
@@ -113,7 +112,7 @@ public class Game implements IPrintable {
 	}
 	
 	public boolean validCoordinates(int x, int y) {
-		if (validX(x) && validY(y))
+		if (validX(x) && validY(y) && !objectInPosition(x, y))
 			return true;
 
 		System.out.println(invalidCoordinatesMsg);
@@ -129,12 +128,7 @@ public class Game implements IPrintable {
 	}
 	
 	public boolean canPlaceDefense(int x, int y, int cost) {
-		if (player.hasEnoughCoins(cost) && validCoordinates(x, y))
-			if (objectInPosition(x, y))
-				System.out.println(invalidCoordinatesMsg);
-			else
-				return true;
-		return false;
+		return (validCoordinates(x, y) && player.hasEnoughCoins(cost)) ? true : false;
 	}
 	
 	public boolean addSlayer(int x, int y) {
@@ -177,7 +171,7 @@ public class Game implements IPrintable {
 	}
 	
 	public void addDracula() {
-		if (canPlaceVampire() && !Dracula.getIsPresent()) {
+		if (!Dracula.getIsPresent() && canPlaceVampire()) {
 			int randomRow = random.nextInt(level.getY());
 			if (!objectInPosition(level.getX() - 1, randomRow)) {
 				gameObjectBoard.addObject(new Dracula(this, level.getX() - 1, randomRow));
@@ -245,7 +239,7 @@ public class Game implements IPrintable {
 				return true;
 			}
 		} else
-			System.out.println(draculaPresentErrorMsg);
+			System.out.println("[ERROR]: " + draculaAliveMsg);
 		
 		return false;
 	}
@@ -300,6 +294,7 @@ public class Game implements IPrintable {
 	public void resetGame() {
 		Vampire.setRemainingVampires(level.getVampires());
 		Vampire.setVampiresOnBoard(0);
+		Dracula.setIsPresent(false);
 		gameObjectBoard.resetList();
 		player.resetCoins();
 		cycleNumber = 0;
@@ -327,7 +322,7 @@ public class Game implements IPrintable {
 		stringBuilder.append(nCycles).append(coins).append(nVampires).append(vampiresOnBoard);
 		
 		if (Dracula.getIsPresent()) {
-			String draculaAlive = String.format(draculaAliveMsg);
+			String draculaAlive = String.format(draculaAliveMsg + '\n');
 			stringBuilder.append(draculaAlive);
 		}
 		

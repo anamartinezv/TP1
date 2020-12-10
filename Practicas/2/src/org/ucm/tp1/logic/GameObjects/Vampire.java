@@ -64,25 +64,27 @@ public class Vampire extends GameObject {
 	
 	@Override
 	public boolean receiveSlayerAttack(int damage) {
-		life -= damage;
-		if (life <= 0) vampiresOnBoard--;
-		return true;
+		if (isAlive()) {
+			life -= damage;
+			if (life <= 0) vampiresOnBoard--;
+			return true;
+		}		
+		
+		return false;
 	}
 	
 	@Override
 	public boolean receiveGarlicPush() {
-		if (!game.objectInPosition(x + 1, y)) {			
+		if (!game.objectInPosition(x + 1, y)) 
 			x++;
-			cycleCounter--;
-			//resetCycleCounter();
-			if (x >= game.getLevel().getX()) {
-				life = 0;
-				vampiresOnBoard--;
-			}
-			return true;
+		
+		if (x >= game.getLevel().getX()) {
+			life = 0;
+			vampiresOnBoard--;
 		}
-
-		return false;
+		
+		cycleCounter = 1;
+		return true;
 	}
 	
 	@Override

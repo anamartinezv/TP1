@@ -21,7 +21,7 @@ public class GameObjectList {
 	public String objectToString(int x, int y) {
 		GameObject object = getObject(x, y);
 		
-		return (object != null) ? object.toString() : " ";
+		return (object != null) ? object.toString() : "";
 	}
 	
 	public boolean objectInPosition(int x, int y) {

@@ -27,6 +27,20 @@ public class Dracula extends Vampire {
 	}
 	
 	@Override
+	public boolean receiveSlayerAttack(int damage) {
+		if (isAlive()) {
+			life -= damage;
+			if (life <= 0) {
+				isPresent = false;
+				Vampire.setVampiresOnBoard(Vampire.getVampiresOnBoard() - 1);
+			}
+			return true;
+		}		
+		
+		return false;
+	}
+	
+	@Override
 	public boolean receiveLightFlash() {
 		return false;
 	}

@@ -31,7 +31,7 @@ public abstract class Command {
 	  protected Command parseNoParamsCommand(String[] words) {
 			if (matchCommandName(words[0])) {
 				if (words.length != 1) {
-					System.err.println(incorrectArgsMsg);
+					//System.out.println(incorrectArgsMsg);
 					return null;
 				}
 				return this;

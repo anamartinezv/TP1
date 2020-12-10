@@ -6,6 +6,7 @@ public class BloodBank extends GameObject {
 	
 	public final int COINS_PERCENTAGE = 10;
 	public final int RESISTANCE = 1;
+	public final int DAMAGE = 1;
 
 	private int z;
 	
@@ -18,8 +19,11 @@ public class BloodBank extends GameObject {
 
 	@Override
 	public void attack() {
-		// TODO Auto-generated method stub
-		
+		/*if (isAlive()) {		
+			IAttack other = game.getAttackableInPosition(x + 1, y);
+			if (other != null)
+				other.receiveSlayerAttack(DAMAGE);
+		}*/
 	}
 
 	@Override
@@ -27,6 +31,12 @@ public class BloodBank extends GameObject {
 	// its movement method gives the player 10% of z in coins each round
 	public void move(int cycleNumber) {
 		game.addCoins((z * COINS_PERCENTAGE) / 100);
+	}
+	
+	@Override
+	public boolean receiveVampireAttack(int amount) {
+		life = 0;
+		return true;
 	}
 	
 	@Override

@@ -5,7 +5,7 @@ import org.ucm.tp1.logic.Game;
 public class GarlicPushCommand extends Command {
 	
 	public GarlicPushCommand() {
-		super("garlic", "g", "[g]arlic", "pushes back vampires");
+		super("garlic", "g", "[g]arlic ", "pushes back vampires");
 	}
 
 	@Override

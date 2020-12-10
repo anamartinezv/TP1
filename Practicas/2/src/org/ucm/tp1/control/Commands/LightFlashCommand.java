@@ -20,6 +20,7 @@ public class LightFlashCommand extends Command {
 
 	@Override
 	public Command parse(String[] commandWords) {
-		return (matchCommandName(commandWords[0])) ? this : null;
+		return (matchCommandName(commandWords[0]) 
+				&& parseNoParamsCommand(commandWords) != null) ? this : null;
 	}
 }

@@ -74,6 +74,8 @@ public class Game implements IPrintable {
 		if (!isFinished()) cycleNumber++;
 	}
 	
+	
+	// HELPERS
 	public boolean checkPlayerWin() {
 		if (Vampire.noMoreVampires()) {
 			winnerMessage = playerWinsMsg;
@@ -97,8 +99,6 @@ public class Game implements IPrintable {
 			endGame();
 	}
 	
-
-	// OBJECTS METHODS
 	public boolean validX(int x, int xLimit) {
 		return (x >= 0 && x < xLimit) ? true : false;
 	}
@@ -115,18 +115,31 @@ public class Game implements IPrintable {
 		return false;
 	}
 	
-	public boolean objectInPosition(int x, int y) {
-		return gameObjectBoard.objectInPosition(x, y);
-	}
-	
-	public IAttack getAttackableInPosition(int x, int y) {
-		return gameObjectBoard.getAttackableInPosition(x, y);
-	}
-	
 	public boolean canPlaceDefense(int x, int y, int cost) {
 		return (validCoordinates(x, y) && player.hasEnoughCoins(cost)) ? true : false;
 	}
 	
+	public boolean canPlaceVampire() {
+		if (random.nextDouble() < level.getFrecuency())
+			if (Vampire.getRemainingVampires() > 0)
+				return true;
+		
+		return false;
+	}
+	
+	public boolean canPlaceVampireDebug(int x, int y) {
+		if (objectInPosition(x, y) || !validX(x, level.getX()) || !validY(y)) {
+			System.out.println(invalidCoordinatesMsg);
+			return false;
+		} else if (Vampire.getRemainingVampires() <= 0) {
+			System.out.println(noMoreRemainingVampiresMsg);
+			return false;
+		}
+		
+		return true;
+	}
+	
+	// New GameObjects creation
 	public boolean addSlayer(int x, int y) {
 		if (canPlaceDefense(x, y, Slayer.getSlayerCost())) {
 			gameObjectBoard.addObject(new Slayer(this, x, y));
@@ -143,14 +156,6 @@ public class Game implements IPrintable {
 			player.buy(z);
 			return true;
 		}
-		
-		return false;
-	}
-	
-	public boolean canPlaceVampire() {
-		if (random.nextDouble() < level.getFrecuency())
-			if (Vampire.getRemainingVampires() > 0)
-				return true;
 		
 		return false;
 	}
@@ -194,18 +199,6 @@ public class Game implements IPrintable {
 		addExplosiveVampire();
 	}
 	
-	public boolean canPlaceVampireDebug(int x, int y) {
-		if (objectInPosition(x, y) || !validX(x, level.getX()) || !validY(y)) {
-			System.out.println(invalidCoordinatesMsg);
-			return false;
-		} else if (Vampire.getRemainingVampires() <= 0) {
-			System.out.println(noMoreRemainingVampiresMsg);
-			return false;
-		}
-		
-		return true;
-	}
-	
 	public boolean addVampireDebug(int x, int y) {
 		if (canPlaceVampireDebug(x, y)) {
 			gameObjectBoard.addObject(new Vampire(this, x, y));
@@ -240,20 +233,14 @@ public class Game implements IPrintable {
 		return false;
 	}
 	
-	public void moveObjects() {
-		gameObjectBoard.moveObjects(cycleNumber);
-	}
 	
+	// Attacks
 	public void attack() {
 		gameObjectBoard.attackObjects();
 	}
 	
 	public void vampireExplodes() {
 		gameObjectBoard.vampireExplodes();
-	}
-	
-	public void deleteDeadObjects() {
-		gameObjectBoard.deleteDeadObjects();
 	}
 	
 	public boolean garlicPush() {
@@ -275,6 +262,25 @@ public class Game implements IPrintable {
 		
 		return false;
 	}
+	
+	
+	// Other GameObject methods
+	public boolean objectInPosition(int x, int y) {
+		return gameObjectBoard.objectInPosition(x, y);
+	}
+	
+	public IAttack getAttackableInPosition(int x, int y) {
+		return gameObjectBoard.getAttackableInPosition(x, y);
+	}
+	
+	public void moveObjects() {
+		gameObjectBoard.moveObjects(cycleNumber);
+	}
+	
+	public void deleteDeadObjects() {
+		gameObjectBoard.deleteDeadObjects();
+	}
+	
 	
 	// GAME METHODS
 	public void update() {
@@ -326,4 +332,5 @@ public class Game implements IPrintable {
 	public String toString() {
 		return gamePrinter.toString();
 	}
+	
  }

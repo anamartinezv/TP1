@@ -120,8 +120,8 @@ public class Game implements IPrintable {
 	}
 	
 	public boolean canPlaceVampire() {
-		if (random.nextDouble() < level.getFrecuency())
-			if (Vampire.getRemainingVampires() > 0)
+		if (Vampire.getRemainingVampires() > 0)
+			if (random.nextDouble() < level.getFrecuency())
 				return true;
 		
 		return false;

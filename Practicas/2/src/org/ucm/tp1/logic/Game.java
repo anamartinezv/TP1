@@ -22,6 +22,7 @@ public class Game implements IPrintable {
 	
 	private Level level;
 	private GameObjectBoard gameObjectBoard;
+	private GameObjectsFactory gameObjectsFactory;
 	private GamePrinter gamePrinter;
 	private Player player;
 	private Random random;
@@ -38,6 +39,7 @@ public class Game implements IPrintable {
 
 		// Instance classes
 		gameObjectBoard = new GameObjectBoard();
+		gameObjectsFactory = new GameObjectsFactory();
 		gamePrinter = new GamePrinter(this, level.getX(), level.getY());
 		random = new Random(seed);
 		player = new Player(random);
@@ -200,7 +202,7 @@ public class Game implements IPrintable {
 		addDracula();
 		addExplosiveVampire();
 	}
-	
+
 	public boolean addVampireDebug(int x, int y) {
 		if (canPlaceVampireDebug(x, y)) {
 			gameObjectBoard.addObject(new Vampire(this, x, y));
@@ -222,13 +224,11 @@ public class Game implements IPrintable {
 	}
 	
 	public boolean addDraculaDebug(int x, int y) {
-		if (!Dracula.getIsPresent()) {
-			if (canPlaceVampireDebug(x, y)) {
+		if (!Dracula.getIsPresent() && canPlaceVampireDebug(x, y)) {
 				gameObjectBoard.addObject(new Dracula(this, x, y));
 				Vampire.addVampireToCounter();
 				Dracula.setIsPresent(true);
 				return true;
-			}
 		} else
 			System.out.println("[ERROR]: " + draculaAliveMsg);
 		
@@ -290,8 +290,8 @@ public class Game implements IPrintable {
 		moveObjects();
 		attack();
 		addAllVampires();
-    	deleteDeadObjects();
-    	checkEndGame();
+		deleteDeadObjects();
+		checkEndGame();
 		if (!isFinished()) cycleNumber++;
 	}
 	

@@ -28,8 +28,8 @@ public class GameObjectBoard {
 		gameObjectList.addObject(gameObject);
 	}
 	
-	public void moveObjects(int cycleNumber) {
-		gameObjectList.moveObject(cycleNumber);
+	public void moveObjects() {
+		gameObjectList.moveObject();
 	}
 	
 	public void attackObjects() {

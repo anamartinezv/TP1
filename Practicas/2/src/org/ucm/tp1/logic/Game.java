@@ -6,7 +6,9 @@ import java.util.Random;
 
 public class Game implements IPrintable {
 	
-	public final int SUPER_COINS = 1000;
+	public static final int SUPER_COINS = 1000;
+	public static final int LIGHT_FLASH_COST = 50;
+	public static final int GARLIC_PUSH_COST = 10;
 	
 	public static final String invalidCoordinatesMsg = String.format("[ERROR]: Invalid position");
 	public static final String playerWinsMsg = String.format("Player wins");
@@ -244,9 +246,9 @@ public class Game implements IPrintable {
 	}
 	
 	public boolean garlicPush() {
-		if (player.hasEnoughCoins(Slayer.getGarlicPushCoins())) {
+		if (player.hasEnoughCoins(GARLIC_PUSH_COST)) {
 			gameObjectBoard.garlicPush();
-			player.buy(Slayer.getGarlicPushCoins());
+			player.buy(GARLIC_PUSH_COST);
 			return true;
 		}
 		
@@ -254,9 +256,9 @@ public class Game implements IPrintable {
 	}
 	
 	public boolean lightFlash() {
-		if (player.hasEnoughCoins(Slayer.getLightFlashCost())) {
+		if (player.hasEnoughCoins(LIGHT_FLASH_COST)) {
 			gameObjectBoard.lightFlash();
-			player.buy(Slayer.getLightFlashCost());
+			player.buy(LIGHT_FLASH_COST);
 			return true;
 		}
 		
@@ -274,7 +276,7 @@ public class Game implements IPrintable {
 	}
 	
 	public void moveObjects() {
-		gameObjectBoard.moveObjects(cycleNumber);
+		gameObjectBoard.moveObjects();
 	}
 	
 	public void deleteDeadObjects() {

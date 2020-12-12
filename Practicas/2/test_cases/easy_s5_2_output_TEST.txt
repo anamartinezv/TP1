@@ -348,7 +348,7 @@ Dracula is alive
 Command > 
 [DEBUG] Executing: 
 Number of cycles: 20
-Coins: 55
+Coins: 45
 Remaining vampires: 0
 Vampires on the board: 2
 Dracula is alive
@@ -366,7 +366,28 @@ Dracula is alive
 Command > 
 [DEBUG] Executing: 
 Number of cycles: 21
-Coins: 65
+Coins: 45
+Remaining vampires: 0
+Vampires on the board: 2
+Dracula is alive
+
+   --------------------------------------------------------------- 
+  |       |       |       |       |       |       |       |       |
+   ------- ------- ------- ------- ------- ------- ------- ------- 
+  |       |       | S [3] |       |       |       |       |       |
+   ------- ------- ------- ------- ------- ------- ------- ------- 
+  | S [3] |       |       |       |       |EV [1] |       |       |
+   ------- ------- ------- ------- ------- ------- ------- ------- 
+  |       |       |       | D [4] |       |       |       |       |
+   --------------------------------------------------------------- 
+
+Command > 
+[DEBUG] Executing: a 1 3
+[ERROR]: Not enough coins
+Command > 
+[DEBUG] Executing: c
+Number of cycles: 21
+Coins: 1045
 Remaining vampires: 0
 Vampires on the board: 2
 Dracula is alive
@@ -384,7 +405,7 @@ Dracula is alive
 Command > 
 [DEBUG] Executing: a 1 3
 Number of cycles: 22
-Coins: 25
+Coins: 1005
 Remaining vampires: 0
 Vampires on the board: 1
 Dracula is alive
@@ -399,31 +420,10 @@ Dracula is alive
   |       | S [3] |       | D [3] |       |       |       |       |
    --------------------------------------------------------------- 
 
-Command > 
-[DEBUG] Executing: c
-Number of cycles: 22
-Coins: 1025
-Remaining vampires: 0
-Vampires on the board: 1
-Dracula is alive
-
-   --------------------------------------------------------------- 
-  |       |       |       |       |       |       |       |       |
-   ------- ------- ------- ------- ------- ------- ------- ------- 
-  |       |       | S [3] |       |       |       |       |       |
-   ------- ------- ------- ------- ------- ------- ------- ------- 
-  | S [3] |       |       |       |       |       |       |       |
-   ------- ------- ------- ------- ------- ------- ------- ------- 
-  |       | S [3] |       | D [3] |       |       |       |       |
-   --------------------------------------------------------------- 
-
-Command > 
-[DEBUG] Executing: a 1 3
-[ERROR]: Invalid position
 Command > 
 [DEBUG] Executing: 
 Number of cycles: 23
-Coins: 1025
+Coins: 1005
 Remaining vampires: 0
 Vampires on the board: 1
 Dracula is alive
@@ -441,7 +441,7 @@ Dracula is alive
 Command > 
 [DEBUG] Executing: 
 Number of cycles: 24
-Coins: 1035
+Coins: 1005
 Remaining vampires: 0
 Vampires on the board: 1
 Dracula is alive
@@ -459,7 +459,7 @@ Dracula is alive
 Command > 
 [DEBUG] Executing: 
 Number of cycles: 25
-Coins: 1035
+Coins: 1015
 Remaining vampires: 0
 Vampires on the board: 1
 Dracula is alive
@@ -477,7 +477,7 @@ Dracula is alive
 Command > 
 [DEBUG] Executing: 
 Number of cycles: 26
-Coins: 1035
+Coins: 1025
 Remaining vampires: 0
 Vampires on the board: 1
 Dracula is alive
@@ -495,6 +495,24 @@ Dracula is alive
 Command > 
 [DEBUG] Executing: 
 Number of cycles: 27
+Coins: 1025
+Remaining vampires: 0
+Vampires on the board: 1
+Dracula is alive
+
+   --------------------------------------------------------------- 
+  |       |       |       |       |       |       |       |       |
+   ------- ------- ------- ------- ------- ------- ------- ------- 
+  |       |       | S [3] |       |       |       |       |       |
+   ------- ------- ------- ------- ------- ------- ------- ------- 
+  | S [3] |       |       |       |       |       |       |       |
+   ------- ------- ------- ------- ------- ------- ------- ------- 
+  | D [3] |       |       |       |       |       |       |       |
+   --------------------------------------------------------------- 
+
+Command > 
+[DEBUG] Executing: 
+Number of cycles: 28
 Coins: 1035
 Remaining vampires: 0
 Vampires on the board: 1
@@ -513,25 +531,7 @@ Dracula is alive
 Command > 
 [DEBUG] Executing: 
 Number of cycles: 28
-Coins: 1045
-Remaining vampires: 0
-Vampires on the board: 1
-Dracula is alive
-
-   --------------------------------------------------------------- 
-  |       |       |       |       |       |       |       |       |
-   ------- ------- ------- ------- ------- ------- ------- ------- 
-  |       |       | S [3] |       |       |       |       |       |
-   ------- ------- ------- ------- ------- ------- ------- ------- 
-  | S [3] |       |       |       |       |       |       |       |
-   ------- ------- ------- ------- ------- ------- ------- ------- 
-  | D [3] |       |       |       |       |       |       |       |
-   --------------------------------------------------------------- 
-
-Command > 
-[DEBUG] Executing: 
-Number of cycles: 28
-Coins: 1055
+Coins: 1035
 Remaining vampires: 0
 Vampires on the board: 1
 Dracula is alive

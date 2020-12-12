@@ -11,11 +11,10 @@ public abstract class GameObject implements IAttack, IMove {
 	
 	protected Game game;
 	
-	public GameObject(Game game, int x, int y, String symbol) {
+	public GameObject(Game game, int x, int y) {
 		this.game = game;
 		this.x = x;
 		this.y = y;
-		this.symbol = symbol;
 	}
 	
 	public int getX() {

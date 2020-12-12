@@ -13,25 +13,23 @@ public class BloodBank extends GameObject {
 	private int z;
 	
 	public BloodBank(Game game, int x, int y, int z) {
-		super(game, x, y, SYMBOL);
+		super(game, x, y);
 		
+		symbol = SYMBOL;
+
 		this.z = z;
 		this.life = RESISTANCE;
 	}
 
 	@Override
 	public void attack() {
-		/*if (isAlive()) {		
-			IAttack other = game.getAttackableInPosition(x + 1, y);
-			if (other != null)
-				other.receiveSlayerAttack(DAMAGE);
-		}*/
+		// Empty
 	}
 
 	@Override
 	// This game object actually doesn't move but instead
-	// its movement method gives the player 10% of z in coins each round
-	public void move(int cycleNumber) {
+	// its movement method gives the player COINS_PERCENTAGE of z in coins each round
+	public void move() {
 		game.addCoins((z * COINS_PERCENTAGE) / 100);
 	}
 	
@@ -45,6 +43,11 @@ public class BloodBank extends GameObject {
 	public boolean receiveDraculaAttack() {
 		life = 0;
 		return true;
+	}
+	
+	@Override
+	public String toString() {
+		return symbol + " [" + z + "]"; 
 	}
 	
 }

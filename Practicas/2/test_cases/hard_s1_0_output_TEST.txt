@@ -156,7 +156,7 @@ Dracula is alive
 Command > 
 [DEBUG] Executing: 
 Number of cycles: 10
-Coins: 10
+Coins: 20
 Remaining vampires: 0
 Vampires on the board: 4
 Dracula is alive
@@ -175,7 +175,7 @@ Command >
 Command > 
 [DEBUG] Executing: 
 Number of cycles: 11
-Coins: 10
+Coins: 20
 Remaining vampires: 0
 Vampires on the board: 4
 Dracula is alive
@@ -191,7 +191,7 @@ Dracula is alive
 Command > 
 [DEBUG] Executing: 
 Number of cycles: 12
-Coins: 10
+Coins: 20
 Remaining vampires: 0
 Vampires on the board: 3
 
@@ -206,7 +206,7 @@ Vampires on the board: 3
 Command > 
 [DEBUG] Executing: 
 Number of cycles: 13
-Coins: 10
+Coins: 30
 Remaining vampires: 0
 Vampires on the board: 2
 
@@ -221,7 +221,7 @@ Vampires on the board: 2
 Command > 
 [DEBUG] Executing: 
 Number of cycles: 14
-Coins: 10
+Coins: 30
 Remaining vampires: 0
 Vampires on the board: 2
 
@@ -236,7 +236,7 @@ Vampires on the board: 2
 Command > 
 [DEBUG] Executing: 
 Number of cycles: 15
-Coins: 10
+Coins: 30
 Remaining vampires: 0
 Vampires on the board: 2
 
@@ -251,7 +251,7 @@ Vampires on the board: 2
 Command > 
 [DEBUG] Executing: 
 Number of cycles: 16
-Coins: 10
+Coins: 30
 Remaining vampires: 0
 Vampires on the board: 2
 
@@ -266,7 +266,7 @@ Vampires on the board: 2
 Command > 
 [DEBUG] Executing: 
 Number of cycles: 17
-Coins: 10
+Coins: 30
 Remaining vampires: 0
 Vampires on the board: 2
 
@@ -281,7 +281,7 @@ Vampires on the board: 2
 Command > 
 [DEBUG] Executing: 
 Number of cycles: 18
-Coins: 10
+Coins: 40
 Remaining vampires: 0
 Vampires on the board: 1
 
@@ -296,7 +296,7 @@ Vampires on the board: 1
 Command > 
 [DEBUG] Executing: 
 Number of cycles: 19
-Coins: 10
+Coins: 40
 Remaining vampires: 0
 Vampires on the board: 1
 
@@ -311,7 +311,7 @@ Vampires on the board: 1
 Command > 
 [DEBUG] Executing: 
 Number of cycles: 20
-Coins: 10
+Coins: 40
 Remaining vampires: 0
 Vampires on the board: 1
 
@@ -326,7 +326,7 @@ Vampires on the board: 1
 Command > 
 [DEBUG] Executing: 
 Number of cycles: 20
-Coins: 20
+Coins: 40
 Remaining vampires: 0
 Vampires on the board: 1
 

@@ -38,9 +38,9 @@ public class GameObjectList {
 		gameObjects.add(gameObject);
 	}
 	
-	public void moveObject(int cycleNumber) {
+	public void moveObject() {
 		for (GameObject object : gameObjects)
-			object.move(cycleNumber);
+			object.move();
 	}
 	
 	public void attackObjects() {

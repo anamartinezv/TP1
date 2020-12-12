@@ -318,7 +318,7 @@ Dracula is alive
 Command > 
 [DEBUG] Executing: 
 Number of cycles: 17
-Coins: 90
+Coins: 80
 Remaining vampires: 0
 Vampires on the board: 2
 Dracula is alive
@@ -336,7 +336,7 @@ Dracula is alive
 Command > 
 [DEBUG] Executing: 
 Number of cycles: 18
-Coins: 100
+Coins: 90
 Remaining vampires: 0
 Vampires on the board: 2
 Dracula is alive
@@ -354,7 +354,7 @@ Dracula is alive
 Command > 
 [DEBUG] Executing: 
 Number of cycles: 19
-Coins: 110
+Coins: 90
 Remaining vampires: 0
 Vampires on the board: 2
 Dracula is alive
@@ -372,7 +372,7 @@ Dracula is alive
 Command > 
 [DEBUG] Executing: 
 Number of cycles: 20
-Coins: 110
+Coins: 100
 Remaining vampires: 0
 Vampires on the board: 2
 Dracula is alive
@@ -444,7 +444,7 @@ Dracula is alive
 Command > 
 [DEBUG] Executing: 
 Number of cycles: 23
-Coins: 110
+Coins: 120
 Remaining vampires: 0
 Vampires on the board: 2
 Dracula is alive

@@ -11,7 +11,7 @@ public class Dracula extends Vampire {
 	public Dracula(Game game, int x, int y) {
 		super(game, x, y);
 		
-		//setSymbol(SYMBOL);
+		symbol = SYMBOL;
 	}
 	
 	public static boolean getIsPresent() {
@@ -48,9 +48,5 @@ public class Dracula extends Vampire {
 	public boolean receiveLightFlash() {
 		return false;
 	}
-	
-	@Override
-	public String toString() {
-		return "D [" + life + "]";
-	}
+
 }

@@ -11,7 +11,7 @@ public class ExplosiveVampire extends Vampire {
 	public ExplosiveVampire(Game game, int x, int y) {
 		super(game, x, y);
 		
-		//setSymbol(SYMBOL);
+		symbol = SYMBOL;
 	}
 	
 	public static int getExplosionDamage() {
@@ -43,11 +43,6 @@ public class ExplosiveVampire extends Vampire {
 		}
 		
 		return false;
-	}
-	
-	@Override
-	public String toString() {
-		return "EV [" + life + "]";
 	}
 
 }

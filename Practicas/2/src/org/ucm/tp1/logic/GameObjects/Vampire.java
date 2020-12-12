@@ -17,7 +17,9 @@ public class Vampire extends GameObject {
 	private int cycleCounter;
 	
 	public Vampire(Game game, int x, int y) {
-		super(game, x, y, SYMBOL);
+		super(game, x, y);
+		
+		symbol = SYMBOL;
 		
 		this.life = RESISTANCE;
 		resetCycleCounter();
@@ -103,7 +105,7 @@ public class Vampire extends GameObject {
 	}
 	
 	@Override
-	public void move(int cycleNumber) {
+	public void move() {
 		if (cycleCounter == ADVANCE && isAlive()) {
 			if (!game.objectInPosition(x - 1, y)) {
 				x--;

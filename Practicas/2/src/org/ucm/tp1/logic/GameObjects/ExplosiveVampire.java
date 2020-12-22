@@ -27,8 +27,6 @@ public class ExplosiveVampire extends Vampire {
 				
 	}
 	
-	// Doesn't work because the vampire is still not deleted from the list
-	// so it creates a loop of vampireExplodes();
 	@Override
 	public boolean receiveSlayerAttack(int damage) {
 		if (isAlive()) {

@@ -36,10 +36,6 @@ public class GameObjectBoard {
 		gameObjectList.attackObjects();
 	}
 	
-	public void vampireExplodes() {
-		gameObjectList.vampireExplodes();
-	}
-	
 	public void garlicPush() {
 		gameObjectList.garlicPush();
 	}

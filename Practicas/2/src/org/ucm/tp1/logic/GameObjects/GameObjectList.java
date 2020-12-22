@@ -48,11 +48,6 @@ public class GameObjectList {
 			object.attack();
 	}
 	
-	public void vampireExplodes() {
-		for (GameObject object : gameObjects)
-			object.receiveSlayerAttack(ExplosiveVampire.getExplosionDamage());
-	}
-	
 	public void garlicPush() {
 		for (GameObject object : gameObjects)
 			object.receiveGarlicPush();

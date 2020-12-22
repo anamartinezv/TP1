@@ -13,6 +13,7 @@ public class Game implements IPrintable {
 	public static final String invalidCoordinatesMsg = String.format("[ERROR]: Invalid position");
 	public static final String playerWinsMsg = String.format("Player wins");
 	public static final String vampiresWinMsg = String.format("Vampires win!");
+	public static final String nobodyWinMsg = String.format("Nobody wins...");
 	public static final String draculaAliveMsg = String.format("Dracula is alive");
 	public static final String noMoreRemainingVampiresMsg = String.format("[ERROR]: No more remaining vampires left");
 
@@ -22,7 +23,6 @@ public class Game implements IPrintable {
 	
 	private Level level;
 	private GameObjectBoard gameObjectBoard;
-	private GameObjectsFactory gameObjectsFactory;
 	private GamePrinter gamePrinter;
 	private Player player;
 	private Random random;
@@ -30,7 +30,7 @@ public class Game implements IPrintable {
 	public Game(Long seed, Level level) {
 		this.level = level;
 		
-		winnerMessage = "Nobody wins...";
+		winnerMessage = nobodyWinMsg;
 		finished = false;
 		cycleNumber = 0;
 		
@@ -39,7 +39,6 @@ public class Game implements IPrintable {
 
 		// Instance classes
 		gameObjectBoard = new GameObjectBoard();
-		gameObjectsFactory = new GameObjectsFactory();
 		gamePrinter = new GamePrinter(this, level.getX(), level.getY());
 		random = new Random(seed);
 		player = new Player(random);
@@ -124,8 +123,8 @@ public class Game implements IPrintable {
 	}
 	
 	public boolean canPlaceVampire() {
-		if (Vampire.getRemainingVampires() > 0)
-			if (random.nextDouble() < level.getFrecuency())
+		if (Vampire.getRemainingVampires() > 0 &&
+				random.nextDouble() < level.getFrecuency())
 				return true;
 		
 		return false;
@@ -167,33 +166,25 @@ public class Game implements IPrintable {
 	public void addVampire() {
 		if (canPlaceVampire()) {
 			int randomRow = random.nextInt(level.getY());
-			if (!objectInPosition(level.getX() - 1, randomRow)) {
-				gameObjectBoard.addObject(new Vampire(this, level.getX() - 1, randomRow));
-				Vampire.addVampireToCounter();
-			}
-				
+			if (!objectInPosition(level.getX() - 1, randomRow))
+				gameObjectBoard.addObject(new Vampire(this, level.getX() - 1, randomRow));			
 		}
 	}
 	
 	public void addDracula() {
 		if (!Dracula.getIsPresent() && canPlaceVampire()) {
 			int randomRow = random.nextInt(level.getY());
-			if (!objectInPosition(level.getX() - 1, randomRow)) {
+			if (!objectInPosition(level.getX() - 1, randomRow))
 				gameObjectBoard.addObject(new Dracula(this, level.getX() - 1, randomRow));
-				Vampire.addVampireToCounter();
-				Dracula.setIsPresent(true);
-			}
 		}
  	}
 	
 	public void addExplosiveVampire() {
 		if (canPlaceVampire()) {
 			int randomRow = random.nextInt(level.getY());
-			if (!objectInPosition(level.getX() - 1, randomRow)) {
+			if (!objectInPosition(level.getX() - 1, randomRow))
 				gameObjectBoard.addObject(new ExplosiveVampire(this, 
 											level.getX() - 1, randomRow));
-				Vampire.addVampireToCounter();
-			}
 		}
  	}
 	
@@ -206,7 +197,6 @@ public class Game implements IPrintable {
 	public boolean addVampireDebug(int x, int y) {
 		if (canPlaceVampireDebug(x, y)) {
 			gameObjectBoard.addObject(new Vampire(this, x, y));
-			Vampire.addVampireToCounter();
 			return true;
 		}
 		
@@ -216,7 +206,6 @@ public class Game implements IPrintable {
 	public boolean addExplosiveVampireDebug(int x, int y) {
 		if (canPlaceVampireDebug(x, y)) {
 			gameObjectBoard.addObject(new ExplosiveVampire(this, x, y));
-			Vampire.addVampireToCounter();
 			return true;
 		}
 		
@@ -224,14 +213,12 @@ public class Game implements IPrintable {
 	}
 	
 	public boolean addDraculaDebug(int x, int y) {
-		if (!Dracula.getIsPresent() && canPlaceVampireDebug(x, y)) {
+		if (canPlaceVampireDebug(x, y)) {
+			if (!Dracula.getIsPresent()) {
 				gameObjectBoard.addObject(new Dracula(this, x, y));
-				Vampire.addVampireToCounter();
-				Dracula.setIsPresent(true);
 				return true;
-		} else
-			System.out.println("[ERROR]: " + draculaAliveMsg);
-		
+			} else System.out.println("[ERROR]: " + draculaAliveMsg);
+		}
 		return false;
 	}
 	
@@ -239,10 +226,6 @@ public class Game implements IPrintable {
 	// Attacks
 	public void attack() {
 		gameObjectBoard.attackObjects();
-	}
-	
-	public void vampireExplodes() {
-		gameObjectBoard.vampireExplodes();
 	}
 	
 	public boolean garlicPush() {

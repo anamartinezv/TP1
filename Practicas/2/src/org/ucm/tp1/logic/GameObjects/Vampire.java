@@ -22,6 +22,8 @@ public class Vampire extends GameObject {
 		symbol = SYMBOL;
 		
 		this.life = RESISTANCE;
+		
+		addVampireToCounter();
 		resetCycleCounter();
 	}
 	

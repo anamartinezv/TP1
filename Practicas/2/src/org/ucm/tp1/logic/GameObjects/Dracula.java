@@ -6,12 +6,13 @@ public class Dracula extends Vampire {
 	
 	public static final String SYMBOL = "D";
 	
-	private static boolean isPresent = false;
+	private static boolean isPresent;
 
 	public Dracula(Game game, int x, int y) {
 		super(game, x, y);
 		
 		symbol = SYMBOL;
+		isPresent = true;
 	}
 	
 	public static boolean getIsPresent() {

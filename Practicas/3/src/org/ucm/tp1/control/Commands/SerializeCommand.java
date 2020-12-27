@@ -3,24 +3,20 @@ package org.ucm.tp1.control.Commands;
 import org.ucm.tp1.Exceptions.*;
 import org.ucm.tp1.logic.Game;
 
-public class LightFlashCommand extends Command {
+public class SerializeCommand extends Command {
+
+	public static final String name = "serialize";
+	public static final String shortcut = "z";
+	public static final String details = "Seriali[z]e";
+	public static final String help = "Serializes the board.";
 	
-	public static final String name = "light";
-	public static final String shortcut = "l";
-	public static final String details = "[l]ight";
-	public static final String help = "kills all the vampires";
-	
-	public LightFlashCommand() {
+	public SerializeCommand() {
 		super(name, shortcut, details, help);
 	}
 
 	@Override
 	public boolean execute(Game game) throws CommandExecuteException {
-		if (game.lightFlash()) {
-			game.update();
-			return true;
-		}
-		
+		System.out.println(game.serializeGame());
 		return false;
 	}
 
@@ -28,4 +24,5 @@ public class LightFlashCommand extends Command {
 	public Command parse(String[] commandWords) throws CommandParseException {
 		return (parseNoParamsCommand(commandWords) != null) ? this : null;
 	}
+
 }

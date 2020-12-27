@@ -1,6 +1,6 @@
 package org.ucm.tp1.control.Commands;
 
-import org.ucm.tp1.Exceptions.CommandParseException;
+import org.ucm.tp1.Exceptions.*;
 import org.ucm.tp1.logic.Game;
 
 public class GarlicPushCommand extends Command {
@@ -15,7 +15,7 @@ public class GarlicPushCommand extends Command {
 	}
 
 	@Override
-	public boolean execute(Game game) {
+	public boolean execute(Game game) throws CommandExecuteException {
 		if (game.garlicPush()) {
 			game.update();
 			return true;

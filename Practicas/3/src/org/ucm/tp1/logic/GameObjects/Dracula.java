@@ -1,5 +1,6 @@
 package org.ucm.tp1.logic.GameObjects;
 
+import org.ucm.tp1.Exceptions.ExecuteExceptions.DraculaIsAliveException;
 import org.ucm.tp1.logic.Game;
 
 public class Dracula extends Vampire {
@@ -43,6 +44,21 @@ public class Dracula extends Vampire {
 		}		
 		
 		return false;
+	}
+	
+	@Override
+	public boolean receiveGarlicPush() {
+		if (!game.objectInPosition(x + 1, y)) 
+		x++;
+		
+		if (x >= game.getLevel().getX()) {
+			life = 0;
+			isPresent = false;
+			Vampire.decreaseVampiresOnBoard();
+		}
+		
+		cycleCounter = 1;
+		return true;
 	}
 	
 	@Override

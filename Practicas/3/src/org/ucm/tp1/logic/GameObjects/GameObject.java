@@ -25,6 +25,8 @@ public abstract class GameObject implements IAttack, IMove {
 		return y;
 	}
 	
+	public abstract String serializeObject();
+	
  	public boolean isAlive() {
  		return (life > 0) ? true : false;
  	}

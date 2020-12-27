@@ -25,6 +25,11 @@ public class Slayer extends GameObject {
 	}
 	
 	@Override
+ 	public String serializeObject() {
+ 		return symbol + ";" + x + ";" + y + ";" + life;
+ 	}
+	
+	@Override
 	public void attack() {
 		if (isAlive()) {
 			for (int i = x + 1; i < game.getLevel().getX(); i++) {

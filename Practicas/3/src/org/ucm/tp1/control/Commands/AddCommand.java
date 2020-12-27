@@ -1,11 +1,12 @@
 package org.ucm.tp1.control.Commands;
 
-import org.ucm.tp1.Exceptions.CommandParseException;
+import org.ucm.tp1.Exceptions.*;
 import org.ucm.tp1.logic.Game;
 
 public class AddCommand extends Command {
 	
 	public static final String invalidArguments = "Unvalid argument for add slayer command, number expected: ";
+	public static final String failedToAddSlayer = "[ERROR]: Failed to add slayer";
 
 	public static final String name = "add";
 	public static final String shortcut = "a";
@@ -22,13 +23,14 @@ public class AddCommand extends Command {
 	}
 
 	@Override
-	public boolean execute(Game game) {
-		if (game.addSlayer(x, y)) {
+	public boolean execute(Game game) throws CommandExecuteException {
+		try {
+			game.addSlayer(x, y);
 			game.update();
 			return true;
+		}catch (CommandExecuteException ex) {
+			throw new CommandExecuteException(String.format("%s\n%s", ex.getMessage(), failedToAddSlayer));
 		}
-		
-		return false;
 	}
 
 	@Override

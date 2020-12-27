@@ -34,6 +34,10 @@ public enum Level {
 		return vampireFrequency;
 	}
 	
+	public String getDifficulty() {
+		return name;
+	}
+	
     public static Level parse(String inputString) {
         for (Level level : Level.values())
             if (level.name().equalsIgnoreCase(inputString)) 

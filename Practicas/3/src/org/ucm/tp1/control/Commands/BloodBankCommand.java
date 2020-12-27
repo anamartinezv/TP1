@@ -1,6 +1,6 @@
 package org.ucm.tp1.control.Commands;
 
-import org.ucm.tp1.Exceptions.CommandParseException;
+import org.ucm.tp1.Exceptions.*;
 import org.ucm.tp1.logic.Game;
 
 public class BloodBankCommand extends Command {
@@ -8,7 +8,7 @@ public class BloodBankCommand extends Command {
 	public static final String name = "bank";
 	public static final String shortcut = "b";
 	public static final String details = "[b]ank <x> <y> <z>";
-	public static final String help = "add a blood bank with cost z in position x, y.";
+	public static final String help = "add a blood bank with cost z in position x, y";
 	
 	public final int PARAMS_NUMBER = 3;
 	
@@ -21,7 +21,7 @@ public class BloodBankCommand extends Command {
 	}
 
 	@Override
-	public boolean execute(Game game) {
+	public boolean execute(Game game) throws CommandExecuteException {
 		if (game.addBloodBank(x, y, z)) {
 			game.update();
 			return true;

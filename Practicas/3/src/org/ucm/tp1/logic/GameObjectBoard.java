@@ -51,4 +51,8 @@ public class GameObjectBoard {
 	public void resetList() {
 		gameObjectList.resetList();
 	}
+	
+	public String serializeObjects() {
+		return gameObjectList.serializeObjects();
+	}
 }

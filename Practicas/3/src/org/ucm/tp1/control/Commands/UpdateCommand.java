@@ -1,6 +1,6 @@
 package org.ucm.tp1.control.Commands;
 
-import org.ucm.tp1.Exceptions.CommandParseException;
+import org.ucm.tp1.Exceptions.*;
 import org.ucm.tp1.logic.Game;
 
 public class UpdateCommand extends Command {
@@ -15,14 +15,14 @@ public class UpdateCommand extends Command {
 	}
 
 	@Override
-	public boolean execute(Game game) {
+	public boolean execute(Game game) throws CommandExecuteException {
 		game.update();
 		return true;
 	}
 	
 	@Override
 	public Command parse(String[] commandWords) throws CommandParseException {
-		return (parseNoParamsCommand(commandWords) != null && 
+		return (parseNoParamsCommand(commandWords) != null || 
 				commandWords[0].isBlank()) ? this : null;
 	}
 }

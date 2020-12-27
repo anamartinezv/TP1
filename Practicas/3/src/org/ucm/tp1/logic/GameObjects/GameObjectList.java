@@ -68,4 +68,13 @@ public class GameObjectList {
 	public void resetList() {
 		gameObjects = new ArrayList<GameObject>();
 	}
+	
+	public String serializeObjects() {
+		StringBuilder stringBuilder = new StringBuilder();
+		
+		for (GameObject object : gameObjects)
+			stringBuilder.append(object.serializeObject() + "\n");
+		
+		return stringBuilder.toString();
+	}
 }

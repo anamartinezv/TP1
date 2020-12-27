@@ -5,12 +5,13 @@ import org.ucm.tp1.logic.Game;
 import org.ucm.tp1.logic.GameObjects.Dracula;
 
 public class AddVampireCommand extends Command {
-		
+	
 	public static final String name = "vampire";
 	public static final String shortcut = "v";
 	public static final String details = "[v]ampire [<type>] <x> <y>. Type = {\"\"|\"D\"|\"E\"}";
 	public static final String help = "add a vampire in position x, y";
 	public static final String invalidTypeMsg = String.format("[ERROR]: Unvalid type: ");
+	public static final String failedToAddVampire = "[ERROR]: Failed to add this vampire";
 	
 	private int x;
 	private int y;
@@ -24,18 +25,22 @@ public class AddVampireCommand extends Command {
 	public boolean execute(Game game) throws CommandExecuteException {
 		boolean executed = false;
 		
-		switch(type) {
-		case "":
-			if (game.addVampireDebug(x, y)) executed = true;
-			break;
-		case "d":
-			if (game.addDraculaDebug(x, y)) executed = true;
-			break;
-		case "e":
-			if (game.addExplosiveVampireDebug(x, y)) executed = true;
-			break;
-		default:
-			throw new CommandExecuteException(invalidTypeMsg + details);
+		try {
+			switch(type) {
+			case "":
+				if (game.addVampireDebug(x, y)) executed = true;
+				break;
+			case "d":
+				if (game.addDraculaDebug(x, y)) executed = true;
+				break;
+			case "e":
+				if (game.addExplosiveVampireDebug(x, y)) executed = true;
+				break;
+			default:
+				throw new CommandExecuteException(invalidTypeMsg + details);
+			}
+		}catch (CommandExecuteException ex) {
+			throw new CommandExecuteException(String.format("%s\n%s", ex.getMessage(), failedToAddVampire));
 		}
 		
 		return executed;

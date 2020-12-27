@@ -10,10 +10,9 @@ public abstract class Command {
 	private final String details; 
 	private final String help;
 	
-	protected static final String incorrectNumberOfArgsMsg = "Incorrect number of arguments";
-	protected static final String incorrectArgsMsg = "Incorrect arguments format";
+	protected static final String incorrectNumberOfArgsMsg = String.format("Incorrect number of arguments");
 	  
-	public Command(String name,  String shortcut, String details, String help){    
+	public Command(String name, String shortcut, String details, String help){    
 		this.name = name;
 		this.shortcut = shortcut;
 		this.details = details;
@@ -32,8 +31,7 @@ public abstract class Command {
 	  throws CommandParseException {
 		if (matchCommandName(words[0])) {
 			if (words.length != 1)
-				throw new CommandParseException("[ERROR]: Command " + 
-						name + " :" + incorrectNumberOfArgsMsg);
+				throw new CommandParseException(String.format("[ERROR]: Command %s :%s", name, incorrectNumberOfArgsMsg));
 			else return this;
 		}
 		return null;
@@ -43,8 +41,7 @@ public abstract class Command {
 	  throws CommandParseException {
 		if (matchCommandName(words[0])) {
 			if (words.length - 1 != paramsNumber)
-				throw new CommandParseException("[ERROR]: Command " + 
-						name + " :" + incorrectNumberOfArgsMsg);
+				throw new CommandParseException(String.format("[ERROR]: Command %s :%s", name, incorrectNumberOfArgsMsg));
 			else return this;
 		}
 				

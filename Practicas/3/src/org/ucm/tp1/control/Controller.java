@@ -40,11 +40,11 @@ public class Controller {
 				Command command = CommandGenerator.parseCommand(parameters);
 				refreshDisplay = command.execute(game);
 			}catch (GameException ex) {
-				System.out.format(ex.getMessage() + " %n %n");
+				System.out.format(ex.getMessage() + "%n%n");
 			}
 		}
 	    
     	if (refreshDisplay) printGame();
-		System.out.println ("[Game over] " + game.getWinnerMessage());
+		System.out.println ("[GAME OVER] " + game.getWinnerMessage());
     }
 }

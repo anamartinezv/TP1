@@ -1,5 +1,6 @@
 package org.ucm.tp1.logic.GameObjects;
 
+import org.ucm.tp1.Exceptions.ExecuteExceptions.UnvalidPositionException;
 import org.ucm.tp1.logic.Game;
 
 public class Vampire extends GameObject {
@@ -14,7 +15,7 @@ public class Vampire extends GameObject {
 	private static int vampiresOnBoard = 0;
 	private static boolean vampiresWin = false;
 	
-	private int cycleCounter;
+	protected int cycleCounter;
 	
 	public Vampire(Game game, int x, int y) {
 		super(game, x, y);
@@ -47,6 +48,10 @@ public class Vampire extends GameObject {
 		vampiresOnBoard = amount;
 	}
 	
+	public static void decreaseVampiresOnBoard() {
+		vampiresOnBoard--;
+	}
+	
  	public static boolean noMoreVampires() {
  		return (remainingVampires == 0 && vampiresOnBoard == 0) ? true : false;
  	}
@@ -64,6 +69,11 @@ public class Vampire extends GameObject {
 
  	public void resetCycleCounter() {
  		cycleCounter = 1;
+ 	}
+ 	
+ 	@Override
+ 	public String serializeObject() {
+ 		return symbol + ";" + x + ";" + y + ";" + life + ";" + cycleCounter;
  	}
  	
 	@Override
@@ -88,7 +98,7 @@ public class Vampire extends GameObject {
 	@Override
 	public boolean receiveGarlicPush() {
 		if (!game.objectInPosition(x + 1, y)) 
-			x++;
+		x++;
 		
 		if (x >= game.getLevel().getX()) {
 			life = 0;
@@ -114,7 +124,7 @@ public class Vampire extends GameObject {
 				resetCycleCounter();
 				if (x <= -1) vampiresWin = true;
 			}
-		} else cycleCounter++;				
+		} else cycleCounter++;
 	}
 	
 }

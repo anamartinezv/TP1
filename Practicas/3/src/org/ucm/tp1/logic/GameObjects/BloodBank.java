@@ -20,6 +20,11 @@ public class BloodBank extends GameObject {
 		this.z = z;
 		this.life = RESISTANCE;
 	}
+	
+	@Override
+ 	public String serializeObject() {
+ 		return symbol + ";" + x + ";" + y + ";" + life + ";" + z;
+ 	}
 
 	@Override
 	public void attack() {

@@ -18,7 +18,8 @@ public class CommandGenerator {
 			new LightFlashCommand(),
 			new BloodBankCommand(),
 			new SuperCoinsCommand(),
-			new AddVampireCommand()
+			new AddVampireCommand(),
+			new SerializeCommand()
 	};
 	
 	public static Command parseCommand(String[ ] commandWords) throws CommandParseException {
@@ -27,7 +28,8 @@ public class CommandGenerator {
 			if ( parsedInput != null) return parsedInput;
 		}
 		
-		return null;
+		//return null;
+		throw new CommandParseException("[ERROR]: Unknown command");
 	}
 	
 	public static String commandHelp() {

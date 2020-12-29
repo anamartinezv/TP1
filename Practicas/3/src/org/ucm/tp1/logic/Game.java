@@ -159,7 +159,7 @@ public class Game implements IPrintable {
 		return false;
 	}
 	
-	public void addVampire() throws CommandExecuteException {
+	public void addVampire() {
 		if (canPlaceVampire()) {
 			int randomRow = random.nextInt(level.getY());
 			if (!objectInPosition(level.getX() - 1, randomRow))
@@ -167,7 +167,7 @@ public class Game implements IPrintable {
 		}
 	}
 	
-	public void addDracula() throws CommandExecuteException {
+	public void addDracula() {
 		if (!Dracula.getIsPresent() && canPlaceVampire()) {
 			int randomRow = random.nextInt(level.getY());
 			if (!objectInPosition(level.getX() - 1, randomRow))
@@ -175,7 +175,7 @@ public class Game implements IPrintable {
 		}
  	}
 	
-	public void addExplosiveVampire() throws CommandExecuteException {
+	public void addExplosiveVampire() {
 		if (canPlaceVampire()) {
 			int randomRow = random.nextInt(level.getY());
 			if (!objectInPosition(level.getX() - 1, randomRow))
@@ -184,7 +184,7 @@ public class Game implements IPrintable {
 		}
  	}
 	
-	public void addAllVampires() throws CommandExecuteException {
+	public void addAllVampires() {
 		addVampire();
 		addDracula();
 		addExplosiveVampire();
@@ -209,7 +209,7 @@ public class Game implements IPrintable {
 	}
 	
 	public boolean addDraculaDebug(int x, int y) throws CommandExecuteException {
-		if (!isDraculaPresent() && canPlaceVampireDebug(x, y)) {
+		if (canPlaceVampireDebug(x, y) && !isDraculaPresent()) {
 			gameObjectBoard.addObject(new Dracula(this, x, y));
 			return true;
 		}
@@ -230,7 +230,7 @@ public class Game implements IPrintable {
 			return true;
 		}
 		
-		return false;
+		throw new NotEnoughCoinsException(String.format("[ERROR]: Garlic Push cost is %s: Not enough coins", GARLIC_PUSH_COST));
 	}
 	
 	public boolean lightFlash() throws NotEnoughCoinsException {
@@ -240,16 +240,13 @@ public class Game implements IPrintable {
 			return true;
 		}
 		
-		return false;
+		throw new NotEnoughCoinsException(String.format("[ERROR]: Light Flash cost is %s: Not enough coins", LIGHT_FLASH_COST));
 	}
 	
 	
 	// Other GameObject methods
 	public boolean objectInPosition(int x, int y) {
 		return (gameObjectBoard.objectInPosition(x, y)) ? true : false;
-		//if (gameObjectBoard.objectInPosition(x, y)) return true;
-		
-		//throw new UnvalidPositionException(String.format("[ERROR]: Position (%d, %d): Unvalid position", x, y));
 	}
 	
 	public IAttack getAttackableInPosition(int x, int y) {
@@ -266,7 +263,7 @@ public class Game implements IPrintable {
 	
 	
 	// GAME METHODS
-	public void update() throws CommandExecuteException {
+	public void update() {
 		player.updateCoinsRandom(); // Get 10 coins with 50% probability
 		moveObjects();
 		attack();

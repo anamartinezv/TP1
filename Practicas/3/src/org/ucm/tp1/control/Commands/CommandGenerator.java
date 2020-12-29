@@ -4,6 +4,8 @@ import org.ucm.tp1.Exceptions.CommandParseException;
 
 public class CommandGenerator {
 	
+	public static final String unknownCommand = "[ERROR]: Unknown command";
+	
 	public CommandGenerator() {
 		
 	}
@@ -19,6 +21,7 @@ public class CommandGenerator {
 			new BloodBankCommand(),
 			new SuperCoinsCommand(),
 			new AddVampireCommand(),
+			new SaveCommand(),
 			new SerializeCommand()
 	};
 	
@@ -28,8 +31,7 @@ public class CommandGenerator {
 			if ( parsedInput != null) return parsedInput;
 		}
 		
-		//return null;
-		throw new CommandParseException("[ERROR]: Unknown command");
+		throw new CommandParseException(unknownCommand);
 	}
 	
 	public static String commandHelp() {

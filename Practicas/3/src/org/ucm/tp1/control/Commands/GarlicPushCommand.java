@@ -9,6 +9,8 @@ public class GarlicPushCommand extends Command {
 	public static final String shortcut = "g";
 	public static final String details = "[g]arlic ";
 	public static final String help = "pushes back vampires";
+	public static final String failedGarlicPush = "[ERROR]: Failed to garlic push";
+
 	
 	public GarlicPushCommand() {
 		super(name, shortcut, details, help);
@@ -16,12 +18,13 @@ public class GarlicPushCommand extends Command {
 
 	@Override
 	public boolean execute(Game game) throws CommandExecuteException {
-		if (game.garlicPush()) {
+		try {
+			game.garlicPush();
 			game.update();
 			return true;
+		}catch (CommandExecuteException ex) {
+			throw new CommandExecuteException(String.format("%s\n%s", ex.getMessage(), failedGarlicPush));
 		}
-		
-		return false;
 	}
 
 	@Override

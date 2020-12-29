@@ -73,7 +73,9 @@ public class GameObjectList {
 		StringBuilder stringBuilder = new StringBuilder();
 		
 		for (GameObject object : gameObjects)
-			stringBuilder.append(object.serializeObject() + "\n");
+			stringBuilder.append(String.format(object.serializeObject() + "%n"));
+		
+		stringBuilder.append("\n");
 		
 		return stringBuilder.toString();
 	}

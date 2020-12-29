@@ -9,6 +9,7 @@ public class LightFlashCommand extends Command {
 	public static final String shortcut = "l";
 	public static final String details = "[l]ight";
 	public static final String help = "kills all the vampires";
+	public static final String failedLightFlash = "[ERROR]: Failed to light flash";
 	
 	public LightFlashCommand() {
 		super(name, shortcut, details, help);
@@ -16,12 +17,13 @@ public class LightFlashCommand extends Command {
 
 	@Override
 	public boolean execute(Game game) throws CommandExecuteException {
-		if (game.lightFlash()) {
+		try {
+			game.lightFlash();
 			game.update();
 			return true;
-		}
-		
-		return false;
+		}catch (CommandExecuteException ex) {
+			throw new CommandExecuteException(String.format("%s\n%s", ex.getMessage(), failedLightFlash));
+		}		
 	}
 
 	@Override

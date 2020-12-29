@@ -35,18 +35,16 @@ public class AddCommand extends Command {
 
 	@Override
 	public Command parse(String[] commandWords) throws CommandParseException {
-		if (this.matchCommandName(commandWords[0])) {
-			if (this.parseCommandWithParams(commandWords, PARAMS_NUMBER) != null) {
-				try {
-					x = Integer.parseInt(commandWords[1]);
-					y = Integer.parseInt(commandWords[2]);
-					return this;
-				} catch (NumberFormatException numberFormat){
-					throw new CommandParseException("[ERROR]: " + 
-							invalidArguments + details);
-				}
-			}			
-		}
+		if (this.parseCommandWithParams(commandWords, PARAMS_NUMBER) != null) {
+			try {
+				x = Integer.parseInt(commandWords[1]);
+				y = Integer.parseInt(commandWords[2]);
+				return this;
+			} catch (NumberFormatException numberFormat){
+				throw new CommandParseException("[ERROR]: " + 
+						invalidArguments + details);
+			}
+		}			
 		
 		return null;
 	}

@@ -42,4 +42,8 @@ public class BuffyVampireSlayer {
 			}
 		}
 	}
+	
+	public static String getGameName() {
+		return welcomeMsg;
+	}
 }

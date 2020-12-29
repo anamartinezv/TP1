@@ -104,6 +104,7 @@ Available commands:
 [b]ank <x> <y> <z>: add a blood bank with cost z in position x, y
 [c]oins: add 1000 coins
 [v]ampire [<type>] <x> <y>. Type = {""|"D"|"E"}: add a vampire in position x, y
+[S]ave <filename>: Save the state of the game to a file.
 Seriali[z]e: Serializes the board.
 
 Command > 
@@ -194,7 +195,6 @@ Vampires on the board: 1
 Command > 
 [DEBUG] Executing: v dracula 7 0
 [ERROR]: Unvalid type: [v]ampire [<type>] <x> <y>. Type = {""|"D"|"E"}
-[ERROR]: Failed to add this vampire
 
 Command > 
 [DEBUG] Executing: v d 7 0
@@ -264,6 +264,7 @@ Vampires on Board: 1
 Game Object List: 
 S;0;2;3
 V;7;2;3;2
+
 
 Command > 
 [DEBUG] Executing: 

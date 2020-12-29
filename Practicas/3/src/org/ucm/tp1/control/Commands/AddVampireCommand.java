@@ -11,7 +11,8 @@ public class AddVampireCommand extends Command {
 	public static final String details = "[v]ampire [<type>] <x> <y>. Type = {\"\"|\"D\"|\"E\"}";
 	public static final String help = "add a vampire in position x, y";
 	public static final String invalidTypeMsg = String.format("[ERROR]: Unvalid type: ");
-	public static final String failedToAddVampire = "[ERROR]: Failed to add this vampire";
+	public static final String invalidArgument = "[ERROR]: Unvalid argument for add vampire command, number expected: %s";
+	public static final String failedToAddVampire = "[ERROR]: Failed to add this vampire ";
 	
 	private int x;
 	private int y;
@@ -22,28 +23,34 @@ public class AddVampireCommand extends Command {
 	}
 
 	@Override
-	public boolean execute(Game game) throws CommandExecuteException {
-		boolean executed = false;
-		
-		try {
-			switch(type) {
-			case "":
-				if (game.addVampireDebug(x, y)) executed = true;
-				break;
-			case "d":
-				if (game.addDraculaDebug(x, y)) executed = true;
-				break;
-			case "e":
-				if (game.addExplosiveVampireDebug(x, y)) executed = true;
-				break;
-			default:
-				throw new CommandExecuteException(invalidTypeMsg + details);
+	public boolean execute(Game game) throws CommandExecuteException {	
+		switch(type) {
+		case "":
+			try {
+				game.addVampireDebug(x, y);
+			}catch (CommandExecuteException ex) {
+				throw new CommandExecuteException(String.format("%s\n%s", ex.getMessage(), failedToAddVampire));
 			}
-		}catch (CommandExecuteException ex) {
-			throw new CommandExecuteException(String.format("%s\n%s", ex.getMessage(), failedToAddVampire));
+			break;
+		case "d":
+			try {
+				game.addDraculaDebug(x, y);
+			}catch (CommandExecuteException ex) {
+				throw new CommandExecuteException(String.format("%s\n%s", ex.getMessage(), failedToAddVampire));
+			}
+			break;
+		case "e":
+			try {
+				game.addExplosiveVampireDebug(x, y);
+			}catch (CommandExecuteException ex) {
+				throw new CommandExecuteException(String.format("%s\n%s", ex.getMessage(), failedToAddVampire));
+			}
+			break;
+		default:
+			throw new CommandExecuteException(invalidTypeMsg + details);
 		}
 		
-		return executed;
+		return true;
 	}
 	
 	@Override
@@ -62,7 +69,7 @@ public class AddVampireCommand extends Command {
 					return this;
 				}	
 			}catch (NumberFormatException numberException) {
-				throw new CommandParseException("AddVampire: ", numberException);
+				throw new CommandParseException(String.format(invalidArgument, details));
 			}
 		}
 		

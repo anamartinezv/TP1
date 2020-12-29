@@ -44,6 +44,12 @@ public class Slayer extends GameObject {
 	}
 	
 	@Override
+	public boolean receiveSlayerAttack(int damage) {
+		attack();
+		return true;
+	}
+	
+	@Override
 	public boolean receiveVampireAttack(int damage) {
 		life -= damage;
 		return true;

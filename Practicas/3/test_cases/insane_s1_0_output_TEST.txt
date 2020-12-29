@@ -44,7 +44,7 @@ Dracula is alive
 Command > 
 [DEBUG] Executing: v d 0 0
 [ERROR]: Dracula is already on board
-[ERROR]: Failed to add this vampire
+[ERROR]: Failed to add this vampire 
 
 Command > 
 [DEBUG] Executing: coins
@@ -288,6 +288,7 @@ EV;4;5;5;1
 EV;3;4;5;1
 V;0;0;5;1
 
+
 Command > 
 [DEBUG] Executing: 
 Number of cycles: 9
@@ -331,6 +332,7 @@ S;1;1;1
 EV;4;5;5;2
 EV;3;4;5;2
 V;0;0;5;2
+
 
 Command > 
 [DEBUG] Executing: 

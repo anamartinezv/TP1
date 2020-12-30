@@ -29,23 +29,32 @@ public class Slayer extends GameObject {
  		return symbol + ";" + x + ";" + y + ";" + life;
  	}
 	
-	@Override
-	public void attack() {
-		if (isAlive()) {
-			for (int i = x + 1; i < game.getLevel().getX(); i++) {
-				IAttack other = game.getAttackableInPosition(i, y);
-				if (other != null) {
-					other.receiveSlayerAttack(DAMAGE);
-					break;
-				}
+	private void attackFunctionality() {
+		for (int i = x + 1; i < game.getLevel().getX(); i++) {
+			IAttack other = game.getAttackableInPosition(i, y);
+			if (other != null) {
+				other.receiveSlayerAttack(DAMAGE);
+				break;
 			}
-			
 		}
 	}
 	
 	@Override
+	public void attack() {
+		if (isAlive()) {
+			attackFunctionality();
+		}
+	}
+	
+	/*
+	 * When a Slayer receives a Slayer attack it doesn't harm the Slayer
+	 * but it needs to keep moving the attack until it reaches a Vampire
+	 * We don't  check if the Slayer that receives the attack is alive because
+	 * the slayer that originally threw the attack is.
+	 */
+	@Override
 	public boolean receiveSlayerAttack(int damage) {
-		attack();
+		attackFunctionality();
 		return true;
 	}
 	

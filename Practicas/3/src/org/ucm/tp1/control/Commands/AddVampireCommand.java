@@ -12,7 +12,7 @@ public class AddVampireCommand extends Command {
 	public static final String help = "add a vampire in position x, y";
 	public static final String invalidTypeMsg = String.format("[ERROR]: Unvalid type: ");
 	public static final String invalidArgument = "[ERROR]: Unvalid argument for add vampire command, number expected: %s";
-	public static final String failedToAddVampire = "[ERROR]: Failed to add this vampire ";
+	public static final String failedToAddVampire = "[ERROR]: Failed to add this vampire";
 	
 	private int x;
 	private int y;

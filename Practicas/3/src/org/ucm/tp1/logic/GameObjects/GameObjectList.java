@@ -1,7 +1,6 @@
 package org.ucm.tp1.logic.GameObjects;
 
 import java.util.ArrayList;
-import org.ucm.tp1.logic.Game;
 
 public class GameObjectList {
 	

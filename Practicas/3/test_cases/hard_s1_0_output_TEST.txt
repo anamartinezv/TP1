@@ -35,7 +35,8 @@ Command >
 Command > 
 [DEBUG] Executing: v 6 0
 [ERROR]: Position (6, 0): Unvalid position
-[ERROR]: Failed to add this vampire 
+[ERROR]: Failed to add this vampire
+
 
 Command > 
 [DEBUG] Executing: v 5 0
@@ -266,7 +267,8 @@ Dracula is alive
 Command > 
 [DEBUG] Executing: v d 1 0
 [ERROR]: No more remaining vampires left
-[ERROR]: Failed to add this vampire 
+[ERROR]: Failed to add this vampire
+
 
 Command > 
 [DEBUG] Executing: 

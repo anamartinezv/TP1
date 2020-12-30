@@ -1,6 +1,5 @@
 package org.ucm.tp1.logic.GameObjects;
 
-import org.ucm.tp1.Exceptions.ExecuteExceptions.UnvalidPositionException;
 import org.ucm.tp1.logic.Game;
 
 public class Vampire extends GameObject {

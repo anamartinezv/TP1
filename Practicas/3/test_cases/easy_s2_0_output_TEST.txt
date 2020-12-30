@@ -144,7 +144,8 @@ Dracula is alive
 Command > 
 [DEBUG] Executing: v 0 0
 [ERROR]: No more remaining vampires left
-[ERROR]: Failed to add this vampire 
+[ERROR]: Failed to add this vampire
+
 
 Command > 
 [DEBUG] Executing: 

@@ -41,7 +41,6 @@ Command >
 [ERROR]: Position (7, 7): Unvalid position
 [ERROR]: Failed to add this vampire
 
-
 Command > 
 [DEBUG] Executing: v d 7 0
 Number of cycles: 1
@@ -64,7 +63,6 @@ Command >
 [DEBUG] Executing: v d 7 1
 [ERROR]: Dracula is already on board
 [ERROR]: Failed to add this vampire
-
 
 Command > 
 [DEBUG] Executing: 

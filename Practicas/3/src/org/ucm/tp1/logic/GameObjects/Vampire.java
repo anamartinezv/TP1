@@ -14,7 +14,7 @@ public class Vampire extends GameObject {
 	private static int vampiresOnBoard = 0;
 	private static boolean vampiresWin = false;
 	
-	protected int cycleCounter;
+	protected int nextStep;
 	
 	public Vampire(Game game, int x, int y) {
 		super(game, x, y);
@@ -67,12 +67,12 @@ public class Vampire extends GameObject {
  	}
 
  	public void resetCycleCounter() {
- 		cycleCounter = 1;
+ 		nextStep = ADVANCE - 1; // 0 counts
  	}
  	
  	@Override
  	public String serializeObject() {
- 		return symbol + ";" + x + ";" + y + ";" + life + ";" + cycleCounter;
+ 		return symbol + ";" + x + ";" + y + ";" + life + ";" + nextStep;
  	}
  	
 	@Override
@@ -104,7 +104,7 @@ public class Vampire extends GameObject {
 			vampiresOnBoard--;
 		}
 		
-		cycleCounter = 1;
+		resetCycleCounter();
 		return true;
 	}
 	
@@ -117,13 +117,13 @@ public class Vampire extends GameObject {
 	
 	@Override
 	public void move() {
-		if (cycleCounter == ADVANCE && isAlive()) {
+		if (nextStep <= 0 && isAlive()) {
 			if (!game.objectInPosition(x - 1, y)) {
 				x--;
 				resetCycleCounter();
 				if (x <= -1) vampiresWin = true;
-			}
-		} else cycleCounter++;
+			} else nextStep--;
+		} else nextStep--;
 	}
 	
 }

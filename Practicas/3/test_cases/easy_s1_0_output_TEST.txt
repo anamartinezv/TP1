@@ -263,7 +263,7 @@ Vampires on Board: 1
 
 Game Object List: 
 S;0;2;3
-V;7;2;3;2
+V;7;2;3;0
 
 
 Command > 

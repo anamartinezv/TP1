@@ -146,7 +146,6 @@ Command >
 [ERROR]: No more remaining vampires left
 [ERROR]: Failed to add this vampire
 
-
 Command > 
 [DEBUG] Executing: 
 Number of cycles: 8

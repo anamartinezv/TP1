@@ -56,7 +56,7 @@ public class Dracula extends Vampire {
 			Vampire.decreaseVampiresOnBoard();
 		}
 		
-		cycleCounter = 1;
+		resetCycleCounter();
 		return true;
 	}
 	

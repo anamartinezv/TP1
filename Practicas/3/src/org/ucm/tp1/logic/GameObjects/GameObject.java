@@ -25,8 +25,11 @@ public abstract class GameObject implements IAttack, IMove {
 		return y;
 	}
 	
-	public abstract String serializeObject();
-	
+	// Dracula, Slayer and Bank have different values to serialize
+ 	public String serializeObject() {
+ 		return symbol + ";" + x + ";" + y + ";" + life;
+ 	}
+ 	
  	public boolean isAlive() {
  		return (life > 0) ? true : false;
  	}

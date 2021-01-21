@@ -23,7 +23,8 @@ public class GarlicPushCommand extends Command {
 			game.update();
 			return true;
 		}catch (CommandExecuteException ex) {
-			throw new CommandExecuteException(String.format("%s\n%s", ex.getMessage(), failedGarlicPush));
+			throw new CommandExecuteException(String.format("%s\n%s", 
+												ex.getMessage(), failedGarlicPush));
 		}
 	}
 

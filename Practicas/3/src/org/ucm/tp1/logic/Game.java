@@ -12,13 +12,17 @@ public class Game implements IPrintable {
 	public static final int LIGHT_FLASH_COST = 50;
 	public static final int GARLIC_PUSH_COST = 10;
 	
-	//public static final String invalidPositionMsg = String.format("[ERROR]: Position (%d, %d): Unvalid position", 1, 1);
-	public static final String playerWinsMsg = String.format("Player wins");
-	public static final String vampiresWinMsg = String.format("Vampires win!");
-	public static final String nobodyWinMsg = String.format("Nobody wins...");
-	public static final String draculaAliveMsg = String.format("Dracula is alive");
-	public static final String draculaAlreadyMsg = String.format("[ERROR]: Dracula is already on board");
-	public static final String noMoreRemainingVampiresMsg = String.format("[ERROR]: No more remaining vampires left");
+	public static final String playerWinsMsg = "Player wins";
+	public static final String vampiresWinMsg = "Vampires win!";
+	public static final String nobodyWinMsg = "Nobody wins...";
+	public static final String draculaAliveMsg = "Dracula is alive";
+	public static final String draculaAlreadyMsg = "[ERROR]: Dracula is already on board";
+	public static final String noMoreRemainingVampiresMsg = "[ERROR]: No more remaining vampires left";
+	public static final String lightFlash = "Light Flash";
+	public static final String garlicPush = "Garlic Push";
+	public static final String defender = "Defender";
+	public static final String notEnoughCoins = "[ERROR]: %s cost is %s: Not enough coins";
+	public static final String invalidPosition = "[ERROR]: Position (%d, %d): Unvalid position";
 
 	private boolean finished;
 	private int cycleNumber;
@@ -111,9 +115,9 @@ public class Game implements IPrintable {
 	
 	public boolean canPlaceDefense(int x, int y, int cost) throws CommandExecuteException {
 		if (!validCoordinates(x, y, level.getX() - 1))
-			throw new UnvalidPositionException(String.format("[ERROR]: Position (%d, %d): Unvalid position", x, y));
+			throw new UnvalidPositionException(String.format(invalidPosition, x, y));
 		else if (!player.hasEnoughCoins(cost))
-			throw new NotEnoughCoinsException(String.format("[ERROR]: Defender cost is %s: Not enough coins", cost));
+			throw new NotEnoughCoinsException(String.format(notEnoughCoins, defender, cost));
 		
 		return true;
 	}
@@ -131,7 +135,7 @@ public class Game implements IPrintable {
 	
 	public boolean canPlaceVampireDebug(int x, int y) throws CommandExecuteException {
 		if (objectInPosition(x, y) || !validCoordinates(x, y, level.getX()))
-			throw new UnvalidPositionException(String.format("[ERROR]: Position (%d, %d): Unvalid position", x, y));
+			throw new UnvalidPositionException(String.format(invalidPosition, x, y));
 		else if (Vampire.getRemainingVampires() <= 0)
 			throw new NoMoreVampiresException(noMoreRemainingVampiresMsg);
 
@@ -230,7 +234,7 @@ public class Game implements IPrintable {
 			return true;
 		}
 		
-		throw new NotEnoughCoinsException(String.format("[ERROR]: Garlic Push cost is %s: Not enough coins", GARLIC_PUSH_COST));
+		throw new NotEnoughCoinsException(String.format(notEnoughCoins, garlicPush, GARLIC_PUSH_COST));
 	}
 	
 	public boolean lightFlash() throws NotEnoughCoinsException {
@@ -240,13 +244,13 @@ public class Game implements IPrintable {
 			return true;
 		}
 		
-		throw new NotEnoughCoinsException(String.format("[ERROR]: Light Flash cost is %s: Not enough coins", LIGHT_FLASH_COST));
+		throw new NotEnoughCoinsException(String.format(notEnoughCoins, lightFlash, LIGHT_FLASH_COST));
 	}
 	
 	
 	// Other GameObject methods
 	public boolean objectInPosition(int x, int y) {
-		return (gameObjectBoard.objectInPosition(x, y)) ? true : false;
+		return gameObjectBoard.objectInPosition(x, y);
 	}
 	
 	public IAttack getAttackableInPosition(int x, int y) {

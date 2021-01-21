@@ -29,7 +29,8 @@ public class AddCommand extends Command {
 			game.update();
 			return true;
 		}catch (CommandExecuteException ex) {
-			throw new CommandExecuteException(String.format("%s\n%s", ex.getMessage(), failedToAddSlayer));
+			throw new CommandExecuteException(String.format("%s\n%s", 
+												ex.getMessage(), failedToAddSlayer));
 		}
 	}
 
@@ -42,7 +43,7 @@ public class AddCommand extends Command {
 				return this;
 			} catch (NumberFormatException numberFormat){
 				throw new CommandParseException("[ERROR]: " + 
-						invalidArguments + details);
+													invalidArguments + details);
 			}
 		}			
 		

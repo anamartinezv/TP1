@@ -9,6 +9,7 @@ public class BloodBankCommand extends Command {
 	public static final String shortcut = "b";
 	public static final String details = "[b]ank <x> <y> <z>";
 	public static final String help = "add a blood bank with cost z in position x, y";
+	public static final String failedToAddBank = "[ERROR]: Failed to add blood bank";
 	
 	public final int PARAMS_NUMBER = 3;
 	
@@ -22,28 +23,28 @@ public class BloodBankCommand extends Command {
 
 	@Override
 	public boolean execute(Game game) throws CommandExecuteException {
-		if (game.addBloodBank(x, y, z)) {
+		try {
+			game.addBloodBank(x, y, z);
 			game.update();
 			return true;
+		}catch (CommandExecuteException ex) {
+			throw new CommandExecuteException(String.format("%s\n%s", 
+												ex.getMessage(), failedToAddBank));
 		}
-		
-		return false;
 	}
 
 	@Override
 	public Command parse(String[] commandWords) throws CommandParseException {
-		if (this.matchCommandName(commandWords[0])) {
-			if (this.parseCommandWithParams(commandWords, PARAMS_NUMBER) != null) {
-				try {
-					x = Integer.parseInt(commandWords[1]);
-					y = Integer.parseInt(commandWords[2]);
-					z = Integer.parseInt(commandWords[3]);
-					return this;
-				} catch (NumberFormatException numberException) {
-					throw new CommandParseException("BloodBank: ", numberException);
-				}
-			}			
-		}
+		if (this.parseCommandWithParams(commandWords, PARAMS_NUMBER) != null) {
+			try {
+				x = Integer.parseInt(commandWords[1]);
+				y = Integer.parseInt(commandWords[2]);
+				z = Integer.parseInt(commandWords[3]);
+				return this;
+			} catch (NumberFormatException numberException) {
+				throw new CommandParseException("BloodBank: ", numberException);
+			}
+		}			
 		
 		return null;
 	}

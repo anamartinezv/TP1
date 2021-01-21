@@ -33,12 +33,10 @@ public class Dracula extends Vampire {
 	
 	@Override
 	public boolean receiveSlayerAttack(int damage) {
-		if (isAlive()) {
-			life -= damage;
-			if (life <= 0) {
-				isPresent = false;
-				Vampire.setVampiresOnBoard(Vampire.getVampiresOnBoard() - 1);
-			}
+		super.receiveSlayerAttack(damage);
+		
+		if (life <= 0) {
+			isPresent = false;
 			return true;
 		}		
 		
@@ -47,16 +45,11 @@ public class Dracula extends Vampire {
 	
 	@Override
 	public boolean receiveGarlicPush() {
-		if (!game.objectInPosition(x + 1, y)) 
-		x++;
+		super.receiveGarlicPush();
 		
-		if (x >= game.getLevel().getX()) {
-			life = 0;
+		if (x >= game.getLevel().getX())
 			isPresent = false;
-			Vampire.decreaseVampiresOnBoard();
-		}
 		
-		resetCycleCounter();
 		return true;
 	}
 	

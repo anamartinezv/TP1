@@ -23,7 +23,7 @@ public class BloodBank extends GameObject {
 	
 	@Override
  	public String serializeObject() {
- 		return symbol + ";" + x + ";" + y + ";" + life + ";" + z;
+ 		return super.serializeObject() + ";" + z;
  	}
 
 	@Override

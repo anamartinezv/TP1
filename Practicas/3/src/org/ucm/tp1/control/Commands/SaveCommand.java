@@ -17,6 +17,7 @@ public class SaveCommand extends Command {
 	public static final String help = "Save the state of the game to a file.";
 	public static final String FILE_EXTENSION = ".dat";
 	public static final String saveSuccess = "Game successfully saved to file %s.";
+	public static final String cannotWriteFile = "Cannot write to file. Caused by: ";
 	
 	public static final int PARAMS_NUMBER = 1;
 	
@@ -39,8 +40,7 @@ public class SaveCommand extends Command {
 			
 			System.out.println(String.format(saveSuccess, filename));
 		} catch (IOException e) {
-			throw new CommandExecuteException("Cannot write to file. Caused by: " 
-											+ e.getMessage());
+			throw new CommandExecuteException(cannotWriteFile + e.getMessage());
 		}
 		return false;
 	}

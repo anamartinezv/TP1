@@ -29,18 +29,14 @@ public class ExplosiveVampire extends Vampire {
 	
 	@Override
 	public boolean receiveSlayerAttack(int damage) {
-		if (isAlive()) {
-			life -= damage;
-			
-			if (life <= 0) {
-				explode();
-				Vampire.setVampiresOnBoard(Vampire.getVampiresOnBoard() - 1);
-			}
-			
-			return true;
+		super.receiveSlayerAttack(damage);
+
+		if (life == 0) {
+			life--; // Make life value -1 to prevent infinite loop
+			explode();
 		}
 		
-		return false;
+		return true;
 	}
 
 }

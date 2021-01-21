@@ -10,7 +10,7 @@ public class AddVampireCommand extends Command {
 	public static final String shortcut = "v";
 	public static final String details = "[v]ampire [<type>] <x> <y>. Type = {\"\"|\"D\"|\"E\"}";
 	public static final String help = "add a vampire in position x, y";
-	public static final String invalidTypeMsg = String.format("[ERROR]: Unvalid type: ");
+	public static final String invalidTypeMsg = "[ERROR]: Unvalid type: ";
 	public static final String invalidArgument = "[ERROR]: Unvalid argument for add vampire command, number expected: %s";
 	public static final String failedToAddVampire = "[ERROR]: Failed to add this vampire";
 	
@@ -29,21 +29,24 @@ public class AddVampireCommand extends Command {
 			try {
 				game.addVampireDebug(x, y);
 			}catch (CommandExecuteException ex) {
-				throw new CommandExecuteException(String.format("%s\n%s", ex.getMessage(), failedToAddVampire));
+				throw new CommandExecuteException(String.format("%s\n%s", 
+													ex.getMessage(), failedToAddVampire));
 			}
 			break;
 		case "d":
 			try {
 				game.addDraculaDebug(x, y);
 			}catch (CommandExecuteException ex) {
-				throw new CommandExecuteException(String.format("%s\n%s", ex.getMessage(), failedToAddVampire));
+				throw new CommandExecuteException(String.format("%s\n%s", 
+													ex.getMessage(), failedToAddVampire));
 			}
 			break;
 		case "e":
 			try {
 				game.addExplosiveVampireDebug(x, y);
 			}catch (CommandExecuteException ex) {
-				throw new CommandExecuteException(String.format("%s\n%s", ex.getMessage(), failedToAddVampire));
+				throw new CommandExecuteException(String.format("%s\n%s", 
+													ex.getMessage(), failedToAddVampire));
 			}
 			break;
 		default:

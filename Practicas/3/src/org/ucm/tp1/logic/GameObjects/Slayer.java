@@ -24,11 +24,6 @@ public class Slayer extends GameObject {
 		return SLAYER_COST;
 	}
 	
-	@Override
- 	public String serializeObject() {
- 		return symbol + ";" + x + ";" + y + ";" + life;
- 	}
-	
 	private void attackFunctionality() {
 		for (int i = x + 1; i < game.getLevel().getX(); i++) {
 			IAttack other = game.getAttackableInPosition(i, y);

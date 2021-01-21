@@ -39,16 +39,8 @@ public class Vampire extends GameObject {
 		return vampiresWin;
 	}
 	
-	public static void setRemainingVampires(int amount) {
-		remainingVampires = amount;
-	}
-	
 	public static void setVampiresOnBoard(int amount) {
 		vampiresOnBoard = amount;
-	}
-	
-	public static void decreaseVampiresOnBoard() {
-		vampiresOnBoard--;
 	}
 	
  	public static boolean noMoreVampires() {
@@ -72,7 +64,7 @@ public class Vampire extends GameObject {
  	
  	@Override
  	public String serializeObject() {
- 		return symbol + ";" + x + ";" + y + ";" + life + ";" + nextStep;
+ 		return super.serializeObject() + ";" + nextStep;
  	}
  	
 	@Override
@@ -125,5 +117,4 @@ public class Vampire extends GameObject {
 			} else nextStep--;
 		} else nextStep--;
 	}
-	
 }

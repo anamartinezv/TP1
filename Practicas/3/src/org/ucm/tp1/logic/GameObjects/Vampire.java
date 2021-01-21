@@ -39,10 +39,6 @@ public class Vampire extends GameObject {
 		return vampiresWin;
 	}
 	
-	public static void setVampiresOnBoard(int amount) {
-		vampiresOnBoard = amount;
-	}
-	
  	public static boolean noMoreVampires() {
  		return (remainingVampires == 0 && vampiresOnBoard == 0) ? true : false;
  	}
